@@ -10,7 +10,7 @@ function App() {
     <div>
       <div className="header"> Header </div>
       <div className="navBar">
-        <Navbar />
+        <Navbar isLoggedIn={false} />
       </div>
       <Routes>
         <Route path="/" element={<Home />}></Route>
