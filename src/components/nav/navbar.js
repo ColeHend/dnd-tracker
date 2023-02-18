@@ -1,29 +1,43 @@
 // @ts-nocheck
 import Login from "./LoginRegister/Login";
 import Register from "./LoginRegister/Register";
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../../App";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 function Navbar(props) {
   // let loggedIn = ;
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    props.isLoggedIn ? props.isLoggedIn : false
-  );
-  console.log(isLoggedIn);
+  const { userInfo, setUserInfo, isLoggedIn, setIsLoggedIn } =
+    useContext(UserContext);
+  const SERVER_URL = process.env.SERVER_URL || "http://localhost:4000";
   const MySwal = withReactContent(Swal);
   const theLogin = () =>
     MySwal.fire({
       title: <p>Welcome!</p>,
       footer: "Copyright",
-      html: <Login close={MySwal.close} setIsLoggedIn={setIsLoggedIn} />,
+      html: (
+        <Login
+          user={{ userInfo, setUserInfo }}
+          close={MySwal.close}
+          setIsLoggedIn={setIsLoggedIn}
+          SERVER_URL={SERVER_URL}
+        />
+      ),
       showConfirmButton: false,
     });
   const theRegister = () =>
     MySwal.fire({
       title: <p>Welcome</p>,
       footer: "Copyright",
-      html: <Register close={MySwal.close} />,
+      html: (
+        <Register
+          setIsLoggedIn={setIsLoggedIn}
+          user={{ userInfo, setUserInfo }}
+          close={MySwal.close}
+          SERVER_URL={SERVER_URL}
+        />
+      ),
       showConfirmButton: false,
     });
   const logout = () => {
