@@ -38,7 +38,14 @@ const project = async (req, res) => {
   }
 };
 const projectAccess = (req, res) => {};
-const spells = (req, res) => {};
+const spells = (req, res) => {
+  sequelize
+    .query("SELECT * FROM spells WHERE spell_owner=?", {
+      replacements: [req.params.userid],
+    })
+    .then((res) => {});
+};
+
 const feats = (req, res) => {};
 const classes = (req, res) => {};
 const subclasses = (req, res) => {};

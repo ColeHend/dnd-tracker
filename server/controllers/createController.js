@@ -50,7 +50,19 @@ const project = async (req, res) => {
   console.log(projectData);
   res.status(200).send({ ...projectData[0][0], project_group_id });
 };
-const spells = (req, res) => {};
+const spells = (req, res) => {
+  let { spell_owner, spell_title, spell_subhead, spell_desc } = req.body;
+  sequelize
+    .query(
+      "INSERT INTO spells(spell_owner,spell_title,spell_subhead,spell_desc) values(?,?,?) RETURNING *",
+      {
+        replacements: [spell_owner, spell_title, spell_subhead, spell_desc],
+      }
+    )
+    .then((res) => {
+      res.status(200).send(res[0][0]);
+    });
+};
 const feats = (req, res) => {};
 const classes = (req, res) => {};
 const subclasses = (req, res) => {};

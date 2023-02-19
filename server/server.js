@@ -47,7 +47,6 @@ app.post("/register", Register);
 // body object: N/A
 // returns: N/A
 app.post("/logout", Logout);
-
 //--------------
 // Project Endpoints
 //--------
@@ -88,7 +87,7 @@ app.post("/api/projects", create.project);
 // }
 // returns: {
 // }
-app.post("/spells", create.spells);
+app.post("/api/spells", create.spells);
 
 // ----- feats --------
 // body object: {
@@ -100,7 +99,7 @@ app.post("/spells", create.spells);
 // }
 // returns: {
 // }
-app.post("/feats", create.feats);
+app.post("/api/feats", create.feats);
 
 // ----- classes --------
 // body object: {
@@ -116,7 +115,7 @@ app.post("/feats", create.feats);
 // }
 // returns: {
 // }
-app.post("/classes", create.classes);
+app.post("/api/classes", create.classes);
 
 // ----- subclasses ------
 // body object: {
@@ -128,7 +127,7 @@ app.post("/classes", create.classes);
 // }
 // returns: {
 // }
-app.post("/subclasses", create.subclasses);
+app.post("/api/subclasses", create.subclasses);
 
 // ----- abilities --------
 // body object: {
@@ -140,39 +139,166 @@ app.post("/subclasses", create.subclasses);
 // }
 // returns: {
 // }
-app.post("/abilities", create.abilities);
+app.post("/api/abilities", create.abilities);
 
 //--------
 // Read
 //--------
-app.get("/project-access/:id", get.projectAccess);
-app.get("/projects/:userid", get.project); // works
-app.get("/spells/:id", get.spells);
-app.get("/feats/:id", get.feats);
-app.get("/classes/:id", get.classes);
-app.get("/subclasses/:id", get.subclasses);
-app.get("/abilities/:id", get.abilities);
+// ----- project-access --------
+// body object: N/A
+// returns: {
+//  project_group_id: project_id,
+//  project_group_access: user_id
+// }
+app.get("/api/project-access/:id", get.projectAccess);
+// ----- projects --------
+// body object: N/A
+// returns: {
+//   project_id,
+//   project_group_id,
+//   project_name,
+//   project_desc,
+// }
+app.get("/api/projects/:userid", get.project); // works
+// ----- spells --------
+// body object: N/A
+// returns: {
+//    project_id: project_id,
+//    spell_owner: user_id
+//    spell_title: (100 characters)
+//    spell_subhead: (100 characters)
+//    spell_desc: description
+// }
+app.get("/api/spells/:userid", get.spells);
+// ----- feats --------
+// body object: N/A
+// returns: {
+//    project_id: project_id,
+//    feat_owner: user_id
+//    feat_title: (100 characters)
+//    feat_subhead: (100 characters)
+//    feat_desc: description
+// }
+app.get("/api/feats/:id", get.feats);
+// ----- classes --------
+// body object: N/A
+// returns: {
+//    project_id: project_id,
+//    class_owner: user_id
+//    class_name: (100 characters)
+//    class_hd: (4 characters)
+//    class_armor: [(30 characters)]
+//    class_weap: [(30 characters)]
+//    class_tools: [(30 characters)]
+//    class_skills: [(30 characters)]
+//    class_abilities_abl: [abiltity_id]
+// }
+app.get("/api/classes/:id", get.classes);
+// ----- subclasses ------
+// body object: N/A
+// returns: {
+//    project_id: project_id,
+//    subclass_owner: user_id
+//    subclass_name: (50 characters)
+//    subclass_desc: description
+//    subclass_abilities_abl: [abiltity_id]
+// }
+app.get("/api/subclasses/:id", get.subclasses);
+// ----- abilities --------
+// body object: N/A
+// returns: {
+//    project_id: project_id,
+//    ability_owner: user_id
+//    ability_name: (50 characters)
+//    ability_subhead: (100 characters)
+//    ability_description: description
+// }
+app.get("/api/abilities/:id", get.abilities);
 //--------
 // Update
 //--------
-app.put("/project-access");
-app.put("/projects");
-app.put("/spells");
-app.put("/feats");
-app.put("/classes");
-app.put("/subclasses");
-app.put("/abilities");
+// ----- project-access --------
+// body object: {
+//  project_group_id: project_id,
+//  project_group_access: user_id
+// }
+// returns: N/A
+app.put("/api/project-access");
+// ----- projects --------
+// body object: {
+//   project_id,
+//   project_group_id,
+//   project_name,
+//   project_desc,
+// }
+// returns: N/A
+app.put("/api/projects");
+// ----- spells --------
+// body object: {
+//    project_id: project_id,
+//    spell_owner: user_id
+//    spell_title: (100 characters)
+//    spell_subhead: (100 characters)
+//    spell_desc: description
+// }
+// returns: N/A
+app.put("/api/spells");
+// ----- feats --------
+// body object: {
+//    project_id: project_id,
+//    feat_owner: user_id
+//    feat_title: (100 characters)
+//    feat_subhead: (100 characters)
+//    feat_desc: description
+// }
+// returns: N/A
+app.put("/api/feats");
+// ----- classes --------
+// body object: {
+//    project_id: project_id,
+//    class_owner: user_id
+//    class_name: (100 characters)
+//    class_hd: (4 characters)
+//    class_armor: [(30 characters)]
+//    class_weap: [(30 characters)]
+//    class_tools: [(30 characters)]
+//    class_skills: [(30 characters)]
+//    class_abilities_abl: [abiltity_id]
+// }
+// returns: N/A
+app.put("/api/classes");
+// ----- subclasses ------
+// body object: {
+//    project_id: project_id,
+//    subclass_owner: user_id
+//    subclass_name: (50 characters)
+//    subclass_desc: description
+//    subclass_abilities_abl: [abiltity_id]
+// }
+// returns: N/A
+app.put("/api/subclasses");
+// ----- abilities --------
+// body object: {
+//    project_id: project_id,
+//    ability_owner: user_id
+//    ability_name: (50 characters)
+//    ability_subhead: (100 characters)
+//    ability_description: description
+// }
+// returns: N/A
+app.put("/api/abilities");
 //--------
 // Delete
 // might not need.
 //--------
-app.delete("/project-access/:id");
-app.delete("/projects/:id");
-app.delete("/spells/:id");
-app.delete("/feats/:id");
-app.delete("/classes/:id");
-app.delete("/subclasses/:id");
-app.delete("/abilities/:id");
+// ----- project-access --------
+app.delete("/api/project-access/:id");
+app.delete("/api/projects/:id");
+app.delete("/api/spells/:id");
+app.delete("/api/feats/:id");
+app.delete("/api/classes/:id");
+app.delete("/api/subclasses/:id");
+app.delete("/api/abilities/:id");
 //--------------
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}...`));
