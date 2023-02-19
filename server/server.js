@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { Login, Register, Logout } = require("./controllers/loginControllers");
+const create = require("./controllers/createController");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -45,8 +46,133 @@ app.post("/register", Register);
 // body object: N/A
 // returns: N/A
 app.post("/logout", Logout);
+
 //--------------
 // Project Endpoints
 //--------
+// Create
+//--------
+// ----- project-access --------
+// body object: {
+//  project_group_id: project_id,
+//  project_group_access: user_id
+// }
+// returns: N/A
+app.post("/project-access", create.projectAccess);
+
+// ----- projects --------
+// makes group, then group access, then project
+// body object: {
+//  project_group_id: project_group_id, (optional)
+//  project_owner: user_id,
+//  project_group_access: [user_id]
+//  project_name: project_name,
+//  project_desc: description
+// }
+// returns: {
+//   project_id,
+//   project_group_id,
+//   project_name,
+//   project_desc,
+//   project_group_id
+// }
+app.post("/projects", create.project);
+
+// ----- spells --------
+// body object: {
+//    project_id: project_id,
+//    spell_owner: user_id
+//    spell_title: (100 characters)
+//    spell_subhead: (100 characters)
+//    spell_desc: description
+// }
+// returns: {
+// }
+app.post("/spells", create.spells);
+
+// ----- feats --------
+// body object: {
+//    project_id: project_id,
+//    feat_owner: user_id
+//    feat_title: (100 characters)
+//    feat_subhead: (100 characters)
+//    feat_desc: description
+// }
+// returns: {
+// }
+app.post("/feats", create.feats);
+
+// ----- classes --------
+// body object: {
+//    project_id: project_id,
+//    class_owner: user_id
+//    class_name: (100 characters)
+//    class_hd: (4 characters)
+//    class_armor: [(30 characters)]
+//    class_weap: [(30 characters)]
+//    class_tools: [(30 characters)]
+//    class_skills: [(30 characters)]
+//    class_abilities_abl: [abiltity_id]
+// }
+// returns: {
+// }
+app.post("/classes", create.classes);
+
+// ----- subclasses ------
+// body object: {
+//    project_id: project_id,
+//    subclass_owner: user_id
+//    subclass_name: (50 characters)
+//    subclass_desc: description
+//    subclass_abilities_abl: [abiltity_id]
+// }
+// returns: {
+// }
+app.post("/subclasses", create.subclasses);
+
+// ----- abilities --------
+// body object: {
+//    project_id: project_id,
+//    ability_owner: user_id
+//    ability_name: (50 characters)
+//    ability_subhead: (100 characters)
+//    ability_description: description
+// }
+// returns: {
+// }
+app.post("/abilities", create.abilities);
+
+//--------
+// Read
+//--------
+app.get("/project-access/:id");
+app.get("/projects/:id");
+app.get("/spells/:id");
+app.get("/feats/:id");
+app.get("/classes/:id");
+app.get("/subclasses/:id");
+app.get("/abilities/:id");
+//--------
+// Update
+//--------
+app.put("/project-access");
+app.put("/projects");
+app.put("/spells");
+app.put("/feats");
+app.put("/classes");
+app.put("/subclasses");
+app.put("/abilities");
+//--------
+// Delete
+// might not need.
+//--------
+app.delete("/project-access/:id");
+app.delete("/projects/:id");
+app.delete("/spells/:id");
+app.delete("/feats/:id");
+app.delete("/classes/:id");
+app.delete("/subclasses/:id");
+app.delete("/abilities/:id");
+//--------------
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}...`));
