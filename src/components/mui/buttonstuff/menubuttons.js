@@ -7,6 +7,7 @@ import withReactContent from "sweetalert2-react-content";
 import Login from "../../nav/LoginRegister/Login";
 import Register from "../../nav/LoginRegister/Register";
 
+
 function Menubutton(props) {
 
     const { page } = props

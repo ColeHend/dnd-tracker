@@ -16,6 +16,7 @@ import Menubutton from "./buttonstuff/menubuttons";
 import { Link } from "react-router-dom";
 import Settingsbutton from "./buttonstuff/settingbutton";
 import { UserContext } from "../../App";
+import { firstIndexfromstring } from "../../utilities/utilities";
 const pages = ['Home','Login','Register'];
 const settings = ['Profile', 'Projects', 'Dashboard', 'Logout'];
 
@@ -135,11 +136,11 @@ function Mui() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+        {isLoggedIn? <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={userAvatar} />
+                <Avatar alt={firstIndexfromstring(userInfo.username)} src={userAvatar} />
               </IconButton>
-            </Tooltip>
+            </Tooltip>:''}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"

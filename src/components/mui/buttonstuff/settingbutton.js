@@ -12,7 +12,7 @@ function Settingsbutton(props) {
     };
     return(
         <>
-                {setting === 'Profile'? <Link to='/profile/view' key={setting} ><Typography 
+                {setting === 'Profile'? <Link to='/profile' key={setting} ><Typography 
                  >
                 {setting}
               </Typography></Link>:''}
