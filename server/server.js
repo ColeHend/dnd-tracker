@@ -133,6 +133,7 @@ app.post("/api/subclasses", create.subclasses);
 // body object: {
 //    project_id: project_id,
 //    ability_owner: user_id
+//    ability_level: Number
 //    ability_name: (50 characters)
 //    ability_subhead: (100 characters)
 //    ability_description: description
@@ -284,6 +285,7 @@ app.put("/api/subclasses");
 //    ability_name: (50 characters)
 //    ability_subhead: (100 characters)
 //    ability_description: description
+// }  ability_level: Number
 // }
 // returns: N/A
 app.put("/api/abilities");
