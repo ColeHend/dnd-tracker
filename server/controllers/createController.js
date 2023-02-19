@@ -14,15 +14,17 @@ const project = async (req, res) => {
   } = req.body;
   if (project_group_id) {
   } else {
+    console.log(project_owner);
     let projGroup = await sequelize.query(
       "INSERT INTO project_group(project_owner) values(?) RETURNING project_group_id,project_owner",
       {
         replacements: [project_owner],
       }
     );
-    console.table(projGroup);
-    console.log(projGroup);
-    project_group_id = projGroup[0][0];
+    project_group_id = projGroup[0][0].project_group_id;
+
+    console.log(projGroup[0][0]);
+    console.table(projGroup[0][0]);
   }
   project_group_access.forEach(async (group_access) => {
     await sequelize.query(
@@ -32,14 +34,21 @@ const project = async (req, res) => {
       }
     );
   });
-
+  console.log("project_group_id: ", project_group_id);
   let projectData = await sequelize.query(
-    "INSERT INTO project(project_group_id,project_name,project_desc) values(?,?,?) RETURNING project_id, project_group_id,project_name,project_desc",
+    "INSERT INTO projects(project_name,project_desc) values(?,?) RETURNING project_id, project_name,project_desc",
     {
-      replacements: [project_group_id, project_name, project_desc],
+      replacements: [project_name, project_desc],
     }
   );
-  res.status(200).send({ projectData, project_group_id });
+  await sequelize.query(
+    "UPDATE project_group SET project_id=? WHERE project_group_id=?",
+    {
+      replacements: [projectData[0][0].project_id, project_group_id],
+    }
+  );
+  console.log(projectData);
+  res.status(200).send({ ...projectData[0][0], project_group_id });
 };
 const spells = (req, res) => {};
 const feats = (req, res) => {};

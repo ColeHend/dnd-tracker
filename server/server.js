@@ -1,6 +1,7 @@
 require("dotenv").config();
 const { Login, Register, Logout } = require("./controllers/loginControllers");
 const create = require("./controllers/createController");
+const get = require("./controllers/getController");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -58,7 +59,7 @@ app.post("/logout", Logout);
 //  project_group_access: user_id
 // }
 // returns: N/A
-app.post("/project-access", create.projectAccess);
+app.post("/api/project-access", create.projectAccess);
 
 // ----- projects --------
 // makes group, then group access, then project
@@ -74,9 +75,8 @@ app.post("/project-access", create.projectAccess);
 //   project_group_id,
 //   project_name,
 //   project_desc,
-//   project_group_id
 // }
-app.post("/projects", create.project);
+app.post("/api/projects", create.project);
 
 // ----- spells --------
 // body object: {
@@ -145,13 +145,13 @@ app.post("/abilities", create.abilities);
 //--------
 // Read
 //--------
-app.get("/project-access/:id");
-app.get("/projects/:id");
-app.get("/spells/:id");
-app.get("/feats/:id");
-app.get("/classes/:id");
-app.get("/subclasses/:id");
-app.get("/abilities/:id");
+app.get("/project-access/:id", get.projectAccess);
+app.get("/projects/:userid", get.project); // works
+app.get("/spells/:id", get.spells);
+app.get("/feats/:id", get.feats);
+app.get("/classes/:id", get.classes);
+app.get("/subclasses/:id", get.subclasses);
+app.get("/abilities/:id", get.abilities);
 //--------
 // Update
 //--------
