@@ -37,7 +37,19 @@ const project = async (req, res) => {
     res.sendStatus(500);
   }
 };
-const projectAccess = (req, res) => {};
+const projectAccess = (req, res) => {
+  let { projectid } = req.params;
+  sequelize
+    .query(
+      "SELECT * FROM project_group_access WHERE (SELECT project_group_id FROM project_group WHERE project_id=?)",
+      {
+        replacements: [projectid],
+      }
+    )
+    .then((res) => {
+      res.status(200).send(res[0]);
+    });
+};
 const spells = (req, res) => {
   sequelize
     .query("SELECT * FROM spells WHERE spell_owner=?", {
@@ -46,10 +58,42 @@ const spells = (req, res) => {
     .then((res) => {});
 };
 
-const feats = (req, res) => {};
-const classes = (req, res) => {};
-const subclasses = (req, res) => {};
-const abilities = (req, res) => {};
+const feats = (req, res) => {
+  sequelize
+    .query("SELECT * FROM feats WHERE feat_owner=?", {
+      replacements: [req.params.userid],
+    })
+    .then((res) => {
+      res.status(200).send(res[0]);
+    });
+};
+const classes = (req, res) => {
+  sequelize
+    .query("SELECT * FROM classes WHERE class_owner=?", {
+      replacements: [req.params.userid],
+    })
+    .then((res) => {
+      res.status(200).send(res[0]);
+    });
+};
+const subclasses = (req, res) => {
+  sequelize
+    .query("SELECT * FROM subclasses WHERE subclass_owner=?", {
+      replacements: [req.params.userid],
+    })
+    .then((res) => {
+      res.status(200).send(res[0]);
+    });
+};
+const abilities = (req, res) => {
+  sequelize
+    .query("SELECT * FROM abilities WHERE ability_owner=?", {
+      replacements: [req.params.userid],
+    })
+    .then((res) => {
+      res.status(200).send(res[0]);
+    });
+};
 module.exports = {
   projectAccess,
   project,

@@ -151,7 +151,7 @@ app.post("/api/abilities", create.abilities);
 //  project_group_id: project_id,
 //  project_group_access: user_id
 // }
-app.get("/api/project-access/:id", get.projectAccess);
+app.get("/api/project-access/:projectid", get.projectAccess);
 // ----- projects --------
 // body object: N/A
 // returns: {
@@ -180,7 +180,7 @@ app.get("/api/spells/:userid", get.spells);
 //    feat_subhead: (100 characters)
 //    feat_desc: description
 // }
-app.get("/api/feats/:id", get.feats);
+app.get("/api/feats/:userid", get.feats);
 // ----- classes --------
 // body object: N/A
 // returns: {
@@ -194,7 +194,7 @@ app.get("/api/feats/:id", get.feats);
 //    class_skills: [(30 characters)]
 //    class_abilities_abl: [abiltity_id]
 // }
-app.get("/api/classes/:id", get.classes);
+app.get("/api/classes/:userid", get.classes);
 // ----- subclasses ------
 // body object: N/A
 // returns: {
@@ -204,7 +204,7 @@ app.get("/api/classes/:id", get.classes);
 //    subclass_desc: description
 //    subclass_abilities_abl: [abiltity_id]
 // }
-app.get("/api/subclasses/:id", get.subclasses);
+app.get("/api/subclasses/:userid", get.subclasses);
 // ----- abilities --------
 // body object: N/A
 // returns: {
@@ -214,7 +214,7 @@ app.get("/api/subclasses/:id", get.subclasses);
 //    ability_subhead: (100 characters)
 //    ability_description: description
 // }
-app.get("/api/abilities/:id", get.abilities);
+app.get("/api/abilities/:userid", get.abilities);
 //--------
 // Update
 //--------
