@@ -62,7 +62,7 @@ const classes = async (req, res) => {
       class_weap
     )}}', class_armor='{${arrayString(
       class_armor
-    )}}, class_tools='{${arrayString(
+    )}}', class_tools='{${arrayString(
       class_tools
     )}}' WHERE class_id=? RETURNING *`,
     {
@@ -72,21 +72,21 @@ const classes = async (req, res) => {
   res.status(200).send(classData[0][0]);
 };
 const spell = async (req, res) => {
-  let { spell_id, spell_title, spell_desc, spell_subhead } = req.body;
+  let { spell_id, spell_name, spell_desc, spell_subhead } = req.body;
   let spellData = await sequelize.query(
     "UPDATE spells SET spell_title=?, spell_desc=?, spell_subhead=? WHERE spell_id=? RETURNING *",
     {
-      replacements: [spell_title, spell_desc, spell_subhead, spell_id],
+      replacements: [spell_name, spell_desc, spell_subhead, spell_id],
     }
   );
   res.status(200).send(spellData[0][0]);
 };
 const feats = async (req, res) => {
-  let { feat_id, feat_title, feat_desc, feat_subhead } = req.body;
+  let { feat_id, feat_name, feat_desc, feat_subhead } = req.body;
   let featData = await sequelize.query(
     "UPDATE feats SET feat_title=?, feat_desc=?, feat_subhead=? WHERE feat_id=? RETURNING *",
     {
-      replacements: [feat_title, feat_desc, feat_subhead, feat_id],
+      replacements: [feat_name, feat_desc, feat_subhead, feat_id],
     }
   );
   res.status(200).send(featData[0][0]);
@@ -95,7 +95,7 @@ const abilities = async (req, res) => {
   let { ability_id, ability_title, ability_description, ability_subhead } =
     req.body;
   let abilityData = await sequelize.query(
-    "UPDATE abilities SET ability_title=?, ability_description=?, ability_subhead=? WHERE ability_id=? RETURNING *",
+    "UPDATE abilities SET ability_name=?, ability_description=?, ability_subhead=? WHERE ability_id=? RETURNING *",
     {
       replacements: [
         ability_title,

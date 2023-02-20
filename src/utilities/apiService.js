@@ -59,7 +59,7 @@ export class ApiService {
       return reqData.data;
     }
   }
-  async createAbilities(project_id, user_id, level, name, subhead, desc) {
+  async createAbility(project_id, user_id, level, name, subhead, desc) {
     if (user_id > 0) {
       let resData = await this.axios.post(
         "http://localhost:4000/api/abilities",
@@ -173,9 +173,9 @@ export class ApiService {
       console.log("Owner 0");
     }
   }
-  async updateSpell(spell_id, spellName, spellDesc, spellSubhead) {
+  async updateSpell(spell_id, spellName, spellSubhead, spellDesc) {
     if (spell_id > 0) {
-      let reqData = await this.axios.put(`http://localhost:4000/api/spells`, {
+      let reqData = await this.axios.put(`http://localhost:4000/api/spell`, {
         spell_id: spell_id,
         spell_name: spellName,
         spell_desc: spellDesc,
@@ -203,9 +203,9 @@ export class ApiService {
     class_id,
     class_name,
     class_hd,
-    class_skills,
     class_weap,
     class_armor,
+    class_skills,
     class_tools
   ) {
     if (class_id > 0) {

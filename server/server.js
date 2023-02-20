@@ -239,7 +239,7 @@ app.put("/api/project-access/delete", remove.removeProjectAccess);
 // }
 // returns: N/A
 
-// app.put("/api/projects", update.project);
+app.put("/api/projects", update.project);
 
 // ----- spells --------
 // body object: {

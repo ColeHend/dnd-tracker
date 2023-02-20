@@ -219,7 +219,7 @@ const abilities = (req, res) => {
   } = req.body;
   sequelize
     .query(
-      "INSERT INTO abilities(ability_owner,ability_title,ability_subhead,ability_desc, ability_level) values(?,?,?,?,?) RETURNING *",
+      "INSERT INTO abilities(ability_owner,ability_name,ability_subhead,ability_description, ability_level) values(?,?,?,?,?) RETURNING *",
       {
         replacements: [
           ability_owner,
@@ -235,7 +235,7 @@ const abilities = (req, res) => {
         .query(
           "INSERT INTO project_abilities(project_id,project_ability_id) values(?,?)",
           {
-            replacements: [project_id, res[0][0].ability_id],
+            replacements: [project_id, resp[0][0].ability_id],
           }
         )
         .then((respo) => {
