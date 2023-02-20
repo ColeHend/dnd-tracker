@@ -63,23 +63,23 @@ const project = async (req, res) => {
   res.status(200).send({ ...projectData[0][0], project_group_id });
 };
 const spells = (req, res) => {
-  let { spell_owner, spell_title, spell_subhead, spell_desc } = req.body;
+  let { spell_owner, spell_name, spell_subhead, spell_desc } = req.body;
   sequelize
     .query(
-      "INSERT INTO spells(spell_owner,spell_title,spell_subhead,spell_desc) values(?,?,?) RETURNING *",
+      "INSERT INTO spells(spell_owner,spell_title,spell_subhead,spell_desc) values(?,?,?,?) RETURNING *",
       {
-        replacements: [spell_owner, spell_title, spell_subhead, spell_desc],
+        replacements: [spell_owner, spell_name, spell_subhead, spell_desc],
       }
     )
-    .then((res) => {
-      res.status(200).send(res[0][0]);
+    .then((resp) => {
+      res.status(200).send(resp[0][0]);
     });
 };
 const feats = (req, res) => {
   let { feat_owner, feat_title, feat_subhead, feat_desc } = req.body;
   sequelize
     .query(
-      "INSERT INTO feats(feat_owner,feat_title,feat_subhead,feat_desc) values(?,?,?) RETURNING *",
+      "INSERT INTO feats(feat_owner,feat_title,feat_subhead,feat_desc) values(?,?,?,?) RETURNING *",
       {
         replacements: [feat_owner, feat_title, feat_subhead, feat_desc],
       }
