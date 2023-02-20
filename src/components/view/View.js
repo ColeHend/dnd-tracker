@@ -40,12 +40,6 @@ function View(props) {
     let theProjects = await apiService.getProjects(userInfo.user_id);
     setAllData({ ...allData, theProjects });
   };
-
-  // console.log("theClasses", theClasses);
-  // console.log("theSubclasses", theSubclasses);
-  // console.log("theSpells", theSpells);
-  // console.log("theFeats", theFeats);
-  // console.log("theProjects", theProjects);
   return (
     <div>
       <div>Hello View</div>

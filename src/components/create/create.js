@@ -13,8 +13,8 @@ function Create(props) {
           sx={{ color: "white" }}
           onClick={() => {
             apiService.createProject(
-              userInfo.user_id,
-              [userInfo.user_id],
+              1,
+              [1],
               "Test Project",
               "Test Project Description"
             );
@@ -26,7 +26,8 @@ function Create(props) {
           sx={{ color: "white" }}
           onClick={() => {
             apiService.createSpell(
-              userInfo.user_id,
+              4,
+              1,
               "Test Spell",
               "Test Spell Description",
               "Test Spell Subhead"
@@ -39,7 +40,8 @@ function Create(props) {
           sx={{ color: "white" }}
           onClick={() => {
             apiService.createFeat(
-              userInfo.user_id,
+              4,
+              1,
               "Test Feat",
               "Test Feat Description",
               "Test Feat Subhead"
@@ -51,12 +53,14 @@ function Create(props) {
         <Button
           sx={{ color: "white" }}
           onClick={() => {
+            console.log("create class");
             apiService.createClass(
-              userInfo.user_id,
+              4,
+              1,
               "Test Class",
               "1D6",
               ["Armor"],
-              ["  Weapon"],
+              ["Weapon"],
               ["Tool"],
               ["Skill"],
               []

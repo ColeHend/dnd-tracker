@@ -56,19 +56,20 @@ export class ApiService {
     abilities
   ) {
     if (user_id > 0) {
-      this.axios
-        .post("http://localhost:4000/api/classes", {
-          project_id: project_id,
-          class_owner: user_id,
-          class_name: name,
-          class_hd: hd,
-          class_armor: [...armor],
-          class_weap: [...weap],
-          class_tools: [...tools],
-          class_skills: [...skills],
-          class_abilities_abl: [...abilities],
-        })
-        .then((res) => res.data);
+      let resData = await this.axios.post("http://localhost:4000/api/classes", {
+        project_id: project_id,
+        class_owner: user_id,
+        class_name: name,
+        class_hd: hd,
+        class_armor: [...armor],
+        class_weap: [...weap],
+        class_tools: [...tools],
+        class_skills: [...skills],
+        class_abilities_abl: [...abilities],
+      });
+      return resData.data;
+    } else {
+      console.log("Owner 0");
     }
   }
   async createProject(owner, group_access, name, desc) {
@@ -85,48 +86,48 @@ export class ApiService {
   }
   async createSpell(project_id, owner, name, desc, subhead) {
     if (owner > 0) {
-      this.axios
-        .post("http://localhost:4000/api/spells", {
-          project_id: project_id,
-          spell_owner: owner,
-          spell_name: name,
-          spell_desc: desc,
-          spell_subhead: subhead,
-        })
-        .then((res) => {
-          console.log(res);
-        });
+      let reqData = await this.axios.post("http://localhost:4000/api/spells", {
+        project_id: project_id,
+        spell_owner: owner,
+        spell_name: name,
+        spell_desc: desc,
+        spell_subhead: subhead,
+      });
+      return reqData.data;
+    } else {
+      console.log("Owner 0");
     }
   }
   async createFeat(project_id, owner, name, desc, subhead) {
     if (owner > 0) {
-      this.axios
-        .post("http://localhost:4000/api/feats", {
-          project_id: project_id,
-          feat_owner: owner,
-          feat_name: name,
-          feat_desc: desc,
-          feat_subhead: subhead,
-        })
-        .then((res) => {
-          console.log(res);
-        });
+      let reqData = await this.axios.post("http://localhost:4000/api/feats", {
+        project_id: project_id,
+        feat_owner: owner,
+        feat_name: name,
+        feat_desc: desc,
+        feat_subhead: subhead,
+      });
+      return reqData.data;
+    } else {
+      console.log("Owner 0");
     }
   }
   async createSubclass(project_id, owner, subname, desc, className, abilities) {
     if (owner > 0) {
-      this.axios
-        .post("http://localhost:4000/api/subclasses", {
+      let reqData = await this.axios.post(
+        "http://localhost:4000/api/subclasses",
+        {
           project_id: project_id,
           subclass_owner: owner,
           subclass_name: subname,
           subclass_desc: desc,
           subclass_class: className,
           subclass_abilities_abl: [...abilities],
-        })
-        .then((res) => {
-          console.log(res);
-        });
+        }
+      );
+      return reqData.data;
+    } else {
+      console.log("Owner 0");
     }
   }
 }
