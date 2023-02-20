@@ -3,21 +3,7 @@ const { sequelize } = require("../sequel");
 //     replacements:[]
 //   }).then((res)=>{
 //   })
-const arrayString = (arr) => {
-  if (arr.length !== 0) {
-    if (arr.length === 1) {
-      return `"${arr[0]}"`;
-    } else {
-      let str = "";
-      arr.forEach((item) => {
-        str += `"${item}",`;
-      });
-      return str.slice(0, -1);
-    }
-  } else {
-    return "";
-  }
-};
+const arrayString = require("../../src/utilities/utilities").arrayString;
 const projectAccess = (req, res) => {
   const { project_group_id, project_group_access } = req.body;
   sequelize
@@ -224,6 +210,7 @@ const subclasses = (req, res) => {
 };
 const abilities = (req, res) => {
   let {
+    project_id,
     ability_owner,
     ability_title,
     ability_subhead,
@@ -243,8 +230,17 @@ const abilities = (req, res) => {
         ],
       }
     )
-    .then((res) => {
-      res.status(200).send(res[0][0]);
+    .then((resp) => {
+      sequelize
+        .query(
+          "INSERT INTO project_abilities(project_id,project_ability_id) values(?,?)",
+          {
+            replacements: [project_id, res[0][0].ability_id],
+          }
+        )
+        .then((respo) => {
+          res.status(200).send(resp[0][0]);
+        });
     });
 };
 module.exports = {
