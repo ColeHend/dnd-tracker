@@ -301,13 +301,13 @@ app.put("/api/abilities", update.abilities);
 // might not need.
 //--------
 // ----- project-access --------
-app.delete("/api/project-access/:id");
-app.delete("/api/projects/:id");
-app.delete("/api/spells/:id");
-app.delete("/api/feats/:id");
-app.delete("/api/classes/:id");
-app.delete("/api/subclasses/:id");
-app.delete("/api/abilities/:id");
+app.delete("/api/project-access/", remove.removeProjectAccess);
+app.delete("/api/projects/", remove.removeProject);
+app.delete("/api/spells/", remove.removeSpell);
+app.delete("/api/feats/", remove.removeFeat);
+app.delete("/api/classes/", remove.removeClass);
+app.delete("/api/subclasses/", remove.removeSubclass);
+app.delete("/api/abilities/", remove.removeAbility);
 //--------------
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}...`));

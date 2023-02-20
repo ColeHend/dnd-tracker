@@ -21,7 +21,82 @@ const removeProjectAccess = async (req, res) => {
   }
   res.sendStatus(200);
 };
-
+const removeProject = async (req, res) => {
+  const { project_id } = req.body;
+  await sequelize.query("DELETE FROM projects WHERE project_id=?", {
+    replacements: [project_id],
+  });
+  let projectGroup = await sequelize.query(
+    "DELETE FROM project_group WHERE project_group_id=? RETURNING project_group_id",
+    {
+      replacements: [project_id],
+    }
+  );
+  let projectGroupID = projectGroup[0][0].project_group_id;
+  await sequelize.query(
+    "DELETE FROM project_group_access WHERE project_group_id=?",
+    {
+      replacements: [projectGroupID],
+    }
+  );
+  await sequelize.query("DELETE FROM project_spells WHERE project_id=?", {
+    replacements: [project_id],
+  });
+  await sequelize.query("DELETE FROM project_feats WHERE project_id=?", {
+    replacements: [project_id],
+  });
+  await sequelize.query("DELETE FROM project_abilities WHERE project_id=?", {
+    replacements: [project_id],
+  });
+  await sequelize.query("DELETE FROM project_classes WHERE project_id=?", {
+    replacements: [project_id],
+  });
+  await sequelize.query("DELETE FROM project_subclasses WHERE project_id=?", {
+    replacements: [project_id],
+  });
+  res.sendStatus(200);
+};
+const removeClass = async (req, res) => {
+  const { class_id } = req.body;
+  await sequelize.query("DELETE FROM classes WHERE class_id=?", {
+    replacements: [class_id],
+  });
+  res.sendStatus(200);
+};
+const removeSubclass = async (req, res) => {
+  const { subclass_id } = req.body;
+  await sequelize.query("DELETE FROM subclasses WHERE subclass_id=?", {
+    replacements: [subclass_id],
+  });
+  res.sendStatus(200);
+};
+const removeAbility = async (req, res) => {
+  const { ability_id } = req.body;
+  await sequelize.query("DELETE FROM abilities WHERE ability_id=?", {
+    replacements: [ability_id],
+  });
+  res.sendStatus(200);
+};
+const removeSpell = async (req, res) => {
+  const { spell_id } = req.body;
+  await sequelize.query("DELETE FROM spells WHERE spell_id=?", {
+    replacements: [spell_id],
+  });
+  res.sendStatus(200);
+};
+const removeFeat = async (req, res) => {
+  const { feat_id } = req.body;
+  await sequelize.query("DELETE FROM feats WHERE feat_id=?", {
+    replacements: [feat_id],
+  });
+  res.sendStatus(200);
+};
 module.exports = {
   removeProjectAccess,
+  removeProject,
+  removeClass,
+  removeSubclass,
+  removeAbility,
+  removeSpell,
+  removeFeat,
 };
