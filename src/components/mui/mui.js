@@ -103,8 +103,8 @@ function Mui() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleOpenUserMenu}>
+              {pages.map((page, i) => (
+                <MenuItem key={page + i} onClick={handleOpenUserMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -131,7 +131,7 @@ function Mui() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Menubutton page={page} />
+              <Menubutton key={page} page={page} />
             ))}
           </Box>
 
@@ -165,8 +165,8 @@ function Mui() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              {settings.map((setting, i) => (
+                <MenuItem key={i + setting} onClick={handleCloseUserMenu}>
                   <Settingsbutton setting={setting} />
                 </MenuItem>
               ))}
