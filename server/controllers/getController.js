@@ -19,17 +19,25 @@ const project = async (req, res) => {
       let totalProjects = project_groups_id.length;
       let projectsChecked = 0;
       project_groups_id.forEach(async ({ project_id }) => {
-        await sequelize
-          .query("SELECT * FROM projects WHERE project_id=?", {
-            replacements: [project_id],
-          })
-          .then((res) => {
-            projectsChecked++;
-            projectsArr.push(res[0][0]);
-          });
-        if (totalProjects === projectsChecked) {
-          console.log(projectsArr);
-          res.status(200).send(projectsArr);
+        if (project_id) {
+          await sequelize
+            .query("SELECT * FROM projects WHERE project_id=?", {
+              replacements: [project_id],
+            })
+            .then((resp) => {
+              projectsChecked++;
+              projectsArr.push(resp[0][0]);
+            })
+            .catch((err) => {
+              projectsChecked++;
+              console.error(err);
+            });
+          if (totalProjects === projectsChecked) {
+            console.log(projectsArr);
+            res.status(200).send(projectsArr);
+          }
+        } else {
+          projectsChecked++;
         }
       });
     }
@@ -46,8 +54,8 @@ const projectAccess = (req, res) => {
         replacements: [projectid],
       }
     )
-    .then((res) => {
-      res.status(200).send(res[0]);
+    .then((resp) => {
+      res.status(200).send(resp[0]);
     });
 };
 const spells = (req, res) => {
@@ -55,7 +63,9 @@ const spells = (req, res) => {
     .query("SELECT * FROM spells WHERE spell_owner=?", {
       replacements: [req.params.userid],
     })
-    .then((res) => {});
+    .then((resp) => {
+      res.status(200).send(resp[0]);
+    });
 };
 
 const feats = (req, res) => {
@@ -63,8 +73,8 @@ const feats = (req, res) => {
     .query("SELECT * FROM feats WHERE feat_owner=?", {
       replacements: [req.params.userid],
     })
-    .then((res) => {
-      res.status(200).send(res[0]);
+    .then((resp) => {
+      res.status(200).send(resp[0]);
     });
 };
 const classes = (req, res) => {
@@ -72,8 +82,8 @@ const classes = (req, res) => {
     .query("SELECT * FROM classes WHERE class_owner=?", {
       replacements: [req.params.userid],
     })
-    .then((res) => {
-      res.status(200).send(res[0]);
+    .then((resp) => {
+      res.status(200).send(resp[0]);
     });
 };
 const subclasses = (req, res) => {
@@ -81,8 +91,8 @@ const subclasses = (req, res) => {
     .query("SELECT * FROM subclasses WHERE subclass_owner=?", {
       replacements: [req.params.userid],
     })
-    .then((res) => {
-      res.status(200).send(res[0]);
+    .then((resp) => {
+      res.status(200).send(resp[0]);
     });
 };
 const abilities = (req, res) => {
@@ -90,8 +100,8 @@ const abilities = (req, res) => {
     .query("SELECT * FROM abilities WHERE ability_owner=?", {
       replacements: [req.params.userid],
     })
-    .then((res) => {
-      res.status(200).send(res[0]);
+    .then((resp) => {
+      res.status(200).send(resp[0]);
     });
 };
 module.exports = {

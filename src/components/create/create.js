@@ -2,35 +2,88 @@
 import Button from "@mui/material/Button";
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../App";
-import axios from "axios";
 function Create(props) {
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, apiService } = useContext(UserContext);
   const [newProjectRes, setProjectRes] = useState("");
-  const createProject = () => {
-    if (userInfo.user_id > 0) {
-      console.log(userInfo);
-      axios
-        .post("http://localhost:4000/api/projects", {
-          project_owner: userInfo.user_id,
-          project_group_access: [userInfo.user_id],
-          project_name: `project_${userInfo.username}`,
-          project_desc: `description ${userInfo.username}`,
-        })
-        .then((res) => {
-          setProjectRes({ ...res.data, ...newProjectRes });
-        });
-    } else {
-      console.log("relogin");
-    }
-  };
   return (
     <div>
       <div>
         Hello Create
-        <Button sx={{ color: "white" }} onClick={createProject}>
-          Create A Project!
+        <Button
+          sx={{ color: "white" }}
+          onClick={() => {
+            apiService.createProject(
+              1,
+              [1],
+              "Test Project",
+              "Test Project Description"
+            );
+          }}
+        >
+          Create Project
         </Button>
-        <div>{JSON.stringify(newProjectRes)}</div>
+        <Button
+          sx={{ color: "white" }}
+          onClick={() => {
+            apiService.createSpell(
+              4,
+              1,
+              "Test Spell",
+              "Test Spell Description",
+              "Test Spell Subhead"
+            );
+          }}
+        >
+          Create Spell
+        </Button>
+        <Button
+          sx={{ color: "white" }}
+          onClick={() => {
+            apiService.createFeat(
+              4,
+              1,
+              "Test Feat",
+              "Test Feat Description",
+              "Test Feat Subhead"
+            );
+          }}
+        >
+          Create Feat
+        </Button>
+        <Button
+          sx={{ color: "white" }}
+          onClick={() => {
+            console.log("create class");
+            apiService.createClass(
+              4,
+              1,
+              "Test Class",
+              "1D6",
+              ["Armor"],
+              ["Weapon"],
+              ["Tool"],
+              ["Skill"],
+              []
+            );
+          }}
+        >
+          Create Class
+        </Button>
+        <Button
+          sx={{ color: "white" }}
+          onClick={() => {
+            apiService.createSubclass(
+              4,
+              userInfo.user_id,
+              "Test Subclass",
+              "Test Description",
+              "fighter",
+              []
+            );
+          }}
+        >
+          Create Subclass
+        </Button>
       </div>
     </div>
   );
