@@ -8,7 +8,9 @@ function Create(props) {
   return (
     <div>
       <div>
-        Hello Create
+        <h3 style={{ color: "white", paddingLeft: "5vw" }}>
+          apiService Create Example
+        </h3>
         <Button
           sx={{ color: "white" }}
           onClick={() => {
@@ -83,6 +85,14 @@ function Create(props) {
           }}
         >
           Create Subclass
+        </Button>
+        <Button
+          sx={{ color: "white" }}
+          onClick={() => {
+            apiService.createAbility(4, 1, 1, "name", "subhead", "desc");
+          }}
+        >
+          Create Ability
         </Button>
       </div>
     </div>

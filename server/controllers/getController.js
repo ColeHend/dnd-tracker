@@ -49,7 +49,7 @@ const projectAccess = (req, res) => {
   let { projectid } = req.params;
   sequelize
     .query(
-      "SELECT * FROM project_group_access WHERE (SELECT project_group_id FROM project_group WHERE project_id=?)",
+      "SELECT * FROM project_group_access WHERE project_group_id=(SELECT project_group_id FROM project_group WHERE project_id=?)",
       {
         replacements: [projectid],
       }

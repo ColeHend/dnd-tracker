@@ -40,35 +40,116 @@ function View(props) {
     let theProjects = await apiService.getProjects(userInfo.user_id);
     setAllData({ ...allData, theProjects });
   };
+  const theAbilities = async () => {
+    let theAbilities = await apiService.getAbilities(userInfo.user_id);
+    setAllData({ ...allData, theAbilities });
+  };
+  const updateAbility = async () => {
+    let theAbilities = await apiService.updateAbility(
+      1,
+      "Toughness",
+      "ability_subhead",
+      "Increase your hit points by 1 per level"
+    );
+    setAllData({ ...allData, theAbilities });
+  };
+  const updateProject = async () => {
+    let theProjects = await apiService.updateProject(
+      4,
+      "project_name",
+      "project_desc"
+    );
+    setAllData({ ...allData, theProjects });
+  };
+  const updateFeat = async () => {
+    let theFeats = await apiService.updateFeat(
+      1,
+      "feat Name",
+      "featDesc",
+      "feat Subhead"
+    );
+    setAllData({ ...allData, theFeats });
+  };
+  const updateSpell = async () => {
+    let theSpells = await apiService.updateSpell(
+      1,
+      "Spell Name",
+      "Spell Subhead",
+      "Spell Description"
+    );
+    setAllData({ ...allData, theSpells });
+  };
+  const updateClass = async () => {
+    let theClasses = await apiService.updateClass(
+      1,
+      "Soldier",
+      "1D8",
+      ["simple"],
+      ["light"],
+      ["perception"],
+      ["Thief Tools"]
+    );
+    setAllData({ ...allData, theClasses });
+  };
+  const updateSubclass = async () => {
+    let theSubclasses = await apiService.updateSubclass(
+      1,
+      "evoker",
+      "blaster wizard",
+      "wizard",
+      []
+    );
+    setAllData({ ...allData, theSubclasses });
+  };
+
   return (
     <div>
-      <div>Hello View</div>
+      <h3 style={{ color: "white", paddingLeft: "5vw" }}>
+        apiService View and Update Example
+      </h3>
       <div>
         <Button sx={{ color: "white" }} onClick={theClass}>
           Load Class
         </Button>
-      </div>
-      <div>
         <Button sx={{ color: "white" }} onClick={theSubclass}>
           Load Subclass
         </Button>
-      </div>
-      <div>
         <Button sx={{ color: "white" }} onClick={theSpell}>
           Load Spells
         </Button>
-      </div>
-      <div>
         <Button sx={{ color: "white" }} onClick={theFeat}>
           Load Feats
         </Button>
-      </div>
-      <div>
         <Button sx={{ color: "white" }} onClick={theProject}>
           Load Projects
         </Button>
+        <Button sx={{ color: "white" }} onClick={theAbilities}>
+          Load Abilities
+        </Button>
       </div>
-      <div>{JSON.stringify(allData)}</div>
+      <div>
+        <Button sx={{ color: "white" }} onClick={updateClass}>
+          Update Class
+        </Button>
+        <Button sx={{ color: "white" }} onClick={updateSubclass}>
+          Update Subclass
+        </Button>
+        <Button sx={{ color: "white" }} onClick={updateSpell}>
+          Update Spell
+        </Button>
+        <Button sx={{ color: "white" }} onClick={updateFeat}>
+          Update Feat
+        </Button>
+        <Button sx={{ color: "white" }} onClick={updateProject}>
+          Update Project
+        </Button>
+        <Button sx={{ color: "white" }} onClick={updateAbility}>
+          Update Ability
+        </Button>
+      </div>
+      <div style={{ color: "white", textAlign: "center" }}>
+        {JSON.stringify(allData)}
+      </div>
     </div>
   );
 }

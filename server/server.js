@@ -2,6 +2,8 @@ require("dotenv").config();
 const { Login, Register, Logout } = require("./controllers/loginControllers");
 const create = require("./controllers/createController");
 const get = require("./controllers/getController");
+const update = require("./controllers/updateController");
+const remove = require("./controllers/deleteController");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -224,7 +226,10 @@ app.get("/api/abilities/:userid", get.abilities);
 //  project_group_access: user_id
 // }
 // returns: N/A
-app.put("/api/project-access");
+
+app.put("/api/project-access/add", update.addProjectAccess);
+app.put("/api/project-access/delete", remove.removeProjectAccess);
+
 // ----- projects --------
 // body object: {
 //   project_id,
@@ -233,7 +238,9 @@ app.put("/api/project-access");
 //   project_desc,
 // }
 // returns: N/A
-app.put("/api/projects");
+
+app.put("/api/projects", update.project);
+
 // ----- spells --------
 // body object: {
 //    project_id: project_id,
@@ -243,7 +250,7 @@ app.put("/api/projects");
 //    spell_desc: description
 // }
 // returns: N/A
-app.put("/api/spells");
+app.put("/api/spell", update.spell);
 // ----- feats --------
 // body object: {
 //    project_id: project_id,
@@ -253,7 +260,7 @@ app.put("/api/spells");
 //    feat_desc: description
 // }
 // returns: N/A
-app.put("/api/feats");
+app.put("/api/feats", update.feats);
 // ----- classes --------
 // body object: {
 //    project_id: project_id,
@@ -267,7 +274,7 @@ app.put("/api/feats");
 //    class_abilities_abl: [abiltity_id]
 // }
 // returns: N/A
-app.put("/api/classes");
+app.put("/api/classes", update.classes);
 // ----- subclasses ------
 // body object: {
 //    project_id: project_id,
@@ -277,7 +284,7 @@ app.put("/api/classes");
 //    subclass_abilities_abl: [abiltity_id]
 // }
 // returns: N/A
-app.put("/api/subclasses");
+app.put("/api/subclasses", update.subclasses);
 // ----- abilities --------
 // body object: {
 //    project_id: project_id,
@@ -288,7 +295,7 @@ app.put("/api/subclasses");
 // }  ability_level: Number
 // }
 // returns: N/A
-app.put("/api/abilities");
+app.put("/api/abilities", update.abilities);
 //--------
 // Delete
 // might not need.
