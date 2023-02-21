@@ -2,7 +2,16 @@ const { sequelize } = require("../sequel");
 
 const arrayString = require("../../src/utilities/utilities").arrayString;
 const project = async (req, res) => {
-  let { project_id, project_name, project_desc } = req.body;
+  let {
+    project_id,
+    project_name,
+    project_desc,
+    project_abilties,
+    project_classes,
+    project_feats,
+    project_spells,
+    project_subclasses,
+  } = req.body;
   if (project_id) {
     let project = await sequelize.query(
       "UPDATE projects SET project_name=?,project_desc=? WHERE project_id=? RETURNING project_id, project_name,project_desc",
@@ -10,6 +19,56 @@ const project = async (req, res) => {
         replacements: [project_name, project_desc, project_id],
       }
     );
+    if (project_abilties.length > 0) {
+      project_abilties.forEach(async (ability) => {
+        await sequelize.query(
+          "INSERT INTO project_abilities(project_id,ability_id) values(?,?)",
+          {
+            replacements: [project_id, ability],
+          }
+        );
+      });
+    }
+    if (project_classes.length > 0) {
+      project_classes.forEach(async (class_id) => {
+        await sequelize.query(
+          "INSERT INTO project_classes(project_id,class_id) values(?,?)",
+          {
+            replacements: [project_id, class_id],
+          }
+        );
+      });
+    }
+    if (project_feats.length > 0) {
+      project_feats.forEach(async (feat_id) => {
+        await sequelize.query(
+          "INSERT INTO project_feats(project_id,feat_id) values(?,?)",
+          {
+            replacements: [project_id, feat_id],
+          }
+        );
+      });
+    }
+    if (project_spells.length > 0) {
+      project_spells.forEach(async (spell_id) => {
+        await sequelize.query(
+          "INSERT INTO project_spells(project_id,spell_id) values(?,?)",
+          {
+            replacements: [project_id, spell_id],
+          }
+        );
+      });
+    }
+    if (project_subclasses.length > 0) {
+      project_subclasses.forEach(async (subclass_id) => {
+        await sequelize.query(
+          "INSERT INTO project_subclasses(project_id,subclass_id) values(?,?)",
+          {
+            replacements: [project_id, subclass_id],
+          }
+        );
+      });
+    }
     res.status(200).send(project[0][0]);
   }
 };

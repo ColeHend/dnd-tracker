@@ -251,11 +251,25 @@ export class ApiService {
     });
     return reqData.data;
   }
-  async updateProject(project_id, project_name, project_desc) {
+  async updateProject(
+    project_id,
+    project_name,
+    project_desc,
+    project_abilties = [],
+    project_classes = [],
+    project_feats = [],
+    project_spells = [],
+    project_subclasses = []
+  ) {
     let reqData = await this.axios.put(`http://localhost:4000/api/projects`, {
       project_id: project_id,
       project_name: project_name,
       project_desc: project_desc,
+      project_abilties: project_abilties,
+      project_classes: project_classes,
+      project_subclasses: project_subclasses,
+      project_feats: project_feats,
+      project_spells: project_spells,
     });
     return reqData.data;
   }
@@ -275,6 +289,51 @@ export class ApiService {
       {
         project_group_id: project_group_id,
         project_group_access: project_group_access,
+      }
+    );
+    return reqData.data;
+  }
+  async deleteSpell(spell_id) {
+    let reqData = await this.axios.delete(`http://localhost:4000/api/spells`, {
+      spell_id: spell_id,
+    });
+    return reqData.data;
+  }
+  async deleteFeat(feat_id) {
+    let reqData = await this.axios.delete(`http://localhost:4000/api/feats`, {
+      feat_id: feat_id,
+    });
+    return reqData.data;
+  }
+  async deleteClass(class_id) {
+    let reqData = await this.axios.delete(`http://localhost:4000/api/classes`, {
+      class_id: class_id,
+    });
+    return reqData.data;
+  }
+  async deleteSubclass(subclass_id) {
+    let reqData = await this.axios.delete(
+      `http://localhost:4000/api/subclasses`,
+      {
+        subclass_id: subclass_id,
+      }
+    );
+    return reqData.data;
+  }
+  async deleteAbility(ability_id) {
+    let reqData = await this.axios.delete(
+      `http://localhost:4000/api/abilities`,
+      {
+        ability_id: ability_id,
+      }
+    );
+    return reqData.data;
+  }
+  async deleteProject(project_id) {
+    let reqData = await this.axios.delete(
+      `http://localhost:4000/api/projects`,
+      {
+        project_id: project_id,
       }
     );
     return reqData.data;

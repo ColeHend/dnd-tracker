@@ -1,10 +1,9 @@
 // @ts-nocheck
 import Button from "@mui/material/Button";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../../App";
 function Create(props) {
   const { userInfo, apiService } = useContext(UserContext);
-  const [newProjectRes, setProjectRes] = useState("");
   return (
     <div>
       <div>
