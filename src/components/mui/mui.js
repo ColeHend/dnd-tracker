@@ -12,6 +12,7 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import FortIcon from '@mui/icons-material/Fort';
 import Menubutton from "./buttonstuff/menubuttons";
 import Settingsbutton from "./buttonstuff/settingbutton";
 import { UserContext } from "../../App";
@@ -50,17 +51,19 @@ function Mui() {
     setAnchorElUser(null);
   };
 
+
+
+
   return (
     // @ts-ignore
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <FortIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -68,7 +71,6 @@ function Mui() {
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
-              textDecoration: "none",
             }}
           >
             {siteName}
@@ -103,35 +105,18 @@ function Mui() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page, i) => (
-                <MenuItem key={page + i} onClick={handleOpenUserMenu}>
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleOpenUserMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            {siteName}
-          </Typography>
+          <FortIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Menubutton key={page} page={page} />
+              <Menubutton page={page} />
             ))}
           </Box>
 
@@ -165,8 +150,8 @@ function Mui() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting, i) => (
-                <MenuItem key={i + setting} onClick={handleCloseUserMenu}>
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Settingsbutton setting={setting} />
                 </MenuItem>
               ))}

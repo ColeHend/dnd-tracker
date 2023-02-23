@@ -1,5 +1,5 @@
 import React from "react";
-import AccountMenu from "../profile/muiprofile";
+import AccountMenu from "../profile/accountMenu";
 
 function Projects(props) {
     
