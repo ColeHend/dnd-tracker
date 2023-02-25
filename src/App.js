@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/nav/navbar";
 import Profile from "./components/profile/profile";
 import Projects from "./components/projects/projects";
-import { ApiService } from "./utilities/apiService";
+import ApiService from "./utilities/apiService";
 import axios from "axios";
 
 // @ts-ignore

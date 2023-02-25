@@ -1,9 +1,10 @@
 // @ts-nocheck
-export class ApiService {
+import { Spell } from "../models/Spell";
+export default class ApiService {
   constructor(axios) {
     this.axios = axios;
   }
-  async getProjectAccess(project_id) {
+  async getProjectAccess(project_id: number) {
     if (project_id > 0) {
       let reqData = await this.axios.get(
         `http://localhost:4000/api/projectAccess/${project_id}`
@@ -11,7 +12,7 @@ export class ApiService {
       return reqData.data;
     }
   }
-  async getSpells(user_id) {
+  async getSpells(user_id: number): Spell {
     if (user_id > 0) {
       let reqData = await this.axios.get(
         `http://localhost:4000/api/spells/${user_id}`
@@ -19,7 +20,7 @@ export class ApiService {
       return reqData.data;
     }
   }
-  async getFeats(user_id) {
+  async getFeats(user_id: number) {
     if (user_id > 0) {
       let reqData = await this.axios.get(
         `http://localhost:4000/api/feats/${user_id}`
@@ -27,7 +28,7 @@ export class ApiService {
       return reqData.data;
     }
   }
-  async getClasses(user_id) {
+  async getClasses(user_id: number) {
     if (user_id > 0) {
       let reqData = await this.axios.get(
         `http://localhost:4000/api/classes/${user_id}`
@@ -35,7 +36,7 @@ export class ApiService {
       return reqData.data;
     }
   }
-  async getSubclasses(user_id) {
+  async getSubclasses(user_id: number) {
     if (user_id > 0) {
       let reqData = await this.axios.get(
         `http://localhost:4000/api/subclasses/${user_id}`
@@ -43,7 +44,7 @@ export class ApiService {
       return reqData.data;
     }
   }
-  async getProjects(user_id) {
+  async getProjects(user_id: number) {
     if (user_id > 0) {
       let reqData = await this.axios.get(
         `http://localhost:4000/api/projects/${user_id}`
@@ -51,7 +52,7 @@ export class ApiService {
       return reqData.data;
     }
   }
-  async getAbilities(user_id) {
+  async getAbilities(user_id: number) {
     if (user_id > 0) {
       let reqData = await this.axios.get(
         `http://localhost:4000/api/abilities/${user_id}`
@@ -59,7 +60,7 @@ export class ApiService {
       return reqData.data;
     }
   }
-  async createAbility(project_id, user_id, level, name, subhead, desc) {
+  async createAbility(project_id: number, user_id:number, level:number, name:string, subhead:string, desc:string) {
     if (user_id > 0) {
       let resData = await this.axios.post(
         "http://localhost:4000/api/abilities",
@@ -78,15 +79,15 @@ export class ApiService {
     }
   }
   async createClass(
-    project_id,
-    user_id,
-    name,
-    hd,
-    armor,
-    weap,
-    tools,
-    skills,
-    abilities
+    project_id: number,
+    user_id: number,
+    name: string,
+    hd: string,
+    armor: string[],
+    weap: string[],
+    tools: string[],
+    skills: string[],
+    abilities: number[]
   ) {
     if (user_id > 0) {
       let resData = await this.axios.post("http://localhost:4000/api/classes", {
@@ -105,7 +106,7 @@ export class ApiService {
       console.log("Owner 0");
     }
   }
-  async createProject(owner, group_access, name, desc) {
+  async createProject(owner:number, group_access: number[], name:string, desc:string) {
     if (owner > 0) {
       this.axios
         .post("http://localhost:4000/api/projects", {
@@ -117,7 +118,7 @@ export class ApiService {
         .then((res) => res.data);
     }
   }
-  async createProjectAccess(project_group_id, user_id) {
+  async createProjectAccess(project_group_id:number, user_id:number) {
     if (user_id > 0) {
       this.axios
         .post("http://localhost:4000/api/projectAccess", {
@@ -127,7 +128,7 @@ export class ApiService {
         .then((res) => res.data);
     }
   }
-  async createSpell(project_id, owner, name, desc, subhead) {
+  async createSpell(project_id:number, owner:number, name:string, desc:string, subhead:string) {
     if (owner > 0) {
       let reqData = await this.axios.post("http://localhost:4000/api/spells", {
         project_id: project_id,
@@ -141,7 +142,7 @@ export class ApiService {
       console.log("Owner 0");
     }
   }
-  async createFeat(project_id, owner, name, desc, subhead) {
+  async createFeat(project_id:number, owner:number, name:string, desc:string, subhead:string) {
     if (owner > 0) {
       let reqData = await this.axios.post("http://localhost:4000/api/feats", {
         project_id: project_id,
@@ -155,7 +156,7 @@ export class ApiService {
       console.log("Owner 0");
     }
   }
-  async createSubclass(project_id, owner, subname, desc, className, abilities) {
+  async createSubclass(project_id:number, owner:number, subname:string, desc:string, className:string, abilities:number[]) {
     if (owner > 0) {
       let reqData = await this.axios.post(
         "http://localhost:4000/api/subclasses",
@@ -173,7 +174,7 @@ export class ApiService {
       console.log("Owner 0");
     }
   }
-  async updateSpell(spell_id, spellName, spellSubhead, spellDesc) {
+  async updateSpell(spell_id:number, spellName:string, spellSubhead:string, spellDesc:string) {
     if (spell_id > 0) {
       let reqData = await this.axios.put(`http://localhost:4000/api/spell`, {
         spell_id: spell_id,
@@ -186,7 +187,7 @@ export class ApiService {
       console.log("Owner 0");
     }
   }
-  async updateFeat(feat_id, featName, featDesc, featSubhead) {
+  async updateFeat(feat_id:number, featName:string, featDesc:string, featSubhead:string) {
     if (feat_id > 0) {
       let reqData = await this.axios.put(`http://localhost:4000/api/feats`, {
         feat_id: feat_id,
@@ -200,13 +201,13 @@ export class ApiService {
     }
   }
   async updateClass(
-    class_id,
-    class_name,
-    class_hd,
-    class_weap,
-    class_armor,
-    class_skills,
-    class_tools
+    class_id: number,
+    class_name: string,
+    class_hd: string,
+    class_weap: string[],
+    class_armor: string[],
+    class_skills: string[],
+    class_tools: string[]
   ) {
     if (class_id > 0) {
       let reqData = await this.axios.put(`http://localhost:4000/api/classes`, {
@@ -222,11 +223,11 @@ export class ApiService {
     }
   }
   async updateSubclass(
-    subclass_id,
-    subclass_name,
-    subclass_desc,
-    subclass_class,
-    subclass_abilities
+    subclass_id: number,
+    subclass_name: string,
+    subclass_desc: string,
+    subclass_class: string,
+    subclass_abilities: number[]
   ) {
     let reqData = await this.axios.put(`http://localhost:4000/api/subclasses`, {
       subclass_id: subclass_id,
@@ -238,10 +239,10 @@ export class ApiService {
     return reqData.data;
   }
   async updateAbility(
-    ability_id,
-    ability_title,
-    ability_subhead,
-    ability_description
+    ability_id: number,
+    ability_title: string,
+    ability_subhead: string,
+    ability_description: string
   ) {
     let reqData = await this.axios.put(`http://localhost:4000/api/abilities`, {
       ability_id: ability_id,
@@ -252,14 +253,14 @@ export class ApiService {
     return reqData.data;
   }
   async updateProject(
-    project_id,
-    project_name,
-    project_desc,
-    project_abilties = [],
-    project_classes = [],
-    project_feats = [],
-    project_spells = [],
-    project_subclasses = []
+    project_id: number,
+    project_name: string,
+    project_desc: string,
+    project_abilties:number[] = [],
+    project_classes:number[] = [],
+    project_feats:number[] = [],
+    project_spells:number[] = [],
+    project_subclasses:number[] = []
   ) {
     let reqData = await this.axios.put(`http://localhost:4000/api/projects`, {
       project_id: project_id,
@@ -273,7 +274,7 @@ export class ApiService {
     });
     return reqData.data;
   }
-  async addProjectAccess(project_group_id, project_group_access) {
+  async addProjectAccess(project_group_id:number, project_group_access:number) {
     let reqData = await this.axios.put(
       `http://localhost:4000/api/projectAccess/add`,
       {
@@ -283,7 +284,7 @@ export class ApiService {
     );
     return reqData.data;
   }
-  async removeProjectAccess(project_group_id, project_group_access) {
+  async removeProjectAccess(project_group_id:number, project_group_access:number) {
     let reqData = await this.axios.put(
       `http://localhost:4000/api/projectAccess/remove`,
       {
@@ -293,25 +294,25 @@ export class ApiService {
     );
     return reqData.data;
   }
-  async deleteSpell(spell_id) {
+  async deleteSpell(spell_id:number) {
     let reqData = await this.axios.delete(`http://localhost:4000/api/spells`, {
       spell_id: spell_id,
     });
     return reqData.data;
   }
-  async deleteFeat(feat_id) {
+  async deleteFeat(feat_id:number) {
     let reqData = await this.axios.delete(`http://localhost:4000/api/feats`, {
       feat_id: feat_id,
     });
     return reqData.data;
   }
-  async deleteClass(class_id) {
+  async deleteClass(class_id:number) {
     let reqData = await this.axios.delete(`http://localhost:4000/api/classes`, {
       class_id: class_id,
     });
     return reqData.data;
   }
-  async deleteSubclass(subclass_id) {
+  async deleteSubclass(subclass_id:number) {
     let reqData = await this.axios.delete(
       `http://localhost:4000/api/subclasses`,
       {
@@ -320,7 +321,7 @@ export class ApiService {
     );
     return reqData.data;
   }
-  async deleteAbility(ability_id) {
+  async deleteAbility(ability_id:number) {
     let reqData = await this.axios.delete(
       `http://localhost:4000/api/abilities`,
       {
@@ -329,7 +330,7 @@ export class ApiService {
     );
     return reqData.data;
   }
-  async deleteProject(project_id) {
+  async deleteProject(project_id:number) {
     let reqData = await this.axios.delete(
       `http://localhost:4000/api/projects`,
       {
