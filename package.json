@@ -28,6 +28,7 @@
     "sequelize": "^6.28.0",
     "sweetalert2": "^11.7.1",
     "sweetalert2-react-content": "^5.0.7",
+    "ts": "^0.2.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
