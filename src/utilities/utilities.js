@@ -1,4 +1,4 @@
-export const arrayString = (arr) => {
+const arrayString = (arr) => {
   if (arr.length !== 0) {
     if (arr.length === 1) {
       return `"${arr[0]}"`;
@@ -14,6 +14,6 @@ export const arrayString = (arr) => {
   }
 };
 
-export const firstIndexfromstring = ([first]) => first.toLowerCase();
+const firstIndexfromstring = ([first]) => first.toLowerCase();
 
 module.exports = { firstIndexfromstring, arrayString };
