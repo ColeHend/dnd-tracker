@@ -15,7 +15,6 @@ import AdbIcon from "@mui/icons-material/Adb";
 import Menubutton from "./buttonstuff/menubuttons";
 import Settingsbutton from "./buttonstuff/settingbutton";
 import { UserContext } from "../../App";
-import { firstIndexfromstring } from "../../utilities/utilities";
 const pages = ["Home", "Login", "Register"];
 const settings = ["Profile", "Projects", "Dashboard", "Logout"];
 
@@ -29,6 +28,7 @@ function Mui() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   // @ts-ignore
   const [siteName, setSiteName] = React.useState("D&D Tracker");
+  const firstIndexfromstring = ([first]) => first.toLowerCase();
 
   const handleOpenNavMenu = (event) => {
     console.log(event, "asdf");
