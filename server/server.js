@@ -14,7 +14,7 @@ const cookieParser = require("cookie-parser");
 const mySqlStore = new SequelizeStore({
   db: daSequel(),
 });
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 80;
 const { SECRET } = process.env;
 const oneDay = 1000 * 60 * 60 * 24;
 const path = require("path");
