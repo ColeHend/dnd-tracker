@@ -5,18 +5,21 @@ DROP TABLE IF EXISTS project_feats;
 DROP TABLE IF EXISTS project_subclasses;
 DROP TABLE IF EXISTS project_classes;
 DROP TABLE IF EXISTS project_spells;
+DROP TABLE IF EXISTS project_group_access;
+DROP TABLE IF EXISTS project_group;
 DROP TABLE IF EXISTS projects;
-DROP TABLE IF EXISTS abilities;
 DROP TABLE IF EXISTS subclass_abilities;
+DROP TABLE IF exists class_abilities;
+DROP TABLE IF EXISTS abilities;
 DROP TABLE IF EXISTS subclasses;
 DROP TABLE IF EXISTS classes;
-DROP TABLE IF EXISTS project_group_access;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users(
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE,
-    user_password TEXT
+    user_password text,
+    user_avatar VARCHAR(500)
 );
 CREATE TABLE abilities(
     ability_id SERIAL PRIMARY KEY,
@@ -79,7 +82,7 @@ CREATE TABLE project_group(
 );
 CREATE TABLE project_group_access(
     project_group_access_id SERIAL PRIMARY KEY,
-    project_group_id INT REFERENCES project_group(project_id),
+    project_group_id INT REFERENCES project_group(project_group_id),
     project_group_access INT REFERENCES users(user_id)
 );
 
