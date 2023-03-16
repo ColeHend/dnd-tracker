@@ -5,6 +5,8 @@ import Create from "../create/create";
 import View from "../view/View";
 import './muiprofile.scss'
 import { Button } from '@mui/material';
+import CreatePro from '../createProject/CreateProject';
+import ViewProject from '../viewProject/viewProject';
 
  function AccountMenu() {
     let linkstyles = { minWidth: 100, color:'white'}
@@ -25,8 +27,8 @@ import { Button } from '@mui/material';
 
       </Box>
       <Routes>
-        <Route path="/view" element={<View />}></Route>
-        <Route path="/create" element={<Create />}></Route>
+        <Route path="/view" element={<ViewProject/>}></Route>
+        <Route path="/create" element={<CreatePro />}></Route>
       </Routes>
     </React.Fragment>
   );
