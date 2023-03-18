@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useFormik } from "formik";
+import { setLocalInfo } from "../../../utilities/utilities";
 export default function Login(props) {
   const setIsLoggedIn = props.setIsLoggedIn;
   const { userInfo, setUserInfo } = props.user;
@@ -13,8 +14,7 @@ export default function Login(props) {
     console.log("Submitted!", values);
     axios.post(SERVER_URL + "/login", values).then((res) => {
       setIsLoggedIn(true);
-      window.localStorage.setItem("user_id", res.data.user_id);
-      window.localStorage.setItem("username", res.data.username);
+      setLocalInfo(res.data.user_id, res.data.username, res.data.user_password);
       setUserInfo({ ...res.data });
       console.log(userInfo, res.data);
       props.close();

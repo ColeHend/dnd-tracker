@@ -28,6 +28,7 @@ function Mui() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   // @ts-ignore
   const [siteName, setSiteName] = React.useState("D&D Tracker");
+
   const firstIndexfromstring = ([first]) => first.toLowerCase();
 
   const handleOpenNavMenu = (event) => {
@@ -141,7 +142,9 @@ function Mui() {
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     // @ts-ignore
-                    alt={firstIndexfromstring(userInfo.username)}
+                    alt={firstIndexfromstring(
+                      userInfo.username ? userInfo.username : "User"
+                    )}
                     src={userAvatar}
                   />
                 </IconButton>
