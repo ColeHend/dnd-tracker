@@ -30,11 +30,10 @@ function App() {
   const loginService = useMemo(() => new LoginService(axios), []);
 
   useEffect(() => {
-    // Checking if user is not loggedIn
     if (!loginCheck) {
       navigate("/");
     }
-  }, [loginCheck]);
+  }, [navigate, loginCheck]);
 
   return (
     <UserContext.Provider

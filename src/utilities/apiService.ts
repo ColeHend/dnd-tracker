@@ -1,14 +1,17 @@
 // @ts-nocheck
 import { Spell } from "../models/Spell";
 export default class ApiService {
-  constructor(axios) {
+  private SERVER_URL: string = process.env.SERVER_URL || "http://localhost:4000";
+
+  constructor(axios: any, private URL?: string) {
     this.axios = axios;
+    this.SERVER_URL = this.URL ? this.URL : process.env.SERVER_URL || "http://localhost:4000";
   }
 
   async getProjectAccess(project_id: number) {
     if (project_id > 0) {
       let reqData = await this.axios.get(
-        `http://localhost:4000/api/projectAccess/${project_id}`
+        `${this.SERVER_URL}/api/projectAccess/${project_id}`
       );
       return reqData.data;
     }
@@ -16,7 +19,7 @@ export default class ApiService {
   async getSpells(user_id: number): Spell {
     if (user_id > 0) {
       let reqData = await this.axios.get(
-        `http://localhost:4000/api/spells/${user_id}`
+        `${this.SERVER_URL}/api/spells/${user_id}`
       );
       return reqData.data;
     }
@@ -24,7 +27,7 @@ export default class ApiService {
   async getFeats(user_id: number) {
     if (user_id > 0) {
       let reqData = await this.axios.get(
-        `http://localhost:4000/api/feats/${user_id}`
+        `${this.SERVER_URL}/api/feats/${user_id}`
       );
       return reqData.data;
     }
@@ -32,7 +35,7 @@ export default class ApiService {
   async getClasses(user_id: number) {
     if (user_id > 0) {
       let reqData = await this.axios.get(
-        `http://localhost:4000/api/classes/${user_id}`
+        `${this.SERVER_URL}/api/classes/${user_id}`
       );
       return reqData.data;
     }
@@ -40,7 +43,7 @@ export default class ApiService {
   async getSubclasses(user_id: number) {
     if (user_id > 0) {
       let reqData = await this.axios.get(
-        `http://localhost:4000/api/subclasses/${user_id}`
+        `${this.SERVER_URL}/api/subclasses/${user_id}`
       );
       return reqData.data;
     }
@@ -48,7 +51,7 @@ export default class ApiService {
   async getProjects(user_id: number) {
     if (user_id > 0) {
       let reqData = await this.axios.get(
-        `http://localhost:4000/api/projects/${user_id}`
+        `${this.SERVER_URL}/api/projects/${user_id}`
       );
       return reqData.data;
     }
@@ -56,7 +59,7 @@ export default class ApiService {
   async getAbilities(user_id: number) {
     if (user_id > 0) {
       let reqData = await this.axios.get(
-        `http://localhost:4000/api/abilities/${user_id}`
+        `${this.SERVER_URL}/api/abilities/${user_id}`
       );
       return reqData.data;
     }
@@ -64,7 +67,7 @@ export default class ApiService {
   async createAbility(project_id: number, user_id:number, level:number, name:string, subhead:string, desc:string) {
     if (user_id > 0) {
       let resData = await this.axios.post(
-        "http://localhost:4000/api/abilities",
+        "${this.SERVER_URL}/api/abilities",
         {
           project_id: project_id,
           ability_owner: user_id,
@@ -91,7 +94,7 @@ export default class ApiService {
     abilities: number[]
   ) {
     if (user_id > 0) {
-      let resData = await this.axios.post("http://localhost:4000/api/classes", {
+      let resData = await this.axios.post("${this.SERVER_URL}/api/classes", {
         project_id: project_id,
         class_owner: user_id,
         class_name: name,
@@ -110,7 +113,7 @@ export default class ApiService {
   async createProject(owner:number, group_access: number[], name:string, desc:string) {
     if (owner > 0) {
       this.axios
-        .post("http://localhost:4000/api/projects", {
+        .post("${this.SERVER_URL}/api/projects", {
           project_owner: owner,
           project_group_access: [...group_access],
           project_name: name,
@@ -122,7 +125,7 @@ export default class ApiService {
   async createProjectAccess(project_group_id:number, user_id:number) {
     if (user_id > 0) {
       this.axios
-        .post("http://localhost:4000/api/projectAccess", {
+        .post("${this.SERVER_URL}/api/projectAccess", {
           project_group_id: project_group_id,
           project_group_access: user_id,
         })
@@ -131,7 +134,7 @@ export default class ApiService {
   }
   async createSpell(project_id:number, owner:number, name:string, desc:string, subhead:string) {
     if (owner > 0) {
-      let reqData = await this.axios.post("http://localhost:4000/api/spells", {
+      let reqData = await this.axios.post("${this.SERVER_URL}/api/spells", {
         project_id: project_id,
         spell_owner: owner,
         spell_name: name,
@@ -145,7 +148,7 @@ export default class ApiService {
   }
   async createFeat(project_id:number, owner:number, name:string, desc:string, subhead:string) {
     if (owner > 0) {
-      let reqData = await this.axios.post("http://localhost:4000/api/feats", {
+      let reqData = await this.axios.post("${this.SERVER_URL}/api/feats", {
         project_id: project_id,
         feat_owner: owner,
         feat_name: name,
@@ -160,7 +163,7 @@ export default class ApiService {
   async createSubclass(project_id:number, owner:number, subname:string, desc:string, className:string, abilities:number[]) {
     if (owner > 0) {
       let reqData = await this.axios.post(
-        "http://localhost:4000/api/subclasses",
+        "${this.SERVER_URL}/api/subclasses",
         {
           project_id: project_id,
           subclass_owner: owner,
@@ -177,7 +180,7 @@ export default class ApiService {
   }
   async updateSpell(spell_id:number, spellName:string, spellSubhead:string, spellDesc:string) {
     if (spell_id > 0) {
-      let reqData = await this.axios.put(`http://localhost:4000/api/spell`, {
+      let reqData = await this.axios.put(`${this.SERVER_URL}/api/spell`, {
         spell_id: spell_id,
         spell_name: spellName,
         spell_desc: spellDesc,
@@ -190,7 +193,7 @@ export default class ApiService {
   }
   async updateFeat(feat_id:number, featName:string, featDesc:string, featSubhead:string) {
     if (feat_id > 0) {
-      let reqData = await this.axios.put(`http://localhost:4000/api/feats`, {
+      let reqData = await this.axios.put(`${this.SERVER_URL}/api/feats`, {
         feat_id: feat_id,
         feat_name: featName,
         feat_desc: featDesc,
@@ -211,7 +214,7 @@ export default class ApiService {
     class_tools: string[]
   ) {
     if (class_id > 0) {
-      let reqData = await this.axios.put(`http://localhost:4000/api/classes`, {
+      let reqData = await this.axios.put(`${this.SERVER_URL}/api/classes`, {
         class_id: class_id,
         class_name: class_name,
         class_hd: class_hd,
@@ -230,7 +233,7 @@ export default class ApiService {
     subclass_class: string,
     subclass_abilities: number[]
   ) {
-    let reqData = await this.axios.put(`http://localhost:4000/api/subclasses`, {
+    let reqData = await this.axios.put(`${this.SERVER_URL}/api/subclasses`, {
       subclass_id: subclass_id,
       subclass_name: subclass_name,
       subclass_desc: subclass_desc,
@@ -245,7 +248,7 @@ export default class ApiService {
     ability_subhead: string,
     ability_description: string
   ) {
-    let reqData = await this.axios.put(`http://localhost:4000/api/abilities`, {
+    let reqData = await this.axios.put(`${this.SERVER_URL}/api/abilities`, {
       ability_id: ability_id,
       ability_title: ability_title,
       ability_subhead: ability_subhead,
@@ -263,7 +266,7 @@ export default class ApiService {
     project_spells:number[] = [],
     project_subclasses:number[] = []
   ) {
-    let reqData = await this.axios.put(`http://localhost:4000/api/projects`, {
+    let reqData = await this.axios.put(`${this.SERVER_URL}/api/projects`, {
       project_id: project_id,
       project_name: project_name,
       project_desc: project_desc,
@@ -277,7 +280,7 @@ export default class ApiService {
   }
   async addProjectAccess(project_group_id:number, project_group_access:number) {
     let reqData = await this.axios.put(
-      `http://localhost:4000/api/projectAccess/add`,
+      `${this.SERVER_URL}/api/projectAccess/add`,
       {
         project_group_id: project_group_id,
         project_group_access: project_group_access,
@@ -287,7 +290,7 @@ export default class ApiService {
   }
   async removeProjectAccess(project_group_id:number, project_group_access:number) {
     let reqData = await this.axios.put(
-      `http://localhost:4000/api/projectAccess/remove`,
+      `${this.SERVER_URL}/api/projectAccess/remove`,
       {
         project_group_id: project_group_id,
         project_group_access: project_group_access,
@@ -296,26 +299,26 @@ export default class ApiService {
     return reqData.data;
   }
   async deleteSpell(spell_id:number) {
-    let reqData = await this.axios.delete(`http://localhost:4000/api/spells`, {
+    let reqData = await this.axios.delete(`${this.SERVER_URL}/api/spells`, {
       spell_id: spell_id,
     });
     return reqData.data;
   }
   async deleteFeat(feat_id:number) {
-    let reqData = await this.axios.delete(`http://localhost:4000/api/feats`, {
+    let reqData = await this.axios.delete(`${this.SERVER_URL}/api/feats`, {
       feat_id: feat_id,
     });
     return reqData.data;
   }
   async deleteClass(class_id:number) {
-    let reqData = await this.axios.delete(`http://localhost:4000/api/classes`, {
+    let reqData = await this.axios.delete(`${this.SERVER_URL}/api/classes`, {
       class_id: class_id,
     });
     return reqData.data;
   }
   async deleteSubclass(subclass_id:number) {
     let reqData = await this.axios.delete(
-      `http://localhost:4000/api/subclasses`,
+      `${this.SERVER_URL}/api/subclasses`,
       {
         subclass_id: subclass_id,
       }
@@ -324,7 +327,7 @@ export default class ApiService {
   }
   async deleteAbility(ability_id:number) {
     let reqData = await this.axios.delete(
-      `http://localhost:4000/api/abilities`,
+      `${this.SERVER_URL}/api/abilities`,
       {
         ability_id: ability_id,
       }
@@ -333,7 +336,7 @@ export default class ApiService {
   }
   async deleteProject(project_id:number) {
     let reqData = await this.axios.delete(
-      `http://localhost:4000/api/projects`,
+      `${this.SERVER_URL}/api/projects`,
       {
         project_id: project_id,
       }
