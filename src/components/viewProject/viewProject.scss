@@ -1,0 +1,10 @@
+@import '../../utilities/stylesService.scss';
+
+#viewProjectTable {
+    width: 50vw;
+    background-color: inherit;
+
+    @include table-style()
+}
+
+

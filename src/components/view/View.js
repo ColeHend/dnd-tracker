@@ -38,6 +38,8 @@ function View(props) {
   };
   const theProject = async () => {
     let theProjects = await apiService.getProjects(userInfo.user_id);
+    console.log(theProjects);
+    
     setAllData({ ...allData, theProjects });
   };
   const theAbilities = async () => {
