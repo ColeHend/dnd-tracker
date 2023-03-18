@@ -2,13 +2,15 @@ import React, { useContext } from "react";
 import { UserContext } from "../../../App";
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import { clearLocalInfo } from "../../../utilities/utilities";
+
 function Settingsbutton(props) {
   const { setting } = props;
-  const { userInfo, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const { userInfo, isLoggedIn, setIsLoggedIn, loginService } =
+    useContext(UserContext);
   const logout = () => {
-    clearLocalInfo();
-    setIsLoggedIn(false);
+    loginService.logout(() => {
+      setIsLoggedIn(false);
+    });
   };
   return (
     <>

@@ -7,11 +7,14 @@ import './muiprofile.scss'
 import { Button } from '@mui/material';
 import CreatePro from '../createProject/CreateProject';
 import ViewProject from '../viewProject/viewProject';
+import { redirect } from 'react-router-dom';
+import { UserContext } from '../../App';
 
  function AccountMenu() {
     let linkstyles = { minWidth: 100, color:'white'}
 
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const {userInfo} = React.useContext(UserContext);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -27,7 +30,7 @@ import ViewProject from '../viewProject/viewProject';
 
       </Box>
       <Routes>
-        <Route path="/view" element={<ViewProject/>}></Route>
+        <Route path="/view" element={(<ViewProject/>)}></Route>
         <Route path="/create" element={<CreatePro />}></Route>
       </Routes>
     </React.Fragment>
