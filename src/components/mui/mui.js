@@ -32,22 +32,17 @@ function Mui() {
   const firstIndexfromstring = ([first]) => first.toLowerCase();
 
   const handleOpenNavMenu = (event) => {
-    console.log(event, "asdf");
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event, page) => {
-    console.log("asdf", page);
-    console.log(event, "asdf", page);
     setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
-    console.log("asdf");
     setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
-    console.log("asdf");
     setAnchorElUser(null);
   };
 

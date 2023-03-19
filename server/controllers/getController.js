@@ -4,6 +4,12 @@ const { sequelize } = require("../sequel");
 //   }).then((res)=>{
 //   })
 const project = async (req, res) => {
+  req.session.reload((err) => {
+    console.log("------------REQUEST------------");
+    console.log(req);
+    console.log(req.session);
+    console.log("-------------------------------");
+  })
   const user_id = +req.params.userid;
   if (user_id > 0) {
     let group_id = await sequelize.query(
@@ -14,7 +20,6 @@ const project = async (req, res) => {
     );
     const project_groups_id = group_id[0];
     const projectsArr = [];
-    console.log("project_groups_id: ", project_groups_id);
     if (project_groups_id.length > 0) {
       let totalProjects = project_groups_id.length;
       let projectsChecked = 0;
@@ -33,7 +38,6 @@ const project = async (req, res) => {
               console.error(err);
             });
           if (totalProjects === projectsChecked) {
-            console.log(projectsArr);
             res.status(200).send(projectsArr);
           }
         } else {

@@ -12,7 +12,7 @@ export default function Login(props) {
       (res) => {
         setIsLoggedIn(true);
         setUserInfo({ ...res.data });
-        console.log(userInfo, res.data);
+        console.log(userInfo, res.data,);
         props.close();
       })
       .catch((err) => console.error(err));
