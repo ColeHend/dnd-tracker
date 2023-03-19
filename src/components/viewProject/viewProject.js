@@ -10,12 +10,23 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import './viewProject.scss'
+import { Button } from "@mui/material";
+import { removeObjectInArray } from "../../utilities/utilities";
 
 
 function ViewProject(props) {
     const { userInfo, apiService } = useContext(UserContext);
     const [allData, setAllData] = useState([]);
     const [active,setActive] = useState(true)
+    
+    const deleteProject = async (project_id) =>{
+        console.log("project_id: ", project_id);
+        if (project_id > 0) {
+            await apiService.deleteProject(project_id)
+            console.log('deleted');
+            setAllData(removeObjectInArray(allData,"project_id",project_id))
+        }   
+    }
     useEffect(() => {
         const theProject = async () => {
             const theProjects = await apiService.getProjects(userInfo.user_id);
@@ -27,6 +38,8 @@ function ViewProject(props) {
         return () => setActive(false)
     },[apiService, userInfo, allData])
 
+    
+
 return (
     <div>
         <TableContainer id='viewProjectTable' component={Paper}>
@@ -35,6 +48,7 @@ return (
                     <TableRow>
                         <TableCell>Project Name</TableCell>
                         <TableCell>Project Short Desc</TableCell>
+                        <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -46,6 +60,13 @@ return (
                                 </TableCell>
                                 <TableCell>
                                     {project.project_desc}
+                                </TableCell>
+                                <TableCell>
+                                    <Button
+                                     onClick={()=>deleteProject(project.project_id)}
+                                    > 
+                                        x
+                                    </Button>
                                 </TableCell>
                            </TableRow>
                         ) : "No Projects"

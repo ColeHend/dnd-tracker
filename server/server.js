@@ -19,10 +19,11 @@ const { SECRET } = process.env;
 const oneDay = 1000 * 60 * 60 * 24;
 const path = require("path");
 const auth = require("./controllers/auth");
-app.use(express.json());
+
 app.use(cors());
+app.use(express.json());
 app.use(cookieParser());
-app.use(express.static("../build")); //this is for production hosting
+// app.use(express.static("../build")); //this is for production hosting
 
 app.use(
   session({
@@ -293,7 +294,7 @@ app.put("/api/classes", update.classes);
 app.put("/api/subclasses", update.subclasses);
 // ----- abilities --------
 // body object: {
-//    project_id: project_id,
+//    project_id: project_id, 
 //    ability_owner: user_id
 //    ability_name: (50 characters)
 //    ability_subhead: (100 characters)
@@ -307,13 +308,13 @@ app.put("/api/abilities", update.abilities);
 // might not need.
 //--------
 // ----- project-access --------
-app.delete("/api/project-access/", remove.removeProjectAccess);
-app.delete("/api/projects/", remove.removeProject);
-app.delete("/api/spells/", remove.removeSpell);
-app.delete("/api/feats/", remove.removeFeat);
-app.delete("/api/classes/", remove.removeClass);
-app.delete("/api/subclasses/", remove.removeSubclass);
-app.delete("/api/abilities/", remove.removeAbility);
+app.post("/api/project-access/delete", remove.removeProjectAccess);
+app.post("/api/projects/delete", remove.removeProject);
+app.post("/api/spells/delete", remove.removeSpell);
+app.post("/api/feats/delete", remove.removeFeat);
+app.post("/api/classes/delete", remove.removeClass);
+app.post("/api/subclasses/delete", remove.removeSubclass);
+app.post("/api/abilities/delete", remove.removeAbility);
 //--------------
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}...`));
