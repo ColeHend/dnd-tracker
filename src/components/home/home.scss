@@ -1,7 +1,7 @@
 @import '../../utilities/stylesService.scss';
 
 @include home-styles();
-
+@include table-style();
 #table-container {
     width: 50vw;
     margin-left: auto;

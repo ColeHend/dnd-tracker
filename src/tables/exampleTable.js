@@ -8,11 +8,7 @@ export const exampleOptions = {
       tableClass: "table",
       containStyle: { 
         width: 'auto'
-      },
-      collapsible: {
-        styleClass: "collapsible-table",
-        collapseValue: (row,index)=><div>{JSON.stringify(row)} {`index is ${index}`}</div>,
-      },
+      }
     },
     header: {
       cell: {

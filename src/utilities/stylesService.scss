@@ -1,15 +1,23 @@
 
-@mixin home-styles {
-    div {
+
+
+$dark: #131212d2;
+$white: #fff;
+@mixin universalStyle {
+    table > div {
         background-color: inherit;
     }
 }
-
 @mixin table-style {
+    @include universalStyle;
     td, th {
-        color: #fff !important;
-        background-color: #131212d2;
+        color: $white !important;
+        background-color: $dark;
         margin: 5px;
-        border: 1px solid #fff;
+        border: 1px solid $white;
     }
+}
+@mixin home-styles {
+    @include universalStyle;
+   
 }

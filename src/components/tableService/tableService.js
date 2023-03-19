@@ -10,6 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import "./tableService.scss";
 
 export default function GenerateTable(props) {
   const { data, options, header, body } = props.config;
@@ -45,7 +46,7 @@ export default function GenerateTable(props) {
             style={{ paddingBottom: 0, paddingTop: 0 }}
             colSpan={6}
           >
-            <Collapse in={open} timeout="auto" unmountOnExit>
+            <Collapse id="collapseTa" in={open} timeout="auto" unmountOnExit>
             {collapseValue(prop.row,prop.index)}
             </Collapse>
           </TableCell>
