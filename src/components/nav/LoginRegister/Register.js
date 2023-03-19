@@ -1,34 +1,28 @@
 import React from "react";
 import axios from "axios";
 import { useFormik } from "formik";
+import { setLocalInfo } from "../../../utilities/utilities";
 export default function Register(props) {
-  const { userInfo, setUserInfo } = props.user;
+  const { userInfo, setUserInfo, loginService } = props.user;
   const setIsLoggedIn = props.setIsLoggedIn;
-  const initialValues = {
-    username: "",
-    password: "",
-    passwordConf: "",
-  };
-  const { SERVER_URL } = props;
+
   const onSubmit = (values) => {
     const { username, password } = formik.values;
-    console.log(SERVER_URL);
-    axios.post(SERVER_URL + "/register", values);
-    axios.post(SERVER_URL + "/login", { username, password }).then((res) => {
-      setIsLoggedIn(true);
-      window.localStorage.setItem("user_id", res.data.user_id);
-      window.localStorage.setItem("username", res.data.username);
-      setUserInfo({ ...res.data });
-      console.log(userInfo);
-      props.close();
+    loginService.register(username, password, undefined, (res) => {
+      loginService.login(username, password, undefined, (res2) => {
+        setIsLoggedIn(true);
+        console.log(userInfo);
+        props.close();
+        console.log("Submitted! res: ", res);
+      });
     });
-    console.log("Submitted!", values);
-    props.close();
   };
-  const validate = (values) => {
-    // console.log("validated", values);
-  };
-  const formik = useFormik({ initialValues, onSubmit, validate });
+  const formik = useFormik({
+    initialValues: { ...loginService.registerDefault },
+    validate: loginService.registerValidate,
+    onSubmit,
+  });
+  
   return (
     <form onSubmit={formik.handleSubmit} method="post" action="/register">
       <p>

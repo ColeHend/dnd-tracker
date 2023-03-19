@@ -43,7 +43,9 @@ const Register = (req, res) => {
   }
 };
 const Logout = (req, res) => {
-  req.session.destroy((err) => console.log(err));
+  if (req.session) {
+    req.session.destroy((err) => console.log(err));
+  }
   res.status(200).redirect("/");
 };
 module.exports = { Login, Register, Logout };

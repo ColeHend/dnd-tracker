@@ -4,26 +4,24 @@ import { useFormik } from "formik";
 import { setLocalInfo } from "../../../utilities/utilities";
 export default function Login(props) {
   const setIsLoggedIn = props.setIsLoggedIn;
-  const { userInfo, setUserInfo } = props.user;
-  const { SERVER_URL } = props;
-  const initialValues = {
-    username: "",
-    password: "",
-  };
+  const { userInfo, setUserInfo, loginService } = props.user;
+
   const onSubmit = (values) => {
     console.log("Submitted!", values);
-    axios.post(SERVER_URL + "/login", values).then((res) => {
-      setIsLoggedIn(true);
-      setLocalInfo(res.data.user_id, res.data.username, res.data.user_password);
-      setUserInfo({ ...res.data });
-      console.log(userInfo, res.data);
-      props.close();
-    });
+    loginService.login(values.username, values.password, undefined,
+      (res) => {
+        setIsLoggedIn(true);
+        setUserInfo({ ...res.data });
+        console.log(userInfo, res.data);
+        props.close();
+      })
+      .catch((err) => console.error(err));
   };
-  const validate = (values) => {
-    // console.log("validated", values);
-  };
-  const formik = useFormik({ initialValues, onSubmit, validate });
+  const formik = useFormik({
+    initialValues: { ...loginService.loginDefault },
+    validate: loginService.loginValidate,
+    onSubmit,
+  });
   return (
     <form action="/api/login" method="post" onSubmit={formik.handleSubmit}>
       <p>

@@ -45,12 +45,7 @@ function View(props) {
     setAllData({ ...allData, theAbilities });
   };
   const updateAbility = async () => {
-    let theAbilities = await apiService.updateAbility(
-      1,
-      "Toughness",
-      "ability_subhead",
-      "Increase your hit points by 1 per level"
-    );
+    let theAbilities = await apiService.createProject();
     setAllData({ ...allData, theAbilities });
   };
   const updateProject = async () => {
