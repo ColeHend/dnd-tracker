@@ -40,10 +40,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "dev":"run.bat",
     "server": "nodemon server/server.js",
     "start-prod": "node server/server.js",
     "start": "react-scripts start",
-    "dev": "concurrently \"npm run server\" \"npm start\"",
+    "dev2": "concurrently \"npm run server\" \"npm start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
