@@ -14,11 +14,11 @@ const cookieParser = require("cookie-parser");
 const mySqlStore = new SequelizeStore({
   db: daSequel(),
 });
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 80;
 const { SECRET } = process.env;
 const oneDay = 1000 * 60 * 60 * 24;
-// const path = require("path");
-
+const path = require("path");
+const auth = require("./controllers/auth");
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
@@ -37,6 +37,10 @@ app.use(
   })
 );
 mySqlStore.sync();
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+// });
 //-------------
 //  User Login EndPoints
 //-------
@@ -311,8 +315,5 @@ app.delete("/api/classes/", remove.removeClass);
 app.delete("/api/subclasses/", remove.removeSubclass);
 app.delete("/api/abilities/", remove.removeAbility);
 //--------------
-// app.get("*", (req, res) => {
-//   console.log("serving site!");
-//   res.sendFile(path.join(__dirname, "build", "index.html"));
-// });
+
 app.listen(PORT, () => console.log(`Listening on ${PORT}...`));

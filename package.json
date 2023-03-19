@@ -41,6 +41,7 @@
   "scripts": {
     "dev":"run.bat",
     "server": "nodemon server/server.js",
+    "start-prod": "node server/server.js",
     "start": "react-scripts start",
     "dev2": "concurrently \"npm run server\" \"npm start\"",
     "build": "react-scripts build",

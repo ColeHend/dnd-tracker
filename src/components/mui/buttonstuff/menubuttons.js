@@ -11,7 +11,7 @@ import Register from "../../nav/LoginRegister/Register";
 function Menubutton(props) {
   const { page } = props;
 
-  const { userInfo, setUserInfo, isLoggedIn, setIsLoggedIn } =
+  const { userInfo, setUserInfo, isLoggedIn, setIsLoggedIn, loginService } =
     useContext(UserContext);
   const SERVER_URL = process.env.SERVER_URL || "http://localhost:4000";
   const MySwal = withReactContent(Swal);
@@ -21,7 +21,7 @@ function Menubutton(props) {
       footer: "Copyright",
       html: (
         <Login
-          user={{ userInfo, setUserInfo }}
+          user={{ userInfo, setUserInfo, loginService }}
           close={MySwal.close}
           setIsLoggedIn={setIsLoggedIn}
           SERVER_URL={SERVER_URL}
@@ -36,7 +36,7 @@ function Menubutton(props) {
       html: (
         <Register
           setIsLoggedIn={setIsLoggedIn}
-          user={{ userInfo, setUserInfo }}
+          user={{ userInfo, setUserInfo, loginService }}
           close={MySwal.close}
           SERVER_URL={SERVER_URL}
         />
