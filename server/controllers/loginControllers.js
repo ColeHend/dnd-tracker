@@ -25,9 +25,9 @@ const Login = (req, res) => {
         console.log(req.user);
         console.log(req.session.user);
         console.log("-------------------------------");
-        theUser.create(user).then((dbRes) => {
-          res.status(200).send(dbRes[0][0]);
-        });
+        // theUser.create(user).then((dbRes) => {
+        // });
+        res.status(200).send(dbRes[0][0]);
 
       } else {
         res.status(200).send("Incorrect Login Info");

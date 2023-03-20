@@ -5,11 +5,12 @@ $dark: #131212d2;
 $white: #fff;
 @mixin universalStyle {
     table > div {
-        background-color: inherit;
+        background-color: inherit !important;
     }
+    
 }
 @mixin table-style {
-    @include universalStyle;
+    @include universalStyle ;
     td, th {
         color: $white !important;
         background-color: $dark;
@@ -18,6 +19,9 @@ $white: #fff;
     }
 }
 @mixin home-styles {
-    @include universalStyle;
-   
+   @include universalStyle;
+   .homeComponent {
+    height: 100%;
+    background-color: inherit;
+   }
 }

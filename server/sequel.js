@@ -11,15 +11,15 @@ const sequelize = new Sequelize(CONNECTION_STRING, {
   },
 });
 
-const theUser = sequelize.define("Session", {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  user_id: Sequelize.STRING,
-  username: Sequelize.STRING,
-  loggedIn: Sequelize.BOOLEAN,
-});
+// const theUser = sequelize.define("Session", {
+//   id: {
+//     type: Sequelize.INTEGER,
+//     primaryKey: true,
+//     autoIncrement: true,
+//   },
+//   user_id: Sequelize.STRING,
+//   username: Sequelize.STRING,
+//   loggedIn: Sequelize.BOOLEAN,
+// });
 const daSequel = () => sequelize;
-module.exports = { theUser, daSequel: sequelize, sequelize };
+module.exports = {  daSequel: sequelize, sequelize };

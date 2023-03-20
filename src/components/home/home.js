@@ -22,7 +22,7 @@ function Home(props) {
   };
 
   return (
-    <div>
+    <div className="homeComponent">
       <h1>Home</h1>
       <div>
         <p>Generated Table Test</p>
