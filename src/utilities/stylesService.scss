@@ -2,8 +2,9 @@ $dark: #131212d2;
 $white: #fff;
 $defaultStyle: 'dark';
 
-@mixin table-style($style:$defaultStyle) {
+@mixin table-style($style: $defaultStyle) {
     @if $style =='dark' {
+
         table,
         th,
         td {
@@ -13,7 +14,9 @@ $defaultStyle: 'dark';
             border: 1px solid $white;
         }
     }
+
     @else if($style =='light') {
+
         table,
         th,
         td {
@@ -37,25 +40,30 @@ $defaultStyle: 'dark';
     }
 }
 
-@mixin table-container-style($collapsable:'false', $side:'left',$style:$defaultStyle, $width: 50vw, $bgColor: inherit,) {
+@mixin table-container-style($collapsable: 'false', $side: 'left', $style: $defaultStyle, $width: 50vw, $bgColor: inherit, ) {
     @include table-style($style);
-    @if($collapsable != 'false') {
+
+    @if($collapsable =='true') {
         @include table-collapse-style();
     }
+
     table {
         width: $width;
     }
+
     @if($side =='center') {
         width: min-content;
         height: min-content;
         margin-left: auto;
         margin-right: auto;
     }
+
     @else if($side =='right') {
         width: min-content;
         height: min-content;
         margin-left: auto;
     }
+
     @else {
         width: min-content;
         height: min-content;
