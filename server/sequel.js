@@ -3,21 +3,23 @@ const Sequelize = require("sequelize");
 // @ts-ignore
 const sequelize = new Sequelize(CONNECTION_STRING, {
   dialect: "postgres",
+  storage: "./session.postgres",
   dialectOptions: {
     ssl: {
       rejectUnauthorized: false,
     },
   },
 });
-async function sequelTest() {
-  try {
-    await sequelize.authenticate();
-    console.log('Connection to database has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
-}
-sequelTest();
-sequelize.sync()
+
+// const theUser = sequelize.define("Session", {
+//   id: {
+//     type: Sequelize.INTEGER,
+//     primaryKey: true,
+//     autoIncrement: true,
+//   },
+//   user_id: Sequelize.STRING,
+//   username: Sequelize.STRING,
+//   loggedIn: Sequelize.BOOLEAN,
+// });
 const daSequel = () => sequelize;
-module.exports = { daSequel, sequelize, sequelTest };
+module.exports = {  daSequel: sequelize, sequelize };

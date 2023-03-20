@@ -41,7 +41,6 @@ const project = async (req, res) => {
   } = req.body;
   if (project_group_id) {
   } else {
-    console.log(project_owner);
     let projGroup = await sequelize.query(
       "INSERT INTO project_group(project_owner) values(?) RETURNING project_group_id,project_owner",
       {
@@ -50,7 +49,6 @@ const project = async (req, res) => {
     );
     project_group_id = projGroup[0][0].project_group_id;
 
-    console.log(projGroup[0][0]);
     console.table(projGroup[0][0]);
   }
   project_group_access.forEach(async (group_access) => {
@@ -61,7 +59,6 @@ const project = async (req, res) => {
       }
     );
   });
-  console.log("project_group_id: ", project_group_id);
   let projectData = await sequelize.query(
     "INSERT INTO projects(project_name,project_desc) values(?,?) RETURNING project_id, project_name,project_desc",
     {
@@ -92,7 +89,6 @@ const spells = (req, res) => {
 };
 const feats = (req, res) => {
   let { project_id, feat_owner, feat_name, feat_subhead, feat_desc } = req.body;
-  console.log(req.body);
   sequelize
     .query(
       "INSERT INTO feats(feat_owner,feat_title,feat_subhead,feat_desc) values(?,?,?,?) RETURNING *",
@@ -122,7 +118,6 @@ const classes = async (req, res) => {
     class_tools,
     class_abilities_abl,
   } = req.body;
-  console.log(req.body);
   const theClass = await sequelize.query(
     `INSERT INTO classes(class_owner,class_name,class_hd,class_armor,class_weap,class_skills,class_tools) values(?,?,?,'{${arrayString(
       class_armor
@@ -179,7 +174,6 @@ const subclasses = (req, res) => {
     subclass_abilities_abl,
     project_id,
   } = req.body;
-  console.log(req.body);
   sequelize
     .query(
       "INSERT INTO subclasses(subclass_owner,subclass_name,subclass_class,subclass_desc) values(?,?,?,?) RETURNING *",

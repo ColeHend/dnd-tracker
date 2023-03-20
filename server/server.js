@@ -8,40 +8,51 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const session = require("express-session");
+const bodyParser = require('body-parser');
+
 const { daSequel } = require("./sequel");
 var SequelizeStore = require("connect-session-sequelize")(session.Store);
 const cookieParser = require("cookie-parser");
-const mySqlStore = new SequelizeStore({
-  db: daSequel(),
-});
-const PORT = process.env.PORT || 80;
-const { SECRET } = process.env;
-const oneDay = 1000 * 60 * 60 * 24;
 const path = require("path");
 const auth = require("./controllers/auth");
 
-app.use(cors());
-app.use(express.json());
+const hoursNum = (hours)=> 1000 * 60 * 60 * hours;
+const PORT = process.env.PORT || 80;
+const { SECRET } = process.env;
+
+
+
 app.use(cookieParser());
-// app.use(express.static("../build")); //this is for production hosting
+app.use(cors());
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const mySqlStore = new SequelizeStore({
+  db: daSequel,
+  checkExpirationInterval: hoursNum(6),
+  expiration: hoursNum(24),
+
+})
+mySqlStore.sync();
 
 app.use(
   session({
-    // @ts-ignore
-    secret: SECRET,
-    resave: false,
-    saveUninitialized: false,
+    secret: SECRET ?? "secret-ala;sdhgpiaoerhgo;aeiruhgni;aerughliok" ,
     store: mySqlStore,
+    resave: false,
+    saveUninitialized: true,
     proxy: false,
-    // @ts-ignore
-    cookie: { maxAge: oneDay, user_id: 0, username: "" },
+    cookie: {secure:false, maxAge: hoursNum(24),  }
   })
 );
-mySqlStore.sync();
+
+// app.use(express.static("../build")); //this is for production hosting
+
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 // });
+
 //-------------
 //  User Login EndPoints
 //-------

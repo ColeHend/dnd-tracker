@@ -1,3 +1,7 @@
 @import '../../utilities/stylesService.scss';
 
 @include home-styles();
+
+#table-container {
+    @include table-container-style('true','center','light');
+}
