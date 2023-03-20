@@ -37,7 +37,11 @@ $defaultStyle: 'dark';
     }
 }
 
-@mixin table-container-style($side:'left', $bgColor: inherit, $width: 50vw) {
+@mixin table-container-style($collapsable:'false', $side:'left',$style:$defaultStyle, $width: 50vw, $bgColor: inherit,) {
+    @include table-style($style);
+    @if($collapsable != 'false') {
+        @include table-collapse-style();
+    }
     table {
         width: $width;
     }

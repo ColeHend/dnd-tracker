@@ -1,8 +1,8 @@
 @import '../../utilities/stylesService.scss';
 
 #viewProjectTable {
-    @include table-style();
     @include table-container-style();
+    // @include table-container-style('false','center','light');
 
 }
 

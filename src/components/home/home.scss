@@ -3,7 +3,5 @@
 @include home-styles();
 
 #table-container {
-    @include table-style();
-    @include table-collapse-style();
-    @include table-container-style('center')
+    @include table-container-style('true','center','light');
 }
