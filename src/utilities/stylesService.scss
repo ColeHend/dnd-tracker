@@ -3,14 +3,7 @@
 
 $dark: #131212d2;
 $white: #fff;
-@mixin universalStyle {
-    table > div {
-        background-color: inherit !important;
-    }
-    
-}
 @mixin table-style {
-    @include universalStyle ;
     td, th {
         color: $white !important;
         background-color: $dark;
@@ -18,8 +11,19 @@ $white: #fff;
         border: 1px solid $white;
     }
 }
+
+@mixin table-collapse-style {
+    tr {
+        :nth-child(1) {
+            width: 30px !important;
+        }
+    }
+    table > div {
+        background-color: inherit !important;
+    }
+}
+
 @mixin home-styles {
-   @include universalStyle;
    .homeComponent {
     height: 100%;
     background-color: inherit;

@@ -2,13 +2,10 @@
 
 @include home-styles();
 @include table-style();
+@include table-collapse-style();
+
 #table-container {
     width: 50vw;
     margin-left: auto;
     margin-right: auto;
-    tr {
-        :nth-child(1) {
-            width: 30px !important;
-        }
-    }
 }
