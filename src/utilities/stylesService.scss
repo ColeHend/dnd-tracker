@@ -1,15 +1,73 @@
+$dark: #131212d2;
+$white: #fff;
+$defaultStyle: 'dark';
 
-@mixin home-styles {
-    div {
-        background-color: inherit;
+@mixin table-style($style: $defaultStyle) {
+    @if $style =='dark' {
+
+        table,
+        th,
+        td {
+            color: $white !important;
+            background-color: $dark;
+            margin: 5px;
+            border: 1px solid $white;
+        }
+    }
+
+    @else if($style =='light') {
+
+        table,
+        th,
+        td {
+            color: $dark !important;
+            background-color: $white;
+            margin: 5px;
+            border: 1px solid $dark;
+        }
     }
 }
 
-@mixin table-style {
-    td, th {
-        color: #fff !important;
-        background-color: #131212d2;
-        margin: 5px;
-        border: 1px solid #fff;
+@mixin table-collapse-style {
+    tr {
+        :nth-child(1) {
+            width: 30px !important;
+        }
+    }
+
+    table>div {
+        background-color: inherit !important;
+    }
+}
+
+@mixin table-container-style($collapsable: 'false', $side: 'left', $style: $defaultStyle, $width: 50vw, $bgColor: inherit, ) {
+    @include table-style($style);
+
+    @if($collapsable =='true') {
+        @include table-collapse-style();
+    }
+
+    table {
+        width: $width;
+    }
+
+    width: min-content;
+    height: min-content;
+    
+    @if($side =='center') {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    @else if($side =='right') {
+        margin-left: auto;
+    }
+
+    background-color: $bgColor;
+}
+
+@mixin home-styles {
+    .homeComponent {
+        height: 100%;
+        background-color: inherit;
     }
 }

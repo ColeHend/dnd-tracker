@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const { sequelize } = require("../sequel");
+const { sequelize} = require("../sequel");
 
 const Login = (req, res) => {
   const { username, password } = req.body;
@@ -9,14 +9,24 @@ const Login = (req, res) => {
     })
     .then((dbRes) => {
       const exists = bcrypt.compareSync(password, dbRes[0][0].user_password);
-      if (dbRes[0][0].username === username && exists) {
-        req.session.loggedIn = true;
-        req.session.user_id = dbRes[0][0].user_id;
-        req.session.username = dbRes[0][0].username;
-        console.log("session: ", req.session);
-        console.log("Db res: ", dbRes);
 
+      if (dbRes[0][0].username === username && exists) {
+        let user = {
+          loggedIn: true,
+          user_id: dbRes[0][0].user_id,
+          username: dbRes[0][0].username,
+        };
+        console.log(user);
+        req.user = user;
+        req.session.user = user;
+        console.log("------------REQUEST LOGIN------------");
+        console.log(req.sessionID);
+        console.log(req.session);
+        console.log(req.user);
+        console.log(req.session.user);
+        console.log("-------------------------------");
         res.status(200).send(dbRes[0][0]);
+
       } else {
         res.status(200).send("Incorrect Login Info");
       }
@@ -35,6 +45,7 @@ const Register = (req, res) => {
       })
       .then((dbRes) => {
         console.log(dbRes);
+
         res.status(200).send(dbRes[0][0]);
       })
       .catch((err) => console.log(err));
@@ -44,6 +55,7 @@ const Register = (req, res) => {
 };
 const Logout = (req, res) => {
   if (req.session) {
+    console.log("REQ.session: ", req.session);
     req.session.destroy((err) => console.log(err));
   }
   res.status(200).redirect("/");
