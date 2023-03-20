@@ -51,22 +51,15 @@ $defaultStyle: 'dark';
         width: $width;
     }
 
+    width: min-content;
+    height: min-content;
+    
     @if($side =='center') {
-        width: min-content;
-        height: min-content;
         margin-left: auto;
         margin-right: auto;
     }
-
     @else if($side =='right') {
-        width: min-content;
-        height: min-content;
         margin-left: auto;
-    }
-
-    @else {
-        width: min-content;
-        height: min-content;
     }
 
     background-color: $bgColor;
