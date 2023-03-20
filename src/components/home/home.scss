@@ -1,11 +1,9 @@
 @import '../../utilities/stylesService.scss';
 
 @include home-styles();
-@include table-style();
-@include table-collapse-style();
 
 #table-container {
-    width: 50vw;
-    margin-left: auto;
-    margin-right: auto;
+    @include table-style();
+    @include table-collapse-style();
+    @include table-container-style('center')
 }
