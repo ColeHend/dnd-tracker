@@ -9,6 +9,7 @@ import ApiService from "./utilities/apiService";
 import axios from "axios";
 import { getLocalInfo } from "./utilities/utilities";
 import LoginService from "./utilities/loginService";
+import TableService from "./utilities/tableService";
 // @ts-ignore
 export const UserContext = createContext();
 
@@ -27,7 +28,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(loginCheck);
   const apiService = useMemo(() => new ApiService(axios), []);
   const loginService = useMemo(() => new LoginService(axios), []);
-
+  const tableService = useMemo(() => new TableService(), []);
   useEffect(() => {
     if (!loginCheck) {
       navigate("/");
@@ -43,6 +44,7 @@ function App() {
         setIsLoggedIn,
         apiService,
         loginService,
+        tableService
       }}
     >
       <div className="bg_1">

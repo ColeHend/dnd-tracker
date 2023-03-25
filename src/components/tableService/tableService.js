@@ -15,10 +15,10 @@ import "./tableService.scss";
 export default function GenerateTable(props) {
   const { data, options, header, body } = props.config;
   const CustomTableCell = (prop) => (
-    <TableCell sx={props.sx} id={prop.styleClass}>{prop.value}</TableCell>
+    <TableCell sx={props.sx} id={prop.styleClass ?? "default_celll"}>{prop.value}</TableCell>
   );
   const CustomTableRow = (prop) => (
-    <TableRow sx={props.sx} id={props.styleClass}>{prop.value}</TableRow>
+    <TableRow sx={props.sx} id={props.styleClass ?? "default_roww"}>{prop.value}</TableRow>
   );
   const CollapsibleTableRow = (prop) => {
     const [open, setOpen] = React.useState(false);
@@ -42,7 +42,6 @@ export default function GenerateTable(props) {
         </TableRow>
         <TableRow>
           <TableCell
-            classNames={styleClass}
             style={{ paddingBottom: 0, paddingTop: 0 }}
             colSpan={6}
           >
@@ -67,11 +66,12 @@ export default function GenerateTable(props) {
                 <CustomTableCell
                   value={""}
                   sx={{width: 'min-content', ...header.cell.style.sx}}
-                  styleClass={`${header.cell.style.class}`}
+                  styleClass={header.cell.style.class}
                 />
                 :null}
-                {header.cell.values.map((key) => (
+                {header.cell.value.map((key) => (
                   <CustomTableCell
+                    key={key}
                     sx={header.cell.style.sx}
                     styleClass={`${header.cell.style.class}`}
                     value={key}
@@ -95,6 +95,7 @@ export default function GenerateTable(props) {
                     <>
                       {data.keys.map((key) => (
                         <CustomTableCell
+                        key={key}
                           value={row[key]}
                           sx={body.cell.style.sx}
                           styleClass={`${body.cell.style.class}`}

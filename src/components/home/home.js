@@ -1,18 +1,52 @@
 import React from "react";
 import "./home.scss";
-import GeneratedTable from "../tableService/tableService";
-import { exampleOptions } from "../../tables/exampleTable";
+import { UserContext } from "../../App";
 function Home(props) {
+  const {  tableService } = React.useContext(UserContext);
+  const columnKeys = [['name',"Name"],['age',"Age"]];
   const [exampleData] = React.useState([
-    { name: "test1", age: 201 },
-    { name: "test2", age: 202 },
-    { name: "test3", age: 203 },
-    { name: "test4", age: 204 },
+    { name: "test1", age: 201, test: "test1" },
+    { name: "test2", age: 202, test: "test2" },
+    { name: "test3", age: 203, test: "test3" },
+    { name: "test4", age: 204, test: "test4" },
   ]);
-  exampleOptions.data.value = exampleData;
-  exampleOptions.data.keys = ["name", "age"];
-  exampleOptions.header.cell.values = ["Name", "Age"];
-  exampleOptions.options.collapsible = {
+  const headStyle = {
+    cell: {
+      style: {
+        class: "table-header-cell",
+        sx: {}
+      }
+    },
+    row: {
+      style: {
+        class: "table-header-row",
+        sx: {}
+      }
+    }
+  }
+  const bodyStyle = {
+    cell: {
+      style: {
+        class: "table-body-cell",
+        sx: {}
+      }
+    },
+    row: {
+      style: {
+        class: "table-body-row",
+        sx: {}
+      }
+    }
+  }
+  const tableStyle = {
+    containerClass: "table-container",
+    tableClass: "table",
+    containStyle: { width: "auto" },
+    // header: headStyle,
+    // body: bodyStyle
+  };
+  
+  const collapseInfo = {
     styleClass: "collapsible-table",
     collapseValue: (row, index) => (
       <div id="exampleCollapsible" >
@@ -27,7 +61,10 @@ function Home(props) {
       <div>
         <p>Generated Table Test</p>
         <div>
-          <GeneratedTable config={exampleOptions} />
+        {tableService.generateTable(columnKeys,exampleData,collapseInfo,tableStyle)}
+        </div>
+        <div>
+        {tableService.generateTable(columnKeys,exampleData)}
         </div>
       </div>
     </div>

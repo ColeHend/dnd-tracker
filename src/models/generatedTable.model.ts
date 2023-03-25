@@ -1,6 +1,6 @@
 export type tableOptions = {
     data: {
-        value: Array<any>,
+        value: Array<Object>,
         keys: Array<string>
     },
     options: {
@@ -8,12 +8,13 @@ export type tableOptions = {
         tableClass: String,
         containStyle: Object,
         collapsible?: {
-            styleClass: Boolean,
+            styleClass: String,
             collapseValue: Function
         }
     },
     header: {
         cell: {
+            value: Array<String>,
             style: {
                 class: String,
                 sx: Object
@@ -24,8 +25,8 @@ export type tableOptions = {
                 class: String,
                 sx: Object
               },
-            beginValue?: undefined, 
-            endValue?: undefined 
+            beginValue?: React.FunctionComponent, 
+            endValue?: React.FunctionComponent 
         },
     },
     body: {
@@ -40,8 +41,8 @@ export type tableOptions = {
                 class: String,
                 sx: Object
               },
-            beginValue?: undefined, 
-            endValue?: undefined 
+            beginValue?: React.FunctionComponent, 
+            endValue?: React.FunctionComponent 
         }
     }
 }

@@ -4,22 +4,23 @@ export const exampleOptions = {
       keys: [],
     },
     options: {
-      containerClass: "table-container",
-      tableClass: "table",
+      containerClass: "default-table-container",
+      tableClass: "default-table",
       containStyle: { 
-        width: 'auto'
+        width: '30vw',
       }
     },
     header: {
       cell: {
+        value: [],
         style: {
-          class: "header-cell",
+          class: "default-header-cell",
           sx: {}
         },
       },
       row: {
         style: {
-          class: "header-row",
+          class: "default-header-row",
           sx: {}
         },
       },
@@ -27,13 +28,13 @@ export const exampleOptions = {
     body: {
       cell: {
         style: {
-          class: "body-cell",
+          class: "default-body-cell",
           sx: {}
         },
       },
       row: {
         style: {
-          class: "body-row",
+          class: "default-body-row",
           sx: {}
         },
       },

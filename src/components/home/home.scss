@@ -3,5 +3,5 @@
 @include home-styles();
 
 #table-container {
-    @include table-container-style('true','center','light');
+    @include table-container-style('true','center','dark');
 }
