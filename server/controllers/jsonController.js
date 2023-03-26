@@ -6,8 +6,19 @@ const getSpells = (req, res) => {
 const getMonsters = (req, res) => {
     res.send(monsters);
     };
-
+const searchSpells = (req, res) => {
+    const {key, searchTerm} = req.body;
+    const results = spells.filter(spell => spell[key].toLowerCase().includes(searchTerm.toLowerCase()));
+    res.send(results);
+    };
+const searchMonsters = (req, res) => {
+    const {key, searchTerm} = req.body;
+    const results = monsters.filter(monster => monster[key].toLowerCase().includes(searchTerm.toLowerCase()));
+    res.send(results);
+    };
 module.exports = {
     getSpells,
-    getMonsters
+    getMonsters,
+    searchSpells,
+    searchMonsters
     };

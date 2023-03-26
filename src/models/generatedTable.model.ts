@@ -13,6 +13,13 @@ export type tableOptions = {
         }
     },
     header: {
+        search?: {
+            style?: {
+                class: String,
+                sx: Object
+            },
+            filterFunc: Function
+        }
         cell: {
             value: Array<String>,
             style: {

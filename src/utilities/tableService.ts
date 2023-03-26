@@ -24,17 +24,26 @@ export default class TableService {
     constructor(private tableOptions: tableOptions) {
         this.tableOptions = JSON.parse(JSON.stringify(exampleOptions));
     }
-    public generateTable(key_name: Array<[string, string]>, state:{tableData: any,setTableData:any}, collapsible?: Collapsible, table?: TableStyle) {
-        const {tableData,setTableData} = state;
+    public generateTable(key_name: Array<[string, string]>, state:{tableData: any,setTableData:any}, collapsible?: Collapsible, table?: TableStyle,search?: any) {
+        const {tableData} = state;
         this.tableOptions = JSON.parse(JSON.stringify(exampleOptions));
-        this.setCoreOptions(key_name, tableData, collapsible);
+        if (search && collapsible) {
+            this.setCoreOptions(key_name, tableData, collapsible,search);
+        }else if (collapsible && !search) {
+            this.setCoreOptions(key_name, tableData, collapsible);
+        }  else if (search && !collapsible) {
+            this.setCoreOptions(key_name, tableData, undefined,search);
+        } else {
+            this.setCoreOptions(key_name, tableData);
+        }
+            
         if (table) {
             this.setTableStyle(table ?? { containerClass:"DefaultContainer",tableClass:"DefaultTable",containStyle:{}}, table?.header, table?.body);
         }
         return GeneratedTable({config:this.tableOptions, state});
     }
 
-    private setCoreOptions(key_name: Array<[string, string]>, data: Array<Object>, collapsible?: Collapsible) {
+    private setCoreOptions(key_name: Array<[string, string]>, data: Array<Object>, collapsible?: Collapsible,search?: any) {
         key_name.forEach((key, index) => {
             this.tableOptions.data.keys[index] = key[0];
             this.tableOptions.header.cell.value[index] = key[1];
@@ -42,6 +51,9 @@ export default class TableService {
         this.tableOptions.data.value = data;
         if (collapsible) {
             this.tableOptions.options.collapsible = collapsible;
+        }
+        if (search) {
+            this.tableOptions.header.search = search
         }
     }
     private setTableStyle(table:TableStyle,header?: HeadStyle, body?: BodyStyle) {

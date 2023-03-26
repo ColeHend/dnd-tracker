@@ -10,6 +10,7 @@ import axios from "axios";
 import { getLocalInfo } from "./utilities/utilities";
 import LoginService from "./utilities/loginService";
 import TableService from "./utilities/tableService";
+import SearchService from "./utilities/searchService";
 
 export const UserContext = createContext();
 function App() {
@@ -27,7 +28,7 @@ function App() {
   const apiService = useMemo(() => new ApiService(axios), []);
   const loginService = useMemo(() => new LoginService(axios), []);
   const tableService = useMemo(() => new TableService(), []);
-
+  const searchService = useMemo(() => new SearchService(axios), []);
   useEffect(() => {
     if (!loginCheck) {
       navigate("/");
@@ -44,6 +45,7 @@ function App() {
         apiService,
         loginService,
         tableService,
+        searchService,
       }}
     >
       <div className="bg_1">
