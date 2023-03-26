@@ -72,6 +72,7 @@ export default function GenerateTable(props) {
     >
       <Table id={options.tableClass} aria-label={ariaLabel}>
         <TableHead>
+          {header.row.headerValue ? <TableRow ><TableCell  style={{fontWeight:'bold',fontSize:'24px'}}colSpan={6}>{header.row.headerValue}</TableCell></TableRow> : null}
           {header.search ? (
             <TableRow>
               <TableCell colSpan={6}>

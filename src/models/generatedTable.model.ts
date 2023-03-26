@@ -32,6 +32,7 @@ export type tableOptions = {
                 class: String,
                 sx: Object
               },
+              headerValue?: String,
             beginValue?: React.FunctionComponent, 
             endValue?: React.FunctionComponent 
         },
