@@ -76,7 +76,7 @@ function Home(props) {
         {tableService.generateTable(columnKeys([['meta',"Info"]]),{tableData:srdMonsters,setTableData:setSrdMonsters},collapseInfo,tableStyle)}
         </div>
          <div>
-         {tableService.generateTable(columnKeys([['level',"Level"]]),{tableData:srdSpells,setTableData:setSrdSpells},collapseInfo,tableStyle)}
+         {tableService.generateTable(columnKeys([['level',"Level"]]),{tableData:srdSpells,setTableData:setSrdSpells})}
         </div> 
       </div>
     </div>
