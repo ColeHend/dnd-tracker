@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
-
+import { Button } from "@mui/material";
 const SearchBar = ({ data, setData }) => {
   const [query, setQuery] = useState("");
 
@@ -25,7 +25,7 @@ const SearchBar = ({ data, setData }) => {
         style={{ minWidth: "300px", width: "100%" }}
         fullWidth={true}
       />
-      <button onClick={search}>Search</button>
+      <Button onClick={search}>Search</Button>
     </>
   );
 };
