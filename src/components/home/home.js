@@ -4,7 +4,8 @@ import { UserContext } from "../../App";
 import axios from "axios";
 function Home(props) {
   const {  tableService } = React.useContext(UserContext);
-  const columnKeys = [['name',"Name"]];
+  const columnKeys = (moreKeys)=> [['name',"Name"],...moreKeys];
+
   const [srdMonsters, setSrdMonsters] = React.useState([]);
   const [srdSpells, setSrdSpells] = React.useState([]);
   const [loadData, setLoadData] = React.useState(true);
@@ -72,10 +73,10 @@ function Home(props) {
       <div>
         <p>Generated Table Test</p>
         <div>
-        {tableService.generateTable([...columnKeys,['meta',"Info"]],srdMonsters,collapseInfo,tableStyle)}
+        {tableService.generateTable(columnKeys([['meta',"Info"]]),{tableData:srdMonsters,setTableData:setSrdMonsters},collapseInfo,tableStyle)}
         </div>
          <div>
-         {tableService.generateTable([...columnKeys,['level',"Level"]],srdSpells)}
+         {tableService.generateTable(columnKeys([['level',"Level"]]),{tableData:srdSpells,setTableData:setSrdSpells},collapseInfo,tableStyle)}
         </div> 
       </div>
     </div>

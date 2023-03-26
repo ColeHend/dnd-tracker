@@ -57,8 +57,10 @@ export default function GenerateTable(props) {
     );
   };
   const ariaLabel = options.collapsible ? "collapsible table" : "simple table";
-  const [tableData, setTableData] = React.useState(data.value);
-
+  const {tableData, setTableData} = props.state;
+  // let tableData = data.value;
+  // const setTableData = (data) => {tableData = data};
+  console.log(tableData, data.value);
   return (
     <TableContainer sx={{...options.containStyle,width:'min-content'}} id={options.containerClass} component={Paper}>
       <Table id={options.tableClass} aria-label={ariaLabel}>
@@ -96,7 +98,7 @@ export default function GenerateTable(props) {
         </TableHead>
         <TableBody>
           {options.collapsible
-            ? data.value.map((row, index) => (
+            ? tableData.map((row, index) => (
                 <CollapsibleTableRow
                   key={`${index} ${JSON.stringify(row)}`}
                   row={row}
@@ -116,7 +118,7 @@ export default function GenerateTable(props) {
                   collapseValue={options.collapsible.collapseValue}
                 />
               ))
-            : data.value.map((row, index) => (
+            : tableData.map((row, index) => (
                 <CustomTableRow
                   key={`${index} ${JSON.stringify(row)}`}
                   value={
