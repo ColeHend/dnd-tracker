@@ -11,7 +11,7 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import "./tableService.scss";
-
+import SearchBar from "./searchbar";
 export default function GenerateTable(props) {
   const { data, options, header, body } = props.config;
   const CustomTableCell = (prop) => (
@@ -22,17 +22,20 @@ export default function GenerateTable(props) {
   );
   const CollapsibleTableRow = (prop) => {
     const [open, setOpen] = React.useState(false);
+    const [searchValue, setSearchValue] = React.useState("");
     const { styleClass, collapseValue } = prop;
     return (
       <>
         <TableRow sx={{ "& > *": { borderBottom: "unset" },...props.sx }}>
           {header.row.beginValue ? header.row.beginValue() : null}
-          <TableCell sx={{...body.cell.style.sx}}>
+          <TableCell
+              style={{width:"min-content"}} sx={{...body.cell.style.sx,}}>
             <IconButton
               aria-label="expand row"
               size="small"
               onClick={() => setOpen(!open)}
               sx={{width:"min-content"}}
+              style={{width:"min-content"}}
             >
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
@@ -54,10 +57,17 @@ export default function GenerateTable(props) {
     );
   };
   const ariaLabel = options.collapsible ? "collapsible table" : "simple table";
+  const [tableData, setTableData] = React.useState(data.value);
+
   return (
-    <TableContainer sx={options.containStyle} id={options.containerClass} component={Paper}>
+    <TableContainer sx={{...options.containStyle,width:'min-content'}} id={options.containerClass} component={Paper}>
       <Table id={options.tableClass} aria-label={ariaLabel}>
         <TableHead>
+          <TableRow  >
+            <TableCell colSpan={6} >
+              <SearchBar data={tableData} setData={setTableData}/>
+            </TableCell>
+          </ TableRow >
           <CustomTableRow
             value={
               <>

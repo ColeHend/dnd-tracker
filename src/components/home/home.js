@@ -1,15 +1,26 @@
 import React from "react";
 import "./home.scss";
 import { UserContext } from "../../App";
+import axios from "axios";
 function Home(props) {
   const {  tableService } = React.useContext(UserContext);
-  const columnKeys = [['name',"Name"],['age',"Age"]];
-  const [exampleData] = React.useState([
-    { name: "test1", age: 201, test: "test1" },
-    { name: "test2", age: 202, test: "test2" },
-    { name: "test3", age: 203, test: "test3" },
-    { name: "test4", age: 204, test: "test4" },
-  ]);
+  const columnKeys = [['name',"Name"]];
+  const [srdMonsters, setSrdMonsters] = React.useState([]);
+  const [srdSpells, setSrdSpells] = React.useState([]);
+  const [loadData, setLoadData] = React.useState(true);
+  React.useEffect(() => {
+    if (loadData) {
+      axios.get("http://localhost:4000/api/srd/monsters").then((res) => {
+        console.log(res.data)
+        setSrdMonsters(res.data);
+        axios.get("http://localhost:4000/api/srd/spells").then((res) => {
+          console.log(res.data)
+          setSrdSpells(res.data);
+          setLoadData(false);
+        });
+      });
+    }
+  }, [loadData]);
   const headStyle = {
     cell: {
       style: {
@@ -42,15 +53,15 @@ function Home(props) {
     containerClass: "table-container",
     tableClass: "table",
     containStyle: { width: "auto" },
-    // header: headStyle,
-    // body: bodyStyle
+    header: headStyle,
+    body: bodyStyle
   };
   
   const collapseInfo = {
     styleClass: "collapsible-table",
     collapseValue: (row, index) => (
-      <div id="exampleCollapsible" >
-        {JSON.stringify(row)} {`index is ${index}`}
+      <div style={{minWidth:'45vw',wordWrap:'normal'}} >
+        <img id="monstIMG" src={row.img_url} alt={row.name}/>
       </div>
     ),
   };
@@ -61,11 +72,11 @@ function Home(props) {
       <div>
         <p>Generated Table Test</p>
         <div>
-        {tableService.generateTable(columnKeys,exampleData,collapseInfo,tableStyle)}
+        {tableService.generateTable([...columnKeys,['meta',"Info"]],srdMonsters,collapseInfo,tableStyle)}
         </div>
-        <div>
-        {tableService.generateTable(columnKeys,exampleData)}
-        </div>
+         <div>
+         {tableService.generateTable([...columnKeys,['level',"Level"]],srdSpells)}
+        </div> 
       </div>
     </div>
   );
