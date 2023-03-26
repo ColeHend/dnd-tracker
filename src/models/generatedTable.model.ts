@@ -33,8 +33,8 @@ export type tableOptions = {
                 sx: Object
               },
               headerValue?: String,
-            beginValue?: React.FunctionComponent, 
-            endValue?: React.FunctionComponent 
+            beginValue?: any, 
+            endValue?: any 
         },
     },
     body: {
@@ -49,8 +49,8 @@ export type tableOptions = {
                 class: String,
                 sx: Object
               },
-            beginValue?: React.FunctionComponent, 
-            endValue?: React.FunctionComponent 
+            beginValue?: any, 
+            endValue?: any 
         }
     }
 }

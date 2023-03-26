@@ -46,7 +46,6 @@ export default function GenerateTable(props) {
             </IconButton>
           </TableCell>
           {prop.value}
-          {header.row.endValue ? header.row.endValue() : null}
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -72,7 +71,16 @@ export default function GenerateTable(props) {
     >
       <Table id={options.tableClass} aria-label={ariaLabel}>
         <TableHead>
-          {header.row.headerValue ? <TableRow ><TableCell  style={{fontWeight:'bold',fontSize:'24px'}}colSpan={6}>{header.row.headerValue}</TableCell></TableRow> : null}
+          {header.row.headerValue ? (
+            <TableRow>
+              <TableCell
+                style={{ fontWeight: "bold", fontSize: "24px", width: "min-content" }}
+                colSpan={6}
+              >
+                {header.row.headerValue}
+              </TableCell>
+            </TableRow>
+          ) : null}
           {header.search ? (
             <TableRow>
               <TableCell colSpan={6}>
@@ -96,15 +104,21 @@ export default function GenerateTable(props) {
                     styleClass={header.cell.style.class}
                   />
                 ) : null}
-                {header.cell.value.map((key) => (
+                {header.cell.value.map((key, index) => (
                   <CustomTableCell
-                    key={key}
+                    key={`key ${key} index ${index}`}
                     sx={header.cell.style.sx}
                     styleClass={`${header.cell.style.class}`}
                     value={key}
                   />
                 ))}
-                {header.row.endValue ? header.row.endValue() : null}
+                <>
+                  {header.row.endValue?<TableCell style={{width:'min-content'}}>
+                    {typeof header.row.endValue === "string"
+                      ? header.row.endValue
+                      : "Nothing"}
+                  </TableCell>:null}
+                </>
               </>
             }
             styleClass={`${header.styleClass}`}
@@ -120,14 +134,19 @@ export default function GenerateTable(props) {
                   index={index}
                   value={
                     <>
-                      {data.keys.map((key) => (
+                      {data.keys.map((key,index) => (
                         <CustomTableCell
-                          key={key}
+                          key={`key ${key} index ${index}`}
                           value={row[key]}
                           sx={body.cell.style.sx}
                           styleClass={`${body.cell.style.class}`}
                         />
                       ))}
+                      {
+                        body.row.endValue?<TableCell style={{width:'min-content'}}>
+                        {body.row.endValue(row)}
+                      </TableCell>:null
+                      }
                     </>
                   }
                   collapseValue={options.collapsible.collapseValue}
@@ -140,11 +159,17 @@ export default function GenerateTable(props) {
                     <>
                       {data.keys.map((key) => (
                         <CustomTableCell
+                          key={`key ${key} index ${index}`}
                           value={row[key]}
                           sx={body.cell.style.sx}
                           styleClass={`${body.cell.style.class}`}
                         />
                       ))}
+                      {
+                        body.row.endValue?<TableCell style={{width:'min-content'}}>
+                        {body.row.endValue(row)}
+                      </TableCell>:null
+                      }
                     </>
                   }
                   styleClass={`${body.row.styleClass}`}

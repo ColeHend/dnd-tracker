@@ -24,11 +24,15 @@ export default class TableService {
     constructor(private tableOptions: tableOptions) {
         this.tableOptions = JSON.parse(JSON.stringify(exampleOptions));
     }
-    public generateTable(config:{key_name: Array<[string, string]>, state:{tableData: any,setTableData:any}, collapsible?: Collapsible, table?: TableStyle,search?: any, header?: String}) {
-        const {key_name, state, collapsible, table,search, header} = config;
+    public generateTable(config:{key_name: Array<[string, string]>, state:{tableData: any,setTableData:any}, collapsible?: Collapsible, table?: TableStyle,search?: any, header?: String, newColumn?: {name: String, value: any}}) {
+        const {key_name, state, collapsible, table,search, header, newColumn} = config;
         this.tableOptions = JSON.parse(JSON.stringify(exampleOptions));
         if (header) {
             this.tableOptions.header.row.headerValue = header;
+        }
+        if (newColumn) {
+            this.tableOptions.header.row.endValue = newColumn.name;
+            this.tableOptions.body.row.endValue = newColumn.value;
         }
         if (search && collapsible) {
             this.setCoreOptions(key_name, state.tableData, collapsible,search);

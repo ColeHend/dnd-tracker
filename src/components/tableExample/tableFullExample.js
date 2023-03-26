@@ -2,6 +2,7 @@ import React from "react";
 import "./tableFullExample.scss";
 import { UserContext } from "../../App";
 import axios from "axios";
+import Button from "@mui/material/Button";
 
 function FullTableExample(props) {
   const { tableService, searchService } = React.useContext(UserContext);
@@ -66,14 +67,18 @@ function FullTableExample(props) {
   };
   const monsterSearch = (searchTerm) =>
     searchService.monsterSearch(searchTerm, "name");
-    
+  
   const config = {
     key_name: columnKeys,
     state: { tableData: srdMonsters, setTableData: setSrdMonsters },
     collapsible: collapseInfo,
     table: tableStyle,
     search: { filterFunc: monsterSearch },
-    header: "Monsters"
+    header: "Monsters",
+    newColumn:{
+      name:"delete",
+      value:(row)=><Button onClick={()=>setSrdMonsters(srdMonsters.filter((r)=>r.name!==row.name))}>X</Button>
+    }
   };
   return <>{tableService.generateTable(config)}</>;
 }
