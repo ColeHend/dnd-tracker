@@ -11,28 +11,31 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import "./tableService.scss";
-
+import SearchBar from "./searchbar";
 export default function GenerateTable(props) {
   const { data, options, header, body } = props.config;
   const CustomTableCell = (prop) => (
-    <TableCell sx={props.sx} id={prop.styleClass}>{prop.value}</TableCell>
+    <TableCell sx={props.sx} id={prop.styleClass ?? "default_celll"}>{prop.value}</TableCell>
   );
   const CustomTableRow = (prop) => (
-    <TableRow sx={props.sx} id={props.styleClass}>{prop.value}</TableRow>
+    <TableRow sx={props.sx} id={props.styleClass ?? "default_roww"}>{prop.value}</TableRow>
   );
   const CollapsibleTableRow = (prop) => {
     const [open, setOpen] = React.useState(false);
+    const [searchValue, setSearchValue] = React.useState("");
     const { styleClass, collapseValue } = prop;
     return (
       <>
         <TableRow sx={{ "& > *": { borderBottom: "unset" },...props.sx }}>
           {header.row.beginValue ? header.row.beginValue() : null}
-          <TableCell sx={{...body.cell.style.sx}}>
+          <TableCell
+              style={{width:"min-content"}} sx={{...body.cell.style.sx,}}>
             <IconButton
               aria-label="expand row"
               size="small"
               onClick={() => setOpen(!open)}
               sx={{width:"min-content"}}
+              style={{width:"min-content"}}
             >
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
@@ -42,7 +45,6 @@ export default function GenerateTable(props) {
         </TableRow>
         <TableRow>
           <TableCell
-            classNames={styleClass}
             style={{ paddingBottom: 0, paddingTop: 0 }}
             colSpan={6}
           >
@@ -55,10 +57,19 @@ export default function GenerateTable(props) {
     );
   };
   const ariaLabel = options.collapsible ? "collapsible table" : "simple table";
+  const {tableData, setTableData} = props.state;
+  // let tableData = data.value;
+  // const setTableData = (data) => {tableData = data};
+  console.log(tableData, data.value);
   return (
-    <TableContainer sx={options.containStyle} id={options.containerClass} component={Paper}>
+    <TableContainer sx={{...options.containStyle,width:'min-content'}} id={options.containerClass} component={Paper}>
       <Table id={options.tableClass} aria-label={ariaLabel}>
         <TableHead>
+          <TableRow  >
+            <TableCell colSpan={6} >
+              <SearchBar data={tableData} setData={setTableData}/>
+            </TableCell>
+          </ TableRow >
           <CustomTableRow
             value={
               <>
@@ -67,11 +78,12 @@ export default function GenerateTable(props) {
                 <CustomTableCell
                   value={""}
                   sx={{width: 'min-content', ...header.cell.style.sx}}
-                  styleClass={`${header.cell.style.class}`}
+                  styleClass={header.cell.style.class}
                 />
                 :null}
-                {header.cell.values.map((key) => (
+                {header.cell.value.map((key) => (
                   <CustomTableCell
+                    key={key}
                     sx={header.cell.style.sx}
                     styleClass={`${header.cell.style.class}`}
                     value={key}
@@ -86,7 +98,7 @@ export default function GenerateTable(props) {
         </TableHead>
         <TableBody>
           {options.collapsible
-            ? data.value.map((row, index) => (
+            ? tableData.map((row, index) => (
                 <CollapsibleTableRow
                   key={`${index} ${JSON.stringify(row)}`}
                   row={row}
@@ -95,6 +107,7 @@ export default function GenerateTable(props) {
                     <>
                       {data.keys.map((key) => (
                         <CustomTableCell
+                        key={key}
                           value={row[key]}
                           sx={body.cell.style.sx}
                           styleClass={`${body.cell.style.class}`}
@@ -105,7 +118,7 @@ export default function GenerateTable(props) {
                   collapseValue={options.collapsible.collapseValue}
                 />
               ))
-            : data.value.map((row, index) => (
+            : tableData.map((row, index) => (
                 <CustomTableRow
                   key={`${index} ${JSON.stringify(row)}`}
                   value={

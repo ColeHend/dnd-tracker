@@ -9,9 +9,9 @@ import ApiService from "./utilities/apiService";
 import axios from "axios";
 import { getLocalInfo } from "./utilities/utilities";
 import LoginService from "./utilities/loginService";
-// @ts-ignore
-export const UserContext = createContext();
+import TableService from "./utilities/tableService";
 
+export const UserContext = createContext();
 function App() {
   const navigate = useNavigate();
   const localInfo = getLocalInfo();
@@ -22,11 +22,11 @@ function App() {
       localInfo.user_password !== null ? localInfo.user_password : "", //will be encrypted
   });
   console.log(userInfo);
-
   const loginCheck = userInfo && userInfo.user_id !== 0 && userInfo.username.length > 1;
   const [isLoggedIn, setIsLoggedIn] = useState(loginCheck);
   const apiService = useMemo(() => new ApiService(axios), []);
   const loginService = useMemo(() => new LoginService(axios), []);
+  const tableService = useMemo(() => new TableService(), []);
 
   useEffect(() => {
     if (!loginCheck) {
@@ -43,6 +43,7 @@ function App() {
         setIsLoggedIn,
         apiService,
         loginService,
+        tableService,
       }}
     >
       <div className="bg_1">

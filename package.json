@@ -40,7 +40,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev":"run.bat",
+    "dev": "run.bat",
     "server": "nodemon server/server.js",
     "start-prod": "node server/server.js",
     "start": "react-scripts start",
