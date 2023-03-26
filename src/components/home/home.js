@@ -13,12 +13,10 @@ function Home(props) {
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div>
+          <h2>Table Example</h2>
           <Button style={{color:"#000"}} onClick={() => setTableType(!tableType)}>
             {tableType ? "Be a Simple Table" : "Be a Full Table"}
           </Button>
-        </div>
-        <div>
-          <h2>Table Example</h2>
           {tableType ? <FullTableExample /> : <SimpleTableExample />}
         </div>
       </div>
