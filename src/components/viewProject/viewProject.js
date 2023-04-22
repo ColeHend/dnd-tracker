@@ -12,13 +12,21 @@ import Paper from "@mui/material/Paper";
 import './viewProject.scss'
 import { Button } from "@mui/material";
 import { removeObjectInArray } from "../../utilities/utilities";
+import { Link, Route, Routes } from "react-router-dom";
+import ProjectPage from "../projectPage/ProjectPage";
 
 
 function ViewProject(props) {
+
+    let linkstyles = { minWidth: 100, color:'blue'}
+
     const { userInfo, apiService } = useContext(UserContext);
     const [allData, setAllData] = useState([]);
     const [active,setActive] = useState(true)
-    
+    const switchtoPPG = ()=> {
+
+    }
+
     const deleteProject = async (project_id) =>{
         console.log("project_id: ", project_id);
         if (project_id > 0) {
@@ -67,6 +75,7 @@ return (
                                     > 
                                         x
                                     </Button>
+                                    <Link to='ProjectPage'><Button sx={linkstyles}>ProjectPage</Button></Link>
                                 </TableCell>
                            </TableRow>
                         ) : "No Projects"
@@ -75,6 +84,9 @@ return (
                 </TableBody>
             </Table>
         </TableContainer>
+        <Routes>
+            <Route path="/ProjectPage" element={<ProjectPage/>}></Route>
+        </Routes>
     </div>
 )
     }
