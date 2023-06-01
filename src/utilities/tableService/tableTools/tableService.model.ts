@@ -1,24 +1,29 @@
-export type tableOptions = {
+export default interface props {
     data: {
         value: Array<Object>,
         keys: Array<string>
     },
+    state: {
+        tableData: Array<Object>,
+        setTableData: any
+    }
     options: {
         containerClass: String,
         tableClass: String,
         containStyle: Object,
         collapsible?: {
-            styleClass: String,
-            collapseValue: Function
+            styleClass?: String,
+            collapseValue?: any
         }
     },
     header: {
+        styleClass?: String,
         search?: {
             style?: {
                 class: String,
                 sx: Object
             },
-            filterFunc: Function
+            filterFunc: any
         }
         cell: {
             value: Array<String>,

@@ -1,30 +1,15 @@
-import { tableOptions } from "../models/generatedTable.model";
-import { exampleOptions } from "../tables/exampleTable";
-import GeneratedTable from "../components/tableService/tableService";
-type Collapsible = {
-    styleClass: string,
-    collapseValue: React.FunctionComponent
-}
-type TableStyle = {
-    containerClass: string,
-    tableClass: string,
-    containStyle: Object,
-    header?: HeadStyle,
-    body?: BodyStyle
-}
-type HeadStyle = {
-    cell: { style: { class: string, sx: Object } },
-    row: { style: { class: string, sx: Object } }
-}
-type BodyStyle = {
-    cell: { style: { class: string, sx: Object } },
-    row: { style: { class: string, sx: Object } }
-}
+// require imports are for the react table generator
+// npm i @material-ui/core @mui/icons-material @mui/material @mui/styled-engine-sc sass typescript
+import { exampleOptions } from "./tableTools/exampleTable";
+import GeneratedTable from "./tableTools/tableService";
+import config from "./tableConfig.model";
+import props from "./tableTools/tableService.model";
+
 export default class TableService {
-    constructor(private tableOptions: tableOptions) {
+    constructor(private tableOptions: props) {
         this.tableOptions = JSON.parse(JSON.stringify(exampleOptions));
     }
-    public generateTable(config:{key_name: Array<[string, string]>, state:{tableData: any,setTableData:any}, collapsible?: Collapsible, table?: TableStyle,search?: any, header?: String, newColumn?: {name: String, value: any}}) {
+    public generateTable(config: config) {
         const {key_name, state, collapsible, table,search, header, newColumn} = config;
         this.tableOptions = JSON.parse(JSON.stringify(exampleOptions));
         if (header) {
@@ -35,27 +20,30 @@ export default class TableService {
             this.tableOptions.body.row.endValue = newColumn.value;
         }
         if (search && collapsible) {
-            this.setCoreOptions(key_name, state.tableData, collapsible,search);
+            this.setCoreOptions(key_name, state, collapsible,search);
         }else if (collapsible && !search) {
-            this.setCoreOptions(key_name, state.tableData, collapsible);
+            this.setCoreOptions(key_name, state, collapsible);
         }  else if (search && !collapsible) {
-            this.setCoreOptions(key_name, state.tableData, undefined,search);
+            this.setCoreOptions(key_name, state, undefined,search);
         } else {
-            this.setCoreOptions(key_name, state.tableData);
+            this.setCoreOptions(key_name, state);
         }
             
         if (table) {
             this.setTableStyle(table ?? { containerClass:"DefaultContainer",tableClass:"DefaultTable",containStyle:{}}, table?.header, table?.body);
         }
-        return GeneratedTable({config:this.tableOptions, state});
+        return GeneratedTable(this.tableOptions);
     }
 
-    private setCoreOptions(key_name: Array<[string, string]>, data: Array<Object>, collapsible?: Collapsible,search?: any) {
+    private setCoreOptions(key_name: Array<[string, string]>, data: any, collapsible?: any ,search?: any) {
+        const { tableData, setTableData } = data;
         key_name.forEach((key, index) => {
             this.tableOptions.data.keys[index] = key[0];
             this.tableOptions.header.cell.value[index] = key[1];
         });
-        this.tableOptions.data.value = data;
+        this.tableOptions.data.value = data.tableData;
+        this.tableOptions.state.tableData = tableData;
+        this.tableOptions.state.setTableData = setTableData;
         if (collapsible) {
             this.tableOptions.options.collapsible = collapsible;
         }
@@ -63,7 +51,7 @@ export default class TableService {
             this.tableOptions.header.search = search
         }
     }
-    private setTableStyle(table:TableStyle,header?: HeadStyle, body?: BodyStyle) {
+    private setTableStyle(table:any,header?: any, body?: any) {
         this.tableOptions.options.containerClass = table.containerClass;
         this.tableOptions.options.tableClass = table.tableClass;
         this.tableOptions.options.containStyle = table.containStyle;

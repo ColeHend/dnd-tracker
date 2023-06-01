@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
-const SearchBar = ({ data, setData, allTableData, filterFunc }) => {
+
+interface SearchBarProps {
+  data: any[];
+  setData: React.Dispatch<React.SetStateAction<any[]>>;
+  allTableData: any[];
+  filterFunc?: (query: string) => Promise<any[]> | any[];
+}
+
+const SearchBar = (props:SearchBarProps) => {
+  const { data, setData, allTableData, filterFunc } = props;
   const [query, setQuery] = useState("");
 
   const search = async () => {
     let filteredData=[];
     if (filterFunc) {
       filteredData = await filterFunc(query);
-      console.log("filteredData", filteredData)
     } else {
        filteredData = allTableData.filter((item) =>
         item.name.toLowerCase().includes(query.toLowerCase())
@@ -16,9 +24,6 @@ const SearchBar = ({ data, setData, allTableData, filterFunc }) => {
     }
     if (filteredData.length) {
       setData(filteredData);
-      console.log("data", data);
-      console.log("allTableData", allTableData);
-      console.log("filteredData", filteredData);
     }
   };
 
