@@ -75,7 +75,7 @@ return (
                                     > 
                                         x
                                     </Button>
-                                    <Link to='ProjectPage'><Button sx={linkstyles}>ProjectPage</Button></Link>
+                                    {/* <Link to='ProjectPage'><Button sx={linkstyles}>ProjectPage</Button></Link> */}
                                 </TableCell>
                            </TableRow>
                         ) : "No Projects"
@@ -84,9 +84,9 @@ return (
                 </TableBody>
             </Table>
         </TableContainer>
-        <Routes>
+        {/* <Routes>
             <Route path="/ProjectPage" element={<ProjectPage/>}></Route>
-        </Routes>
+        </Routes> */}
     </div>
 )
     }
