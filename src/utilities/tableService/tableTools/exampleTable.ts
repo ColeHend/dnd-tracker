@@ -1,7 +1,12 @@
-export const exampleOptions = {
+import props from "./tableService.model";
+export const exampleOptions:props = {
     data: {
       value: [],
       keys: [],
+    },
+    state: {
+      tableData: [],
+      setTableData: () => {},
     },
     options: {
       containerClass: "default-table-container",
@@ -11,6 +16,7 @@ export const exampleOptions = {
       }
     },
     header: {
+      styleClass: "default-header",
       cell: {
         value: [],
         style: {

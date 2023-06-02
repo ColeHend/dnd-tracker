@@ -1,0 +1,11 @@
+.collapseTa {
+    width: inherit !important;
+    :nth-child(n) {
+        background-color: inherit !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+}
+#collapse_arrow_table_def {
+    width: 30px !important;
+}

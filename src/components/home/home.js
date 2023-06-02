@@ -1,41 +1,23 @@
 import React from "react";
 import "./home.scss";
-import GeneratedTable from "../tableService/tableService";
-// default table options to personlize for each generated table
-import { exampleOptions } from "../../tables/exampleTable";
-function Home(props) {
-  const [exampleData] = React.useState([ // array of table data
-    { name: "test1", age: 201 },
-    { name: "test2", age: 202 },
-    { name: "test3", age: 203 },
-    { name: "test4", age: 204 },
-  ]);
-  // setting the table data to pass to table generator
-  exampleOptions.data.value = exampleData; 
-  // setting which key to display in which column
-  exampleOptions.data.keys = ["name", "age"];
-  // setting the title of colums
-  exampleOptions.header.cell.values = ["Name", "bullshit"];
-  // set the below if want collapsible
-  exampleOptions.options.collapsible = {
-    // style id
-    styleClass: "collapsible-table",
-    //collapse component
-    collapseValue: (row, index) => (
-      <div id="exampleCollapsible" >
-        {JSON.stringify(row)} {`index is ${index}`}
-      </div>
-    ),
-  };
-  
+import FullTableExample from "../tableExample/tableFullExample";
+import SimpleTableExample from "../tableExample/tableSimpleExample";
+import Button from "@mui/material/Button";
 
+function Home(props) {
+  const [tableType, setTableType] = React.useState(true);
   return (
     <div className="homeComponent">
-      <h1>Home</h1>
       <div>
-        <p>Generated Table Test</p>
+        <h1>Home</h1>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <div>
-          <GeneratedTable config={exampleOptions} />
+          <h2>Table Example</h2>
+          <Button style={{color:"#000"}} onClick={() => setTableType(!tableType)}>
+            {tableType ? "Be a Simple Table" : "Be a Full Table"}
+          </Button>
+          {tableType ? <FullTableExample /> : <SimpleTableExample />}
         </div>
       </div>
     </div>

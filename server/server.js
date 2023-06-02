@@ -4,6 +4,7 @@ const create = require("./controllers/createController");
 const get = require("./controllers/getController");
 const update = require("./controllers/updateController");
 const remove = require("./controllers/deleteController");
+const json = require("./controllers/jsonController");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -327,5 +328,9 @@ app.post("/api/classes/delete", remove.removeClass);
 app.post("/api/subclasses/delete", remove.removeSubclass);
 app.post("/api/abilities/delete", remove.removeAbility);
 //--------------
+app.get("/api/srd/spells",json.getSpells);
+app.get("/api/srd/monsters",json.getMonsters);
+app.post("/api/srd/monsters/search",json.searchMonsters);
+app.post("/api/srd/spells/search",json.searchSpells);
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}...`));
