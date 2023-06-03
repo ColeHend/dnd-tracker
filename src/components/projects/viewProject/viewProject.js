@@ -1,7 +1,5 @@
-import { all } from "axios";
 import React, { useContext, useState, useEffect } from "react";
-import { UserContext } from "../../App";
-import Projects from "../projects/projects";
+import { UserContext } from "../../../App";
 import  Table  from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -25,7 +23,7 @@ function ViewProject(props) {
         }
         theProject();
         return () => setActive(false)
-    },[apiService, userInfo, allData])
+    },[apiService, userInfo, allData, active])
 
 return (
     <div>
@@ -39,7 +37,7 @@ return (
                 </TableHead>
                 <TableBody>
                     {
-                        allData.length > 0 ? allData.map(project =>
+                        Array.isArray(allData) && allData.length > 0 ? allData.map(project =>
                            <TableRow key={project.project_id}>
                                 <TableCell component="th" scope="row">
                                     {project.project_name}

@@ -65,8 +65,7 @@ function FullTableExample(props) {
       </div>
     ),
   };
-  const monsterSearch = (searchTerm) =>
-    searchService.monsterSearch(searchTerm, "name");
+  const monsterSearch = (searchTerm) => searchService.monsterSearch(searchTerm, "name");
   
   const config = {
     key_name: columnKeys,

@@ -2,9 +2,9 @@ import "./App.scss";
 import React, { createContext, useMemo, useState, useEffect } from "react";
 import Home from "./components/home/home";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Navbar from "./components/nav/navbar";
+import Navbar from "./components/headerBar/mui/headerBar";
 import Profile from "./components/profile/profile";
-import Projects from "./components/projects/projects";
+import ProjectViewCreate from "./components/projects/projectViewCreate";
 import ApiService from "./utilities/apiService";
 import axios from "axios";
 import { getLocalInfo } from "./utilities/utilities";
@@ -27,7 +27,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(loginCheck);
   const apiService = useMemo(() => new ApiService(axios), []);
   const loginService = useMemo(() => new LoginService(axios), []);
-  const tableService = useMemo(() => new TableService(), []);
+  // const tableService = useMemo(() => new TableService(), []);
   const searchService = useMemo(() => new SearchService(axios), []);
   useEffect(() => {
     if (!loginCheck) {
@@ -44,7 +44,6 @@ function App() {
         setIsLoggedIn,
         apiService,
         loginService,
-        tableService,
         searchService,
       }}
     >
@@ -53,7 +52,7 @@ function App() {
         <Routes>
           <Route path="/" element={(<Home />)}></Route>
           <Route path="/profile/*" element={<Profile />}></Route>
-          <Route path="/Projects/*" element={<Projects />}></Route>
+          <Route path="/Projects/*" element={<ProjectViewCreate />}></Route>
         </Routes>
       </div>
     </UserContext.Provider>
