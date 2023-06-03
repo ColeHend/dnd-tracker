@@ -6,11 +6,6 @@ import TableCell from "@mui/material/TableCell";
 function TableNewExample(props) {
   const [srdMonsters, setSrdMonsters] = React.useState([]);
   const [loadData, setLoadData] = React.useState(true);
-  const MyCollapse = (row, index) => (
-    <div style={{ minWidth: "45vw", wordWrap: "normal" }}>
-      <img id="monstIMG" src={row.img_url} alt={row.name} />
-    </div>
-  );
   React.useEffect(() => {
     if (loadData) {
       axios.get("http://localhost:4000/api/srd/monsters").then((res) => {
@@ -27,7 +22,7 @@ function TableNewExample(props) {
   };
   const titleNames = ["Name", "Info"];
   const CollapsibleComponent = (row, index) => (
-    <div style={{ minWidth: "min-width", wordWrap: "normal" }}>
+    <div style={{ width: "min-width", wordWrap: "normal" }}>
       <img id="monstIMG" src={row.img_url} alt={row.name} />
     </div>
   );
