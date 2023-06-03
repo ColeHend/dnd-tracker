@@ -1,16 +1,9 @@
-import React from "react";
-import { Link, Route, Routes } from "react-router-dom";
-import Create from "../create/create";
-import View from "../view/View";
+import React from 'react'
 
-
-
-
-function Profile(props) {
+function Profile() {
   return (
-      <>
-      </>
-
-  );
+    <div>Profile</div>
+  )
 }
-export default Profile;
+
+export default Profile

@@ -56,8 +56,15 @@ export default function GenerateTable(props) {
       </>
     );
   };
+<<<<<<< Updated upstream
   const ariaLabel = options.collapsible ? "collapsible table" : "simple table";
   const {tableData, setTableData} = props.state;
+=======
+  const ariaLabel =  "simple table";//options.collapsible ? "collapsible table" :
+  const { tableData, setTableData } = props.state;
+  const copy = (obj) => JSON.parse(JSON.stringify(obj));
+  const [allTableData] = React.useState(copy(props.state.tableData));
+>>>>>>> Stashed changes
   // let tableData = data.value;
   // const setTableData = (data) => {tableData = data};
   console.log(tableData, data.value);

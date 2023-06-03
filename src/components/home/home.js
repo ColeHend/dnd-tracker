@@ -1,7 +1,13 @@
 import React from "react";
 import "./home.scss";
+<<<<<<< Updated upstream
 import { UserContext } from "../../App";
 import axios from "axios";
+=======
+import Button from "@mui/material/Button";
+import TableNewExample from "../examples/tableExample/tableNewExample";
+
+>>>>>>> Stashed changes
 function Home(props) {
   const {  tableService } = React.useContext(UserContext);
   const columnKeys = (moreKeys)=> [['name',"Name"],...moreKeys];
@@ -73,7 +79,15 @@ function Home(props) {
       <div>
         <p>Generated Table Test</p>
         <div>
+<<<<<<< Updated upstream
         {tableService.generateTable(columnKeys([['meta',"Info"]]),{tableData:srdMonsters,setTableData:setSrdMonsters},collapseInfo,tableStyle)}
+=======
+          <h2>Table Example</h2>
+          <Button style={{color:"#000"}} onClick={() => setTableType(!tableType)}>
+            {tableType ? "Be a Simple Table" : "Be a Full Table"}
+          </Button>
+          {tableType ? <TableNewExample /> : null}
+>>>>>>> Stashed changes
         </div>
          <div>
          {tableService.generateTable(columnKeys([['level',"Level"]]),{tableData:srdSpells,setTableData:setSrdSpells})}
