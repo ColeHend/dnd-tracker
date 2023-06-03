@@ -2,12 +2,3 @@
 
 @include home-styles();
 
-#table-container {
-    @include table-container-style('true','center','dark');
-    #monstIMG{
-        width: 40vw !important;
-    }
-    #searchBar{
-        width: fit-content;
-    }
-}

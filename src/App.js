@@ -9,11 +9,8 @@ import ApiService from "./utilities/apiService";
 import axios from "axios";
 import { getLocalInfo } from "./utilities/utilities";
 import LoginService from "./utilities/loginService";
-<<<<<<< Updated upstream
 import TableService from "./utilities/tableService";
-=======
 import SearchService from "./utilities/searchService";
->>>>>>> Stashed changes
 
 export const UserContext = createContext();
 function App() {
@@ -30,13 +27,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(loginCheck);
   const apiService = useMemo(() => new ApiService(axios), []);
   const loginService = useMemo(() => new LoginService(axios), []);
-<<<<<<< Updated upstream
-  const tableService = useMemo(() => new TableService(), []);
-
-=======
   // const tableService = useMemo(() => new TableService(), []);
   const searchService = useMemo(() => new SearchService(axios), []);
->>>>>>> Stashed changes
   useEffect(() => {
     if (!loginCheck) {
       navigate("/");
@@ -52,11 +44,7 @@ function App() {
         setIsLoggedIn,
         apiService,
         loginService,
-<<<<<<< Updated upstream
-        tableService,
-=======
         searchService,
->>>>>>> Stashed changes
       }}
     >
       <div className="bg_1">

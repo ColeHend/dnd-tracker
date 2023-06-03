@@ -13,6 +13,13 @@ export type tableOptions = {
         }
     },
     header: {
+        search?: {
+            style?: {
+                class: String,
+                sx: Object
+            },
+            filterFunc: Function
+        }
         cell: {
             value: Array<String>,
             style: {
@@ -25,8 +32,9 @@ export type tableOptions = {
                 class: String,
                 sx: Object
               },
-            beginValue?: React.FunctionComponent, 
-            endValue?: React.FunctionComponent 
+              headerValue?: String,
+            beginValue?: any, 
+            endValue?: any 
         },
     },
     body: {
@@ -41,8 +49,8 @@ export type tableOptions = {
                 class: String,
                 sx: Object
               },
-            beginValue?: React.FunctionComponent, 
-            endValue?: React.FunctionComponent 
+            beginValue?: any, 
+            endValue?: any 
         }
     }
 }

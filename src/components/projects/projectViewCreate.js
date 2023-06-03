@@ -16,7 +16,6 @@ import { UserContext } from '../../App';
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center',background:' #719ac4' }}>
         <Link to='view'><Button  sx={linkstyles}>view</Button></Link>
         <Link to='create'><Button sx={linkstyles}>Create</Button></Link>
-
       </Box>
       <Routes>
         <Route path="/view" element={(<ViewProject/>)}></Route>
