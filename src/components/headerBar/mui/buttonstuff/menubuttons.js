@@ -1,12 +1,12 @@
 // @ts-nocheck
 import React, { useContext } from "react";
-import { UserContext } from "../../../App";
+import { UserContext} from "../../../../App"
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import Login from "../../nav/LoginRegister/Login";
-import Register from "../../nav/LoginRegister/Register";
+import Login from "../../LoginRegister/Login";
+import Register from "../../LoginRegister/Register";
 
 function Menubutton(props) {
   const { page } = props;

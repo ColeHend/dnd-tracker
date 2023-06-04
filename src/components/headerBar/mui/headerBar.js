@@ -14,11 +14,11 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Menubutton from "./buttonstuff/menubuttons";
 import Settingsbutton from "./buttonstuff/settingbutton";
-import { UserContext } from "../../App";
+import { UserContext } from "../../../App";
 const pages = ["Home", "Login", "Register"];
 const settings = ["Profile", "Projects", "Dashboard", "Logout"];
 
-function Mui() {
+function HeaderBar() {
   const { userInfo, isLoggedIn } = React.useContext(UserContext);
   // @ts-ignore
   const [userAvatar, setuserAvatar] = React.useState(
@@ -176,4 +176,4 @@ function Mui() {
   );
 }
 
-export default Mui;
+export default HeaderBar;

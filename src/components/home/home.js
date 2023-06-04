@@ -1,8 +1,9 @@
 import React from "react";
 import "./home.scss";
-import FullTableExample from "../tableExample/tableFullExample";
-import SimpleTableExample from "../tableExample/tableSimpleExample";
+import { UserContext } from "../../App";
+import axios from "axios";
 import Button from "@mui/material/Button";
+import TableNewExample from "../examples/tableExample/tableNewExample";
 
 function Home(props) {
   const [tableType, setTableType] = React.useState(true);
@@ -17,7 +18,8 @@ function Home(props) {
           <Button style={{color:"#000"}} onClick={() => setTableType(!tableType)}>
             {tableType ? "Be a Simple Table" : "Be a Full Table"}
           </Button>
-          {tableType ? <FullTableExample /> : <SimpleTableExample />}
+
+          {tableType ? <TableNewExample /> : null}
         </div>
       </div>
     </div>
