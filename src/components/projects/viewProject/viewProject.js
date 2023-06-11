@@ -9,9 +9,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import './viewProject.scss'
 import { Button } from "@mui/material";
-import { removeObjectInArray } from "../../utilities/utilities";
+import { removeObjectInArray } from "../../../utilities/utilities";
 import { Link, Route, Routes } from "react-router-dom";
-import ProjectPage from "../projectPage/ProjectPage";
+import ProjectPage from "../../projectPage/ProjectPage";
 
 
 function ViewProject(props) {
@@ -21,9 +21,7 @@ function ViewProject(props) {
     const { userInfo, apiService } = useContext(UserContext);
     const [allData, setAllData] = useState([]);
     const [active,setActive] = useState(true)
-    const switchtoPPG = ()=> {
-
-    }
+    const [selectedProject, setSelectedProject] = useState({})
 
     const deleteProject = async (project_id) =>{
         console.log("project_id: ", project_id);
@@ -33,6 +31,7 @@ function ViewProject(props) {
             setAllData(removeObjectInArray(allData,"project_id",project_id))
         }   
     }
+    const path = '';
     useEffect(() => {
         const theProject = async () => {
             const theProjects = await apiService.getProjects(userInfo.user_id);
@@ -47,7 +46,7 @@ function ViewProject(props) {
     
 
 return (
-    <div>
+    <>
         <TableContainer id='viewProjectTable' component={Paper}>
             <Table aria-label="simple table">
                 <TableHead>
@@ -60,9 +59,10 @@ return (
                 <TableBody>
                     {
                         Array.isArray(allData) && allData.length > 0 ? allData.map(project =>
-                           <TableRow key={project.project_id}>
+                            <TableRow key={project.project_id}>
                                 <TableCell component="th" scope="row">
-                                    {project.project_name}
+                                <Link to={`ProjectPage/${project.project_id}`}> {project.project_name}</Link>
+                               
                                 </TableCell>
                                 <TableCell>
                                     {project.project_desc}
@@ -73,19 +73,20 @@ return (
                                     > 
                                         x
                                     </Button>
-                                    {/* <Link to='ProjectPage'><Button sx={linkstyles}>ProjectPage</Button></Link> */}
+                                   
                                 </TableCell>
-                           </TableRow>
+                           </TableRow> 
                         ) : "No Projects"
                     }
 
                 </TableBody>
             </Table>
+ 
         </TableContainer>
-        {/* <Routes>
-            <Route path="/ProjectPage" element={<ProjectPage/>}></Route>
-        </Routes> */}
-    </div>
+        <Routes>
+           
+        </Routes>
+    </>
 )
     }
 export default ViewProject
