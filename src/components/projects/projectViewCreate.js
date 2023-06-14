@@ -22,7 +22,7 @@ import ProjectPage from '../projectPage/ProjectPage';
       <Routes>
         <Route path="/view/*" element={(<ViewProject/>)}></Route>
         <Route path="/create" element={<CreatePro />}></Route>
-        <Route path="/view/ProjectPage/:id" element={<ProjectPage/>}></Route>
+        <Route path="/view/ProjectPage/:id/*" element={<ProjectPage/>}></Route>
       </Routes>
     </React.Fragment>
   );

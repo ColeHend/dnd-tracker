@@ -29,9 +29,9 @@ function TableNewExample(props) {
   return (
     <GenerateTable isCollapsible={true} config={config} headerNames={titleNames}>
       {srdMonsters.map((row, index) => (
-        <GenerateRow CollapseComponent={()=>CollapsibleComponent(row,index)} headerNames={titleNames}>
-          <TableCell>{row.name}</TableCell>
-          <TableCell>{row.meta}</TableCell>
+        <GenerateRow key={row.name} CollapseComponent={()=>CollapsibleComponent(row,index)} headerNames={titleNames}>
+          <TableCell key={row.name}>{row.name}</TableCell>
+          <TableCell key={row.name}>{row.meta}</TableCell>
         </GenerateRow>
       ))}
     </GenerateTable>

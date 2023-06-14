@@ -1,0 +1,18 @@
+@import '../projectPage.scss';
+
+
+#classesHomebrewDiv {
+    @include HomeBrewOptionsBasicStyle();
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+}
+
+
+.ClassesBox{
+    border: black solid 2px;
+    width: 60vw;
+    height:60vw;
+    margin-left: 10vw;
+    
+}

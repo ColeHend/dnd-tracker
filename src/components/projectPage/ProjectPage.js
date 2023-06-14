@@ -3,13 +3,32 @@ import { Link, Route, Routes, useParams } from "react-router-dom";
 import { Box } from "@mui/system";
 import { Button } from "@mui/material";
 import { UserContext } from "../../App";
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem';
+import Fade from '@mui/material/Fade'
+import './projectPage.scss'
+import ClassesHomebrew from "./ClassesHomebrew/ClassesHomebrew";
+import FeatsTable from "./FeatsTable/FeatsTable";
+import SpellsTable from "./SpellsTable/SpellsTable";
+
 
 
 function ProjectPage({project}) {
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
 
 
     const { id } = useParams();
     const {apiService,userInfo } = useContext(UserContext)
+
+    
 
     const [spells, setSpells] = useState([])
     const [feats, setFeats] = useState([])
@@ -28,13 +47,13 @@ function ProjectPage({project}) {
                 apiService.getAbilities(userInfo.user_id)
             ])
             if (active === true) {
-                console.log('apiDataunfliterd', apiData);
+                
 
                 apiData.forEach((apiValue)=>{
                     if (apiValue && Array.isArray(apiValue) && apiValue.length > 0) {
                         const keys = Object.keys(apiValue[0]);
                         const id_keys = ["feat_owner","spell_owner","ability_owner","subclass_owner","class_owner"];
-                        console.log('apiValue', apiValue);
+                        
 
                         if (keys.includes(id_keys[0])) {
                             setFeats(apiValue)
@@ -53,21 +72,49 @@ function ProjectPage({project}) {
             }
         }
         theApiData()
-        console.log('filteredata',userInfo.user_id);
         return () => setActive(false)
     },[active,apiService,userInfo])
     
     
-
+ 
 
     return (
          <div>
-     
-             aksxhjbcdxfgouijasdfghuiosadgo
-             {JSON.stringify({feats,spells,classes,subclasses,abilities})}
+            <>
+                <Button
+                    sx={{color:'white',}}
+                    id="fade-button"
+                    aria-controls={open ? 'fade-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick}
+                >
+                    homebrew options
+                </Button>
+                <Menu
+                    id="fade-menu"
+                    MenuListProps={{
+                        'aria-labelledby': 'fade-button',
+                    }}
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    TransitionComponent={Fade}
+                >
+                  <Link to="ClassesHomebrew"><MenuItem onClick={handleClose}>Classes homebrew</MenuItem></Link>
+                  <Link to="FeatsTable"><MenuItem onClick={handleClose}>Feats Table</MenuItem></Link>  
+                  <Link to="SpellsTable"><MenuItem onClick={handleClose}>Spells Table</MenuItem></Link>  
+                </Menu>
+                <Routes>
+                    <Route path="/ClassesHomebrew" element={<ClassesHomebrew projectID={id} classes={classes} subclasses={subclasses} abilities={abilities} spells={spells} />}></Route>
+                    <Route path="/FeatsTable" element={<FeatsTable projectID={id} feats={{get:feats, set:setFeats}}/>}></Route>
+                    <Route path="/SpellsTable" element={<SpellsTable spells={spells}/>}></Route>
+                </Routes>
+            </>
+            
         
         
-        
+            
         
        
          </div>

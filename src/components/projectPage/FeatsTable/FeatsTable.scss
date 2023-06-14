@@ -1,0 +1,13 @@
+@import '../projectPage.scss';
+$tableWidth: 50%;
+$tableLeftMargin: 20%;
+$parentBGColor: #5b7fa3;
+#featsTablediv {
+    @include HomeBrewOptionsBasicStyle();
+   
+    #featMasterTable{
+        
+    }
+    
+}
+
