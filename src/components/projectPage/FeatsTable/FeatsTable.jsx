@@ -59,6 +59,8 @@ function FeatsTable({feats, projectID}) {
     MySwal.fire({
       title:<p>Delete Confermation</p>,
       footer:"Copyright",
+      showConfirmButton: false,
+      showCancelButton: true,
       html: (
         <DeleteConfermation
           feat_ID={feat_ID}
@@ -73,6 +75,7 @@ function FeatsTable({feats, projectID}) {
     MySwal.fire({
       title:<p>Feat Creation</p>,
       footer:"Copyright",
+      
       html: (
         <FeatCreation 
           projectID={projectID}
@@ -90,17 +93,13 @@ function FeatsTable({feats, projectID}) {
       footer:"Copyright",
       html: (
         <FeatEditing 
+          apiService={apiService}
           feat_ID={feat_ID}
         />
       )
     })
     
-    // let theFeats = await apiService.updateFeat(
-    //   1,
-    //   "feat Name",
-    //   "featDesc",
-    //   "feat SubHead"
-    // )
+
   }
   
 

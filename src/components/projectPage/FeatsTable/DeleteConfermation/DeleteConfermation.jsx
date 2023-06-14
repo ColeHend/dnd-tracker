@@ -18,10 +18,9 @@ function DeleteConfermation({featData,setFeatData,feat_ID, apiService}) {
 
     return (
     <div>
-        sedf
         <p>are you sure you want to delete it?</p>
         <button onClick={deletetheFeat(feat_ID)}>Yes</button>
-        <button >No</button>
+        
     </div>
   )
 }

@@ -39,9 +39,9 @@ function FeatCreation({projectID, userID, apiService}) {
         <hr></hr>
         <p>New Feat Subheader</p>
         <input type='text' value={newFeatSubHeader} onChange={handleInputChangeSUBHEAD}></input>
-        <hr />
+        <br />
         <p>done?</p>
-        <button onClick={newFeat} >Submit</button>
+        <Button color='primary' variant='contained' onClick={newFeat} >Submit</Button>
     </div>
   )
 }
