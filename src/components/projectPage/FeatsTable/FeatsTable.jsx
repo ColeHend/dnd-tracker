@@ -71,21 +71,6 @@ function FeatsTable({feats, projectID}) {
       )
     })
   }
-  const createFeat = (projectID) => {
-    MySwal.fire({
-      title:<p>Feat Creation</p>,
-      footer:"Copyright",
-      
-      html: (
-        <FeatCreation 
-          projectID={projectID}
-          userID={userInfo.user_id}
-          apiService={apiService}
-        />
-      )
-
-    })
-  }
   
   const updateFeat = async (feat_ID) => {
     MySwal.fire({
