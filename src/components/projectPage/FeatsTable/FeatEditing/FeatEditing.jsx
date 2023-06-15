@@ -34,7 +34,7 @@ function FeatEditing({feat_ID, apiService}) {
 
 
     return (
-    <div>
+    <div id='featEditingDiv'>
         <h1>Update the Feat</h1>
         
         <p>First the new name?</p>

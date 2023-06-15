@@ -1,5 +1,6 @@
 import { Button } from '@mui/material';
 import React from 'react'
+import './FeatCreation.scss'
 
 function FeatCreation({projectID, userID, apiService}) {
   
@@ -27,8 +28,7 @@ function FeatCreation({projectID, userID, apiService}) {
     }
   
     return (
-    <div>
-
+    <div id='featCreationDiv'>
         <h1>Feat Creation</h1>
         <br />
         <p>New Feat Name</p>

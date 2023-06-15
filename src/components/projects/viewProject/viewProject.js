@@ -31,7 +31,7 @@ function ViewProject(props) {
             setAllData(removeObjectInArray(allData,"project_id",project_id))
         }   
     }
-    const path = '';
+    
     useEffect(() => {
         const theProject = async () => {
             const theProjects = await apiService.getProjects(userInfo.user_id);
@@ -83,9 +83,6 @@ return (
             </Table>
  
         </TableContainer>
-        <Routes>
-           
-        </Routes>
     </>
 )
     }
