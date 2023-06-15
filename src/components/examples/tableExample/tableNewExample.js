@@ -1,8 +1,10 @@
 import GenerateTable from "../../../utilities/generateTable/generateTable";
 import GenerateRow from "../../../utilities/generateTable/generateRow";
+import CollapseExample from "./tableNewCollapseExample";
 import React from "react";
 import axios from "axios";
 import TableCell from "@mui/material/TableCell";
+import "./tableFullExample.scss"
 function TableNewExample(props) {
   const [srdMonsters, setSrdMonsters] = React.useState([]);
   const [loadData, setLoadData] = React.useState(true);
@@ -21,15 +23,11 @@ function TableNewExample(props) {
     header: "Monsters",
   };
   const titleNames = ["Name", "Info"];
-  const CollapsibleComponent = (row, index) => (
-    <div style={{ width: "min-width", wordWrap: "normal" }}>
-      <img id="monstIMG" src={row.img_url} alt={row.name} />
-    </div>
-  );
   return (
     <GenerateTable isCollapsible={true} config={config} headerNames={titleNames}>
       {srdMonsters.map((row, index) => (
-        <GenerateRow CollapseComponent={()=>CollapsibleComponent(row,index)} headerNames={titleNames}>
+        <GenerateRow headerNames={titleNames}
+        CollapseComponent={()=><CollapseExample row={row} index={index}/>} >
           <TableCell>{row.name}</TableCell>
           <TableCell>{row.meta}</TableCell>
         </GenerateRow>

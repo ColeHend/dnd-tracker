@@ -236,6 +236,13 @@ app.get("/api/subclasses/:userid", get.subclasses);
 //    ability_description: description
 // }
 app.get("/api/abilities/:userid", get.abilities);
+
+app.get("/api/abilities/:userid/:projectid", get.project_abilities);
+app.get("/api/classes/:userid/:projectid", get.project_classes);
+app.get("/api/feats/:userid/:projectid", get.project_feats);
+app.get("/api/spells/:userid/:projectid", get.project_spells);
+app.get("/api/subclasses/:userid/:projectid", get.project_subclasses);
+
 //--------
 // Update
 //--------
