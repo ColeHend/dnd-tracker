@@ -1,10 +1,10 @@
-@import '../../utilities/stylesService.scss';
+@import '../../../utilities/stylesService.scss';
 
 #table-container {
     @include table-container-style('true','center','dark');
 
     #monstIMG{
-        width: 40vw !important;
+        width: max-content !important;
     }
     #searchBar{
         width: fit-content;
