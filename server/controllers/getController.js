@@ -72,6 +72,19 @@ const spells = (req, res) => {
     });
 };
 
+const project_spells = async (req, res) => {
+  sequelize.query("SELECT * FROM project_spells WHERE project_id=?", {
+    replacements: [req.params.projectid],
+  }).then(spellsInProject=>{
+    sequelize
+      .query("SELECT * FROM spells WHERE spell_owner=?", {
+        replacements: [req.params.userid],
+      })
+      .then((resp) => {
+        res.status(200).send(resp[0].filter(spell=>spellsInProject.includes(spell.spell_id)))
+      });
+  })
+}
 const feats = (req, res) => {
   sequelize
     .query("SELECT * FROM feats WHERE feat_owner=?", {
@@ -81,6 +94,21 @@ const feats = (req, res) => {
       res.status(200).send(resp[0]);
     });
 };
+const project_feats = async (req, res) => {
+  sequelize.query("SELECT * FROM project_feats WHERE project_id=?", {
+    replacements: [req.params.projectid],
+  }).then(feats=>{
+    const featsInProject = feats[0].map(feat=>feat.project_feats_id);
+    sequelize
+      .query("SELECT * FROM feats WHERE feat_owner=?", {
+        replacements: [req.params.userid],
+      })
+      .then((resp) => {
+        res.status(200).send(resp[0].filter(feat=>featsInProject.includes(feat.feat_id)))
+      });
+  }
+  )
+}
 const classes = (req, res) => {
   sequelize
     .query("SELECT * FROM classes WHERE class_owner=?", {
@@ -90,6 +118,19 @@ const classes = (req, res) => {
       res.status(200).send(resp[0]);
     });
 };
+const project_classes = async (req, res) => {
+  sequelize.query("SELECT * FROM project_classes WHERE project_id=?", { 
+    replacements: [req.params.projectid],
+  }).then(classesInProject=>{
+    sequelize.query("SELECT * FROM classes WHERE class_owner=?", {
+      replacements: [req.params.userid],
+    })
+    .then((resp) => {
+      res.status(200).send(resp[0].filter(aClass=>classesInProject.includes(aClass.project_class_id)))
+    });
+  })
+
+}
 const subclasses = (req, res) => {
   sequelize
     .query("SELECT * FROM subclasses WHERE subclass_owner=?", {
@@ -99,6 +140,18 @@ const subclasses = (req, res) => {
       res.status(200).send(resp[0]);
     });
 };
+const project_subclasses = async (req, res) => {
+  sequelize.query("SELECT * FROM project_subclasses WHERE project_id=?", {
+    replacements: [req.params.projectid],
+  }).then(subclassesInProject=>{
+    sequelize.query("SELECT * FROM subclasses WHERE subclass_owner=?", {
+      replacements: [req.params.userid],
+    })
+    .then((resp) => {
+      res.status(200).send(resp[0].filter(subclass=>subclassesInProject.includes(subclass.project_subclass_id)))
+    });
+  })
+}
 const abilities = (req, res) => {
   sequelize
     .query("SELECT * FROM abilities WHERE ability_owner=?", {
@@ -108,9 +161,27 @@ const abilities = (req, res) => {
       res.status(200).send(resp[0]);
     });
 };
+const project_abilities = async (req, res) => {
+  sequelize.query("SELECT * FROM project_abilities WHERE project_id=?", {
+    replacements: [req.params.projectid],
+  }).then(abilitiesInProject=>{
+    sequelize.query("SELECT * FROM abilities WHERE ability_owner=?", {
+      replacements: [req.params.userid],
+    })
+    .then((resp) => {
+      res.status(200).send(resp[0].filter(ability=>abilitiesInProject.includes(ability.project_ability_id)))
+    });
+  }
+  )
+}
 module.exports = {
   projectAccess,
   project,
+  project_spells,
+  project_feats,
+  project_classes,
+  project_subclasses,
+  project_abilities,
   spells,
   feats,
   classes,
