@@ -6,6 +6,8 @@ import { Button } from '@mui/material';
 import CreatePro from './createProject/CreateProject';
 import ViewProject from './viewProject/viewProject';
 import { UserContext } from '../../App';
+import ProjectPage from '../projectPage/ProjectPage';
+
 
  function ProjectViewCreate() {
   let linkstyles = { minWidth: 100, color:'white'}
@@ -18,8 +20,9 @@ import { UserContext } from '../../App';
         <Link to='create'><Button sx={linkstyles}>Create</Button></Link>
       </Box>
       <Routes>
-        <Route path="/view" element={(<ViewProject/>)}></Route>
+        <Route path="/view/*" element={(<ViewProject/>)}></Route>
         <Route path="/create" element={<CreatePro />}></Route>
+        <Route path="/view/ProjectPage/:id/*" element={<ProjectPage/>}></Route>
       </Routes>
     </React.Fragment>
   );

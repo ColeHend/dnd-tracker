@@ -14,7 +14,7 @@ function GenerateTable(props) {
   const {tableContainerID, tableID, header, tableContainerSx, cellStyle} = config
     return <>
     <TableContainer
-    sx={tableContainerSx ?? { width: "min-content" }}
+    sx={tableContainerSx}
     id={tableContainerID}
     component={Paper}
     >

@@ -17,8 +17,13 @@ const clearLocalInfo = () => {
   window.localStorage.removeItem("user_password");
 };
 
+const removeObjectInArray = (array=[], key="project_id", identifier) => {
+  return array.filter((value)=>value[key]!==identifier)
+}
+
 module.exports = {
   getLocalInfo,
   setLocalInfo,
   clearLocalInfo,
+  removeObjectInArray
 };

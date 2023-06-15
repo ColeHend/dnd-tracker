@@ -1,0 +1,5 @@
+@import '../projectPage.scss';
+
+#spellsTableDiv {
+    @include HomeBrewOptionsBasicStyle();
+}

@@ -331,35 +331,35 @@ export default class ApiService {
     return reqData.data;
   }
   async deleteSpell(spell_id:number) {
-    let reqData = await this.axios.delete(`${this.SERVER_URL}/api/spells`, {
+    let reqData = await this.axios.post(`${this.SERVER_URL}/api/spells/delete`, {
       spell_id: spell_id,
     });
     return reqData.data;
   }
   async deleteFeat(feat_id:number) {
-    let reqData = await this.axios.delete(`${this.SERVER_URL}/api/feats`, {
+    let reqData = await this.axios.post(`${this.SERVER_URL}/api/feats/delete`, {
       feat_id: feat_id,
     });
     return reqData.data;
   }
   async deleteClass(class_id:number) {
-    let reqData = await this.axios.delete(`${this.SERVER_URL}/api/classes`, {
+    let reqData = await this.axios.post(`${this.SERVER_URL}/api/classes/delete`, {
       class_id: class_id,
     });
     return reqData.data;
   }
   async deleteSubclass(subclass_id:number) {
-    let reqData = await this.axios.delete(
-      `${this.SERVER_URL}/api/subclasses`,
+    let reqData = await this.axios.post(
+      `${this.SERVER_URL}/api/subclasses/delete`,
       {
         subclass_id: subclass_id,
       }
-    );
+    ); 
     return reqData.data;
   }
   async deleteAbility(ability_id:number) {
-    let reqData = await this.axios.delete(
-      `${this.SERVER_URL}/api/abilities`,
+    let reqData = await this.axios.post(
+      `${this.SERVER_URL}/api/abilities/delete`,
       {
         ability_id: ability_id,
       }
@@ -367,12 +367,15 @@ export default class ApiService {
     return reqData.data;
   }
   async deleteProject(project_id:number) {
-    let reqData = await this.axios.delete(
-      `${this.SERVER_URL}/api/projects`,
-      {
-        project_id: project_id,
-      }
-    );
+    let reqData = {message:"Invalid"}
+    if (project_id > 0) {
+       reqData = await this.axios.post(
+        `${this.SERVER_URL}/api/projects/delete`,
+        {
+          project_id: project_id,
+        }
+      );
+    }
     return reqData.data;
   }
 }
