@@ -71,6 +71,9 @@ const removeProject = async (req, res) => {
 }
 const removeClass = async (req, res) => {
   const { class_id } = req.body;
+  await sequelize.query("DELETE FROM project_classes WHERE project_class_id=?", {
+    replacements: [class_id],
+  });
   await sequelize.query("DELETE FROM classes WHERE class_id=?", {
     replacements: [class_id],
   });
@@ -78,6 +81,9 @@ const removeClass = async (req, res) => {
 };
 const removeSubclass = async (req, res) => {
   const { subclass_id } = req.body;
+  await sequelize.query("DELETE FROM project_subclasses WHERE project_subclass_id=?", {
+    replacements: [subclass_id],
+  });
   await sequelize.query("DELETE FROM subclasses WHERE subclass_id=?", {
     replacements: [subclass_id],
   });
@@ -85,6 +91,9 @@ const removeSubclass = async (req, res) => {
 };
 const removeAbility = async (req, res) => {
   const { ability_id } = req.body;
+  await sequelize.query("DELETE FROM project_abilities WHERE project_ability_id=?", {
+    replacements: [ability_id],
+  });
   await sequelize.query("DELETE FROM abilities WHERE ability_id=?", {
     replacements: [ability_id],
   });
@@ -92,6 +101,9 @@ const removeAbility = async (req, res) => {
 };
 const removeSpell = async (req, res) => {
   const { spell_id } = req.body;
+  await sequelize.query("DELETE FROM project_spells WHERE project_spell_id=?", {
+    replacements: [spell_id],
+  });
   await sequelize.query("DELETE FROM spells WHERE spell_id=?", {
     replacements: [spell_id],
   });
@@ -99,6 +111,9 @@ const removeSpell = async (req, res) => {
 };
 const removeFeat = async (req, res) => {
   const { feat_id } = req.body;
+  await sequelize.query("DELETE FROM project_feats WHERE project_feat_id=?", {
+    replacements: [feat_id],
+  });
   await sequelize.query("DELETE FROM feats WHERE feat_id=?", {
     replacements: [feat_id],
   });
