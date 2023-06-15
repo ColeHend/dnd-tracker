@@ -40,11 +40,11 @@ function ProjectPage({project}) {
     useEffect(() => {
         const theApiData = async () =>{
             const apiData = await Promise.all([
-                apiService.getSpells(userInfo.user_id),
-                apiService.getFeats(userInfo.user_id),
-                apiService.getClasses(userInfo.user_id),
-                apiService.getSubclasses(userInfo.user_id),
-                apiService.getAbilities(userInfo.user_id)
+                apiService.getSpells(userInfo.user_id,id),
+                apiService.getProjectFeats(userInfo.user_id,id),
+                apiService.getClasses(userInfo.user_id,id),
+                apiService.getSubclasses(userInfo.user_id,id),
+                apiService.getAbilities(userInfo.user_id,id)
             ])
             if (active === true) {
                 
@@ -58,6 +58,7 @@ function ProjectPage({project}) {
                         if (keys.includes(id_keys[0])) {
                             setFeats(apiValue)
                         } else if (keys.includes(id_keys[1])) {
+                            console.log('spells: ',apiValue);
                             setSpells(apiValue)
                         }  else if (keys.includes(id_keys[2])) {
                             setAbilties(apiValue)
@@ -108,7 +109,7 @@ function ProjectPage({project}) {
                 <Routes>
                     <Route path="/ClassesHomebrew" element={<ClassesHomebrew projectID={id} classes={classes} subclasses={subclasses} abilities={abilities} spells={spells} />}></Route>
                     <Route path="/FeatsTable" element={<FeatsTable projectID={id} feats={{get:feats, set:setFeats}}/>}></Route>
-                    <Route path="/SpellsTable" element={<SpellsTable spells={spells}/>}></Route>
+                    <Route path="/SpellsTable" element={<SpellsTable projectID={id} spells={spells}/>}></Route>
                 </Routes>
             </>
             

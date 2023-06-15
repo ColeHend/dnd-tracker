@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem/MenuItem'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import SpellCreation from './SpellCreation/SpellCreation'
 
-function SpellsTable({spells}) {
+function SpellsTable({spells, projectID}) {
   console.log('spells: ',spells);
   const MySwal = withReactContent(Swal)
   const [heightmenuOptions] = React.useState([
@@ -82,7 +82,8 @@ function SpellsTable({spells}) {
         </GenerateTable>:'no spells'}
         <div id="spellCreationDiv">
             <SpellCreation 
-            
+              projectID={projectID}
+              userID={userInfo.user_id}
             />
         </div>
     </div>

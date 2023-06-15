@@ -23,7 +23,7 @@ function ViewProject(props) {
     const [allData, setAllData] = useState([]);
     const [active,setActive] = useState(true)
     const [selectedProject, setSelectedProject] = useState(null)
-    const [titleNames, setTitleNames] = React.useState(['Project Name', 'Short Desc', 'options']);
+    const [titleNames, setTitleNames] = React.useState(['Name', 'Short Desc', 'options']);
 
     const [heightmenuOptions] = React.useState([
         {name:'Edit A Project',id:'edit'},
@@ -111,7 +111,7 @@ function ViewProject(props) {
         </TableCell>)
     }
     const config = {
-        tableContainerID: "table-container",
+        tableContainerID: "viewProjectTable",
         tableID: "table",
         header: "Projects",
         tableContainerSx: {
@@ -129,7 +129,7 @@ return (
             {
                 Array.isArray(allData) && allData.length > 0 ? allData.map((project, index)=> (
                     <GenerateRow key={project.project_id} headerNames={titleNames}>
-                         <Link to={`ProjectPage/${project.project_id}`}><TableCell key={project.project_id}>{project.project_name}</TableCell></Link>
+                         <Link style={{width:"100%",height:'100%'}} to={`ProjectPage/${project.project_id}`}><TableCell key={project.project_id}>{project.project_name}</TableCell></Link>
                         <TableCell key={project.project_id}>{project.project_desc}</TableCell>
                         
                         <TableCell key={project.project_id}>
