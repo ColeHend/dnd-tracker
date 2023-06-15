@@ -9,7 +9,6 @@ import ApiService from "./utilities/apiService";
 import axios from "axios";
 import { getLocalInfo } from "./utilities/utilities";
 import LoginService from "./utilities/loginService";
-import TableService from "./utilities/tableService";
 import SearchService from "./utilities/searchService";
 
 export const UserContext = createContext();

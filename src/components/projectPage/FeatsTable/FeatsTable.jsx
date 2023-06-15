@@ -76,6 +76,8 @@ function FeatsTable({feats, projectID}) {
     MySwal.fire({
       title:<p>Feat Editing</p>,
       footer:"Copyright",
+      showConfirmButton: false,
+      showCancelButton: true,
       html: (
         <FeatEditing 
           apiService={apiService}

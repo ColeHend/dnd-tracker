@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 
 function DeleteConfermation({featData,setFeatData,feat_ID, apiService}) {
     
-    //  
+    
     const deletetheFeat = async (feat_ID) =>{
         console.log("feat_id: ", feat_ID);
         if (feat_ID > 0){

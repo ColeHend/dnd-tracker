@@ -12,8 +12,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import IconButton from '@mui/material/IconButton';
-import deleteAproject from "./deleteAproject/deleteAproject";
-import updatingAProject from "./updatingAProject/updatingAProject";
+import DeleteAproject from "./deleteAproject/deleteAproject";
+import UpdatingAProject from "./updatingAProject/updatingAProject";
 
 function ViewProject(props) {
     
@@ -23,8 +23,9 @@ function ViewProject(props) {
     const [allData, setAllData] = useState([]);
     const [active,setActive] = useState(true)
     const [selectedProject, setSelectedProject] = useState(null)
-    const [heightmenuOptions] = React.useState([
+    const [titleNames, setTitleNames] = React.useState(['Project Name', 'Short Desc', 'options']);
 
+    const [heightmenuOptions] = React.useState([
         {name:'Edit A Project',id:'edit'},
         {name:'Delete A Project',id:'delete'}
       ]);
@@ -55,7 +56,7 @@ function ViewProject(props) {
       }
 
     const deleteProject = async (project_id) =>{
-        console.log("project_id: ", project_id);
+        
         if (project_id > 0) {
             await apiService.deleteProject(project_id)
             console.log('deleted');
@@ -67,9 +68,15 @@ function ViewProject(props) {
         MySwal.fire({
             title:<p>Deleting a Project</p>,
             footer:"copyright",
+            showConfirmButton:false,
+            showCancelButton:true,
             html:(
-              <deleteAproject 
+              <DeleteAproject 
                     projectID={project_id}
+                    apiService={apiService}
+                    allData={allData}
+                    removeObjectInArray={removeObjectInArray}
+                    setAllData={setAllData}
               />
             )
         })
@@ -81,21 +88,28 @@ function ViewProject(props) {
             showConfirmButton:false,
             showCancelButton:true,
             html: (
-                <updatingAProject />
+                <UpdatingAProject />
             )
         })
     }
-
+    const generateColumnInfo = {name:'Project ID', key:'project_id'}
     useEffect(() => {
         const theProject = async () => {
             const theProjects = await apiService.getProjects(userInfo.user_id);
             if (active === true) {
                 setAllData(theProjects)
+                setTitleNames([...titleNames,generateColumnInfo.name])
+
             }
         }
         theProject();
         return () => setActive(false)
     },[apiService, userInfo, allData, active])
+    const generateColumn = ({source, key})=>{
+        return (<TableCell>
+            {source[key]}
+        </TableCell>)
+    }
     const config = {
         tableContainerID: "table-container",
         tableID: "table",
@@ -107,7 +121,6 @@ function ViewProject(props) {
             marginTop: "5%"
           }
       };
-    const titleNames = ['Project Name', 'Short Desc', 'options']
     
 
 return (
@@ -118,6 +131,7 @@ return (
                     <GenerateRow key={project.project_id} headerNames={titleNames}>
                          <Link to={`ProjectPage/${project.project_id}`}><TableCell key={project.project_id}>{project.project_name}</TableCell></Link>
                         <TableCell key={project.project_id}>{project.project_desc}</TableCell>
+                        
                         <TableCell key={project.project_id}>
                             <IconButton
                                 aria-label="more"
@@ -151,6 +165,7 @@ return (
                                 ))}
                             </Menu>
                         </TableCell>
+                        {generateColumn({...generateColumnInfo, source:project})}
                     </GenerateRow>
                 )): "no Projects"
             }

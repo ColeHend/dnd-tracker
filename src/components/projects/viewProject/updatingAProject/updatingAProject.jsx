@@ -1,9 +1,9 @@
 import React from 'react'
 
-function updatingAProject() {
+function UpdatingAProject() {
   return (
-    <div>updatingAProject</div>
+    <div>UpdatingAProject</div>
   )
 }
 
-export default updatingAProject
+export default UpdatingAProject
