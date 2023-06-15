@@ -81,7 +81,7 @@ const project_spells = async (req, res) => {
         replacements: [req.params.userid],
       })
       .then((resp) => {
-        res.status(200).send(resp[0].map(spell=>spellsInProject.includes(spell.spell_id)))
+        res.status(200).send(resp[0].filter(spell=>spellsInProject.includes(spell.spell_id)))
       });
   })
 }
@@ -97,13 +97,14 @@ const feats = (req, res) => {
 const project_feats = async (req, res) => {
   sequelize.query("SELECT * FROM project_feats WHERE project_id=?", {
     replacements: [req.params.projectid],
-  }).then(featsInProject=>{
+  }).then(feats=>{
+    const featsInProject = feats[0].map(feat=>feat.project_feats_id);
     sequelize
       .query("SELECT * FROM feats WHERE feat_owner=?", {
         replacements: [req.params.userid],
       })
       .then((resp) => {
-        res.status(200).send(resp[0].map(feat=>featsInProject.includes(feat.project_feat_id)))
+        res.status(200).send(resp[0].filter(feat=>featsInProject.includes(feat.feat_id)))
       });
   }
   )
@@ -125,7 +126,7 @@ const project_classes = async (req, res) => {
       replacements: [req.params.userid],
     })
     .then((resp) => {
-      res.status(200).send(resp[0].map(aClass=>classesInProject.includes(aClass.project_class_id)))
+      res.status(200).send(resp[0].filter(aClass=>classesInProject.includes(aClass.project_class_id)))
     });
   })
 
@@ -147,7 +148,7 @@ const project_subclasses = async (req, res) => {
       replacements: [req.params.userid],
     })
     .then((resp) => {
-      res.status(200).send(resp[0].map(subclass=>subclassesInProject.includes(subclass.project_subclass_id)))
+      res.status(200).send(resp[0].filter(subclass=>subclassesInProject.includes(subclass.project_subclass_id)))
     });
   })
 }
@@ -168,7 +169,7 @@ const project_abilities = async (req, res) => {
       replacements: [req.params.userid],
     })
     .then((resp) => {
-      res.status(200).send(resp[0].map(ability=>abilitiesInProject.includes(ability.project_ability_id)))
+      res.status(200).send(resp[0].filter(ability=>abilitiesInProject.includes(ability.project_ability_id)))
     });
   }
   )

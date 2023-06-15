@@ -4,14 +4,19 @@ import CollapseExample from "./tableNewCollapseExample";
 import React from "react";
 import axios from "axios";
 import TableCell from "@mui/material/TableCell";
+import { UserContext } from "../../../App";
 import "./tableFullExample.scss"
 function TableNewExample(props) {
+  const { userInfo, apiService } = React.useContext(UserContext);
   const [srdMonsters, setSrdMonsters] = React.useState([]);
   const [loadData, setLoadData] = React.useState(true);
   React.useEffect(() => {
     if (loadData) {
-      axios.get("http://localhost:4000/api/srd/monsters").then((res) => {
-        setSrdMonsters(res.data);
+      // axios.get("http://localhost:4000/api/srd/monsters")
+      apiService.getProjectFeats(userInfo.user_id, 12)
+      .then((res) => {
+        console.log(res);
+        setSrdMonsters(res);
         setLoadData(false);
       });
     }
@@ -25,13 +30,13 @@ function TableNewExample(props) {
   const titleNames = ["Name", "Info"];
   return (
     <GenerateTable isCollapsible={true} config={config} headerNames={titleNames}>
-      {srdMonsters.map((row, index) => (
-        <GenerateRow headerNames={titleNames}
+      {srdMonsters.length > 0 ? srdMonsters.map((row, index) => (
+        <GenerateRow key={index} headerNames={titleNames}
         CollapseComponent={()=><CollapseExample row={row} index={index}/>} >
-          <TableCell>{row.name}</TableCell>
-          <TableCell>{row.meta}</TableCell>
+          <TableCell>{row.feat_title}</TableCell>
+          <TableCell>{row.feat_desc}</TableCell>
         </GenerateRow>
-      ))}
+      )) : null}
     </GenerateTable>
   );
 }

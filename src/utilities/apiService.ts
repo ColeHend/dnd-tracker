@@ -27,7 +27,7 @@ export default class ApiService {
   async getProjectSpells(user_id: number, project_id: number){
     if (user_id > 0) {
       let reqData = await this.axios.get(
-        `${this.SERVER_URL}/api/projectSpells/${user_id}/${project_id}`
+        `${this.SERVER_URL}/api/spells/${user_id}/${project_id}`
       );
       return reqData.data;
     }
@@ -43,7 +43,7 @@ export default class ApiService {
   async getProjectFeats(user_id: number, project_id: number){
     if (user_id > 0) {
       let reqData = await this.axios.get(
-        `${this.SERVER_URL}/api/projectFeats/${user_id}/${project_id}`
+        `${this.SERVER_URL}/api/feats/${user_id}/${project_id}`
       );
       return reqData.data;
     }
@@ -59,7 +59,7 @@ export default class ApiService {
   async getProjectClasses(user_id: number, project_id: number){
     if (user_id > 0) {
       let reqData = await this.axios.get(
-        `${this.SERVER_URL}/api/projectClasses/${user_id}/${project_id}`
+        `${this.SERVER_URL}/api/classes/${user_id}/${project_id}`
       );
       return reqData.data;
     }
@@ -75,7 +75,7 @@ export default class ApiService {
   async getProjectSubclasses(user_id: number, project_id: number){
     if (user_id > 0) {
       let reqData = await this.axios.get(
-        `${this.SERVER_URL}/api/projectSubclasses/${user_id}/${project_id}`
+        `${this.SERVER_URL}/api/subclasses/${user_id}/${project_id}`
       );
       return reqData.data;
     }
