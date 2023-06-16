@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import ApiService from '../../../../utilities/apiService';
 import { Button } from '@mui/material';
 import { UserContext } from '../../../../App';
+import { resetThepage } from '../../SpellsTable/SpellCreation/SpellCreation';
 
 function FeatEditing({feat_ID, apiService}) {
     
@@ -26,6 +27,7 @@ function FeatEditing({feat_ID, apiService}) {
             updatedFeatSubheader
 
         )
+        resetThepage()
         console.log('worked');
     }
 

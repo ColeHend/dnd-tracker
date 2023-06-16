@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Button } from "@mui/material";
 import { UserContext } from "../../../App";
 import { useFormik, Formik, Form, Field, ErrorMessage } from "formik";
+import { resetThepage } from "../../projectPage/SpellsTable/SpellCreation/SpellCreation";
 
 function CreatePro(props) {
    const {userInfo, apiService} = useContext(UserContext);
@@ -24,6 +25,7 @@ function CreatePro(props) {
           values.projectName,
           values.projectDesc
         ).then((values)=>{resetForm();console.log(values);});
+        resetThepage()
       }
       const formik = useFormik({ initialValues, onSubmit, validate });
    return (

@@ -113,6 +113,8 @@ function FeatsTable({feats, projectID}) {
 
   return (
     <div id='featsTablediv'>
+      <h1 id='featsTableTitle'>Feats</h1>
+      <hr />
         <div id='featMasterTable'>
           <GenerateTable isCollapsible={true} config={config} headerNames={titleNames}>
             {featData.map((row, index)=> (

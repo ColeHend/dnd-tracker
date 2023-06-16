@@ -3,10 +3,12 @@ $tableWidth: 50%;
 $tableLeftMargin: 20%;
 $parentBGColor: #5b7fa3;
 #featsTablediv {
+    color: white;
     @include HomeBrewOptionsBasicStyle();
     background-color: #2c2e2f;
-    #featMasterTable{
-        
+    #featsTableTitle{
+        color: white;
+        text-align: center;
     }
     
 }
