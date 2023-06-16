@@ -5,7 +5,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 
-function ClassesHomebrew(props) {
+function ClassesHomebrew({projectID,classes,subclasses,abilities,spells }) {
 
     
     const [showClasses,setShowClasses] = React.useState(false)
@@ -13,17 +13,17 @@ function ClassesHomebrew(props) {
       setShowClasses(!showClasses)
       console.log('worked');
     }
-
-
+    const [selectedClass, setSelectedClass] = React.useState(null)
+    setSelectedClass(classes,subclasses,abilities,spells)
  
-    
+    console.log('safsdfasdf',selectedClass);
   return (
     <div id='classesHomebrewDiv'>
         
       <Box 
          sx={{ border:'black  solid 2px', width: '50vw', height:'3vw', marginLeft:'10vw', marginTop:'3vw', marginBottom:'1vw'}}
       >
-          {props.classes.map((Class) =><Button 
+          {selectedClass.classes.map((Class) =><Button 
           onClick={handleOpenclasses}
           sx={{color:'white'}}
           >{Class.class_name}</Button>  
@@ -31,7 +31,7 @@ function ClassesHomebrew(props) {
           )}
             
       </Box>
-      {console.log('data',props)}
+  
       { showClasses? <div className='ClassesBox'>  
           
           </div>: null}

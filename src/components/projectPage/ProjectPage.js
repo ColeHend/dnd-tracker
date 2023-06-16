@@ -41,7 +41,7 @@ function ProjectPage({project}) {
         const theApiData = async () =>{
             const apiData = await Promise.all([
                 apiService.getSpells(userInfo.user_id,id),
-                apiService.getProjectFeats(userInfo.user_id,id),
+                apiService.getFeats(userInfo.user_id,id),
                 apiService.getClasses(userInfo.user_id,id),
                 apiService.getSubclasses(userInfo.user_id,id),
                 apiService.getAbilities(userInfo.user_id,id)
@@ -109,7 +109,7 @@ function ProjectPage({project}) {
                 <Routes>
                     <Route path="/ClassesHomebrew" element={<ClassesHomebrew projectID={id} classes={classes} subclasses={subclasses} abilities={abilities} spells={spells} />}></Route>
                     <Route path="/FeatsTable" element={<FeatsTable projectID={id} feats={{get:feats, set:setFeats}}/>}></Route>
-                    <Route path="/SpellsTable" element={<SpellsTable projectID={id} spells={spells}/>}></Route>
+                    <Route path="/SpellsTable" element={<SpellsTable projectID={id} spells={{get:spells, set:setSpells}}/>}></Route>
                 </Routes>
             </>
             

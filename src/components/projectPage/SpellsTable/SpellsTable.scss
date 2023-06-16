@@ -1,5 +1,11 @@
 @import '../projectPage.scss';
 
 #spellsTableDiv {
+    background-color: #2c2e2f;
+    color: white;
     @include HomeBrewOptionsBasicStyle();
+    h1 {
+        text-align: center;
+
+    }
 }

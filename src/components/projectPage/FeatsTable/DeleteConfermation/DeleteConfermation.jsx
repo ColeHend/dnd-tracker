@@ -2,6 +2,7 @@ import React from 'react'
 import { UserContext } from '../../../../App';
 import { removeObjectInArray } from '../../../../utilities/utilities';
 import { Button } from '@mui/material';
+import { resetThepage } from '../../SpellsTable/SpellCreation/SpellCreation';
 
 function DeleteConfermation({featData,setFeatData,feat_ID, apiService}) {
     
@@ -13,6 +14,7 @@ function DeleteConfermation({featData,setFeatData,feat_ID, apiService}) {
             setFeatData(removeObjectInArray(featData, "feat_id", feat_ID))
 
         }
+        resetThepage()
       }
 
     return (
