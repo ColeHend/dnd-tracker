@@ -71,12 +71,13 @@ function SpellsTable({spells, projectID}) {
       minWidth: "50%",
       maxWidth: "50%",
       marginLeft: "20%",
-      marginTop: "5%"
+      marginTop: "5%",
+      fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
     }
   }
   const titleNames = ['',"Spell Name",'', 'Options']
   const CollapsibleComponent = (spell, index) => (
-    <div style={{width:'100%', wordWrap:'normal'}}>
+    <div style={{width:'100%', wordWrap:'normal', font:'inherit',fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}>
     <h1>{spell.spell_subhead}</h1>
     <br />
     <p>{spell.spell_desc}</p>

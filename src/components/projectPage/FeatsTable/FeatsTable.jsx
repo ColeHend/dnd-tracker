@@ -44,7 +44,7 @@ function FeatsTable({feats, projectID}) {
     switch (option.id) {
       case 'edit':
         
-        updateFeat(selectedRow.feat_id)
+        updateFeat(selectedRow)
         break
       case 'delete':
         
@@ -72,7 +72,7 @@ function FeatsTable({feats, projectID}) {
     })
   }
   
-  const updateFeat = async (feat_ID) => {
+  const updateFeat = async (selectedRow) => {
     MySwal.fire({
       title:<p>Feat Editing</p>,
       footer:"Copyright",
@@ -81,7 +81,8 @@ function FeatsTable({feats, projectID}) {
       html: (
         <FeatEditing 
           apiService={apiService}
-          feat_ID={feat_ID}
+          feat_ID={selectedRow.feat_id}
+          selectedRow={selectedRow}
         />
       )
     })
@@ -99,12 +100,13 @@ function FeatsTable({feats, projectID}) {
       minWidth: "50%",
       maxWidth: "50%",
       marginLeft: "20%",
-      marginTop: "5%"
+      marginTop: "5%",
+      fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
     }
   };
   const titleNames = ['Name', '', 'Options'];
   const CollapsibleComponent = (row, index) => (
-    <div style={{ width: "100%", wordWrap: "normal" }}>
+    <div style={{ width: "100%", wordWrap: "normal",font:'inherit' ,fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" }}>
       <h1>{row.feat_subhead}</h1>
       <br></br>
       <p>{row.feat_desc}</p>
