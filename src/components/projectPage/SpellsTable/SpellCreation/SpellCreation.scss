@@ -1,8 +1,29 @@
+#spellsContainer {
+        display: flex;
+        flex-wrap: wrap;
+}
 #SpellCreationDiv {
-    
-    margin-left: 2vw;
+    width: 110%;
+    // margin-left: 10%;
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 15px;
+    flex-grow: 1;
+    :nth-child(n + 2) {
+        flex-grow: 1;
+    }
     hr{
         margin-left: 0;
-        width: 30%;
+        width: 50%;
     }
+    #spellTags{ 
+        display: flex;
+        align-items: flex-start ;
+        #spellLevelsTagdiv{
+            margin-left: 10%;
+            margin-bottom: 10%;
+        }
+    }
+
 }
+

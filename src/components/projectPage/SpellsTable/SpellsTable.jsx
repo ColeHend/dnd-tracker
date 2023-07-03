@@ -13,6 +13,8 @@ import MenuItem from '@mui/material/MenuItem/MenuItem'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import SpellCreation from './SpellCreation/SpellCreation'
 import SpellDeletion from './SpellDeletion/SpellDeletion'
+import { Divider } from '@mui/material'
+import { stringReturnObj } from '../../../utilities/utilities'
 
 function SpellsTable({spells, projectID}) {
   const MySwal = withReactContent(Swal)
@@ -70,72 +72,86 @@ function SpellsTable({spells, projectID}) {
     tableContainerSx: {
       minWidth: "50%",
       maxWidth: "50%",
-      marginLeft: "20%",
+      marginLeft: "2%",
       marginTop: "5%",
+      height:"100%",
       fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
     }
   }
   const titleNames = ['',"Spell Name",'', 'Options']
   const CollapsibleComponent = (spell, index) => (
     <div style={{width:'100%', wordWrap:'normal', font:'inherit',fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}>
-    <h1>{spell.spell_subhead}</h1>
+    <h1>
+      {
+        typeof spell.spell_subhead === 'object' ? 
+        <>{spell.spell_subhead.subhead} {spell.spell_subhead.level} {spell.spell_subhead.school}</> 
+        : spell.spell_subhead
+      }
+    </h1>
     <br />
     <p>{spell.spell_desc}</p>
-  </div>
+    </div>
   )
 
   return (
     <div id='spellsTableDiv'>
         <h1>Master Spells</h1>
-        <hr />
+        <Divider className='spellTopDivide' sx={{background:'white'}}/>
 
-        <GenerateTable isCollapsibleComponent={true} config={config} headerNames={titleNames}>
-          {spellData.map((spell, index)=>(
-            <GenerateRow CollapseComponent={()=>CollapsibleComponent(spell,index)} headerNames={titleNames}>
-              <TableCell>{spell.spell_title}</TableCell>
-              <TableCell>{spell.meta}</TableCell>
-              <TableCell>
-                <IconButton
-                  aria-label='more1'
-                  id='spell-long-button'
-                  aria-controls={open?'spell-long-menu': undefined}
-                  aria-expanded={open?'true':undefined}
-                  aria-haspopup='true'
-                  onClick={(e)=>handleClick(e,spell)}
-               >
-                <MoreVertIcon/>
-                </IconButton>
-                <Menu
-                  id='spell-long-menu'
-                  MenuListProps={{
-                    'aria-labelledby': 'spell-long-button',
-                  }}
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  PaperProps={{
-                    style: {
-                      maxHeight: ITEM_HEIGHT * 4.5,
-                      width: '20ch'
-                    },
-                  }}
+        <div id='spellTableBody'>
+          <GenerateTable isCollapsibleComponent={true} config={config} headerNames={titleNames}>
+            {
+            spellData
+            .map(spell=> typeof stringReturnObj(spell.spell_subhead) === 'object'? 
+            stringReturnObj( {...spell,spell_subhead: stringReturnObj(spell.spell_subhead)}): spell )
+            .map((spell, index)=>(
+              <GenerateRow CollapseComponent={()=>CollapsibleComponent(spell,index)} headerNames={titleNames}>
+                <TableCell>{spell.spell_title}</TableCell>
+                <TableCell>{spell.meta}</TableCell>
+                <TableCell>
+                  <IconButton
+                    aria-label='more1'
+                    id='spell-long-button'
+                    aria-controls={open?'spell-long-menu': undefined}
+                    aria-expanded={open?'true':undefined}
+                    aria-haspopup='true'
+                    onClick={(e)=>handleClick(e,spell)}
                 >
-                  {heightmenuOptions.map((option) =>(
-                    <MenuItem key={option.id} onClick={()=>handleClose(option)}>
-                      {option.name}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </TableCell>
-          </GenerateRow>
-          ))}
-        </GenerateTable>
-        <div id="spellCreationDiv">
-            <SpellCreation 
-              projectID={projectID}
-              userID={userInfo.user_id}
-              apiService={apiService}
-            />
+                  <MoreVertIcon/>
+                  </IconButton>
+                  <Menu
+                    id='spell-long-menu'
+                    MenuListProps={{
+                      'aria-labelledby': 'spell-long-button',
+                    }}
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    PaperProps={{
+                      style: {
+                        maxHeight: ITEM_HEIGHT * 4.5,
+                        width: '20ch'
+                      },
+                    }}
+                  >
+                    {heightmenuOptions.map((option) =>(
+                      <MenuItem key={option.id} onClick={()=>handleClose(option)}>
+                        {option.name}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </TableCell>
+            </GenerateRow>
+            
+            ))}
+          </GenerateTable>
+          <div id="spellCreationDiv">
+              <SpellCreation 
+                projectID={projectID}
+                userID={userInfo.user_id}
+                apiService={apiService}
+              />
+          </div>
         </div>
     </div>
   )

@@ -18,6 +18,17 @@ $parentBGColor: #5b7fa3;
         color: white;
         text-align: center;
     }
-    
+    #featsTableContainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        #featMasterTable{
+            flex-basis: 45%;
+        }
+        #newCreatingFeats{
+            flex-basis: 45%;
+            padding: 20px;
+        }
+    }
 }
 

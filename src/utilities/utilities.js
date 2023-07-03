@@ -17,6 +17,17 @@ const clearLocalInfo = () => {
   window.localStorage.removeItem("user_password");
 };
 
+const objReturnString = (data)=>{
+  return typeof data === 'string'? data : typeof data === 'object' ? JSON.stringify(data) : ''
+}
+const stringReturnObj = (data)=>{
+  let toReturn = data
+  if (typeof data === 'string' && (data.trim().charAt(0) === "[" || data.trim().charAt(0) === "{")) {
+    toReturn = JSON.parse(data)
+  }
+  return toReturn
+}
+
 const removeObjectInArray = (array=[], key="project_id", identifier) => {
   return array.filter((value)=>value[key]!==identifier)
 }
@@ -25,5 +36,7 @@ module.exports = {
   getLocalInfo,
   setLocalInfo,
   clearLocalInfo,
-  removeObjectInArray
+  removeObjectInArray,
+  objReturnString,
+  stringReturnObj
 };
