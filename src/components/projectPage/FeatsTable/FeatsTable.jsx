@@ -97,9 +97,9 @@ function FeatsTable({feats, projectID}) {
     tableID: "featsTable",
     header: "Feats",
     tableContainerSx: {
-      minWidth: "50%",
-      maxWidth: "50%",
-      marginLeft: "20%",
+      // minWidth: "50%",
+      // maxWidth: "50%",
+      marginLeft: "3%",
       marginTop: "5%",
       fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
     }
@@ -117,6 +117,7 @@ function FeatsTable({feats, projectID}) {
     <div id='featsTablediv'>
       <h1 id='featsTableTitle'>Feats</h1>
       <hr />
+      <div id='featsTableContainer'>
         <div id='featMasterTable'>
           <GenerateTable isCollapsible={true} config={config} headerNames={titleNames}>
             {featData.map((row, index)=> (
@@ -171,6 +172,7 @@ function FeatsTable({feats, projectID}) {
               apiService={apiService}
             />
         </div>
+      </div>
     </div>
   )
 }
