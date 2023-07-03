@@ -2,33 +2,13 @@ import { Button } from '@mui/material'
 import React from 'react'
 import './SpellCreation.scss'
 import Divider from '@mui/material/Divider'
-import { objReturnString } from '../../../../utilities/utilities'
+import Spell from '../spell.model'
+
 export function resetThepage() {
   window.location.reload(true)
 }
 
-class Spell {
-  name;
-  subhead;
-  desc;
-  school;
-  level;
-  constructor(name,subhead,desc,school,level){
-    this.name = name;
-    this.desc = desc;
-    // --------v--------
-    this.subhead = subhead;
-    this.school = school;
-    this.level = level;
-  }
-  metadata(){
-    return objReturnString({
-      subhead: this.subhead,
-      level: this.level,
-      school: this.school
-    })
-  }
-}
+
 
 const useSortArray = (data, compareFunc) => {
   const [sortedData, setSortedData] = React.useState([])
@@ -40,7 +20,7 @@ const useSortArray = (data, compareFunc) => {
       setSortedData(data.slice().sort(compareFunction))
       setIsSorted(true)
     }
-  }, [data, compareFunction,setSortedData])
+  }, [data, compareFunction,setSortedData, isSorted])
 
   return [sortedData, setSortedData]
 }
