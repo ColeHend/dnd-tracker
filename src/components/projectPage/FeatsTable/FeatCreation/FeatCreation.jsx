@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import React from 'react'
 import './FeatCreation.scss'
-import { resetThepage } from '../../SpellsTable/SpellCreation/SpellCreation';
+import { resetThePage } from '../../../../utilities/utilities';
 
 function FeatCreation({projectID, userID, apiService}) {
     
@@ -27,7 +27,7 @@ function FeatCreation({projectID, userID, apiService}) {
             newFeatDesc,
             newFeatSubHeader
         )
-        resetThepage()
+        resetThePage()
     }
   
     return (

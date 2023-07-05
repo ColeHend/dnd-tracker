@@ -3,12 +3,7 @@ import React from 'react'
 import './SpellCreation.scss'
 import Divider from '@mui/material/Divider'
 import Spell from '../spell.model'
-
-export function resetThepage() {
-  window.location.reload(true)
-}
-
-
+import { resetThePage } from '../../../../utilities/utilities'
 
 const useSortArray = (data, compareFunc) => {
   const [sortedData, setSortedData] = React.useState([])
@@ -69,7 +64,7 @@ function SpellCreation({projectID, userID, apiService}) {
       createdSpell.desc,
       createdSpell.metadata(),
     )
-    resetThepage()
+    resetThePage()
   }
 
 

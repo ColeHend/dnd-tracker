@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
 import { UserContext } from "../../../App";
 import { useFormik } from "formik";
-import { resetThepage } from "../../projectPage/SpellsTable/SpellCreation/SpellCreation";
 import axios from "axios";
 import Spell from "../../projectPage/SpellsTable/spell.model";
-import { useParams } from "react-router-dom";
+
 function CreatePro(props) {
   const { userInfo, apiService } = useContext(UserContext);
   const initialValues = { projectName: "", projectDesc: "" };
@@ -25,7 +24,6 @@ function CreatePro(props) {
     const serverURL = process.env.SERVER_URL || `http://localhost:4000`;
     const newProject = await apiService.createProject(userInfo.user_id, [userInfo.user_id], values.projectName, values.projectDesc);
     resetForm();
-    console.log("newProject: ", +newProject.data.project_id, newProject);
     if (shouldAddSRD) {
       // ---- add SRD Spells ----
       const spellbook = await axios.get(serverURL + "/api/srd/spells");
@@ -51,7 +49,6 @@ function CreatePro(props) {
       });
       //--
       try {
-        console.log("newSRDSpells: ", newSRDSpells);
         
         await apiService.massCreateSpell(
           +newProject.data.project_id,
