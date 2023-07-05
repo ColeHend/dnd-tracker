@@ -6,8 +6,8 @@ const { sequelize } = require("../sequel");
 const project = async (req, res) => {
   req.session.reload((err) => {
     console.log("------------REQUEST------------");
-    console.log(req);
-    console.log(req.session);
+    // console.log(req);
+    // console.log(req.session);
     console.log("-------------------------------");
   })
   const user_id = +req.params.userid;
@@ -73,16 +73,10 @@ const spells = (req, res) => {
 };
 
 const project_spells = async (req, res) => {
-  sequelize.query("SELECT * FROM project_spells WHERE project_id=?", {
+  sequelize.query("SELECT * FROM spells WHERE spell_id IN (SELECT project_spell_id FROM project_spells WHERE project_id = ?)", {
     replacements: [req.params.projectid],
   }).then(spellsInProject=>{
-    sequelize
-      .query("SELECT * FROM spells WHERE spell_owner=?", {
-        replacements: [req.params.userid],
-      })
-      .then((resp) => {
-        res.status(200).send(resp[0].filter(spell=>spellsInProject.includes(spell.spell_id)))
-      });
+      res.status(200).send(spellsInProject[0])
   })
 }
 const feats = (req, res) => {
