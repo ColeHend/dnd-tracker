@@ -1,3 +1,5 @@
+const { default: Swal } = require("sweetalert2");
+
 const getLocalInfo = () => {
   const user_id = window.localStorage.getItem("user_id");
   const username = window.localStorage.getItem("username");
@@ -28,6 +30,14 @@ const stringReturnObj = (data)=>{
   return toReturn
 }
 
+const closeSwalWindows = ()=>{
+  Swal.close();
+}
+
+const resetThePage = ()=>{
+  window.location.reload(true)
+}
+
 const removeObjectInArray = (array=[], key="project_id", identifier) => {
   return array.filter((value)=>value[key]!==identifier)
 }
@@ -38,5 +48,7 @@ module.exports = {
   clearLocalInfo,
   removeObjectInArray,
   objReturnString,
-  stringReturnObj
+  stringReturnObj,
+  closeSwalWindows,
+  resetThePage
 };
