@@ -40,7 +40,7 @@ function ProjectPage({project}) {
     useEffect(() => {
         const theApiData = async () =>{
             const apiData = await Promise.all([
-                apiService.getSpells(userInfo.user_id,id),
+                apiService.getProjectSpells(userInfo.user_id,id),
                 apiService.getFeats(userInfo.user_id,id),
                 apiService.getClasses(userInfo.user_id,id),
                 apiService.getSubclasses(userInfo.user_id,id),

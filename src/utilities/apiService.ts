@@ -144,14 +144,13 @@ export default class ApiService {
   }
   async createProject(owner:number, group_access: number[], name:string, desc:string) {
     if (owner > 0) {
-      this.axios
+      return await this.axios
         .post(`${this.SERVER_URL}/api/projects`, {
           project_owner: owner,
           project_group_access: [...group_access],
           project_name: name,
           project_desc: desc,
         })
-        .then((res) => res.data);
     }
   }
   async createProjectAccess(project_group_id:number, user_id:number) {
@@ -172,6 +171,18 @@ export default class ApiService {
         spell_name: name,
         spell_desc: desc,
         spell_subhead: subhead,
+      });
+      return reqData.data;
+    } else {
+      console.log(`Owner 0`);
+    }
+  }
+  async massCreateSpell(project_id:number, owner:number, spellList:Any[]) {
+    if (owner > 0) {
+      let reqData = await this.axios.post(`${this.SERVER_URL}/api/spells/mass`, {
+        project_id: project_id,
+        spell_owner: owner,
+        spell_list: spellList
       });
       return reqData.data;
     } else {

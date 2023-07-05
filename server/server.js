@@ -25,8 +25,9 @@ const { SECRET } = process.env;
 
 app.use(cookieParser());
 app.use(cors());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.json())
-app.use(bodyParser.urlencoded({ extended: true }));
 
 const mySqlStore = new SequelizeStore({
   db: daSequel,
@@ -109,7 +110,7 @@ app.post("/api/projects", create.project);
 // returns: {
 // }
 app.post("/api/spells", create.spells);
-
+app.post("/api/spells/mass", create.massSpells);
 // ----- feats --------
 // body object: {
 //    project_id: project_id,

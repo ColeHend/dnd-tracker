@@ -75,7 +75,7 @@ const project = async (req, res) => {
   res.status(200).send({ ...projectData[0][0], project_group_id });
 };
 const spells = (req, res) => {
-  let { spell_owner, spell_name, spell_subhead, spell_desc } = req.body;
+  let { spell_owner, spell_name, spell_subhead, spell_desc, project_id } = req.body;
   sequelize
     .query(
       "INSERT INTO spells(spell_owner,spell_title,spell_subhead,spell_desc) values(?,?,?,?) RETURNING *",
@@ -84,9 +84,32 @@ const spells = (req, res) => {
       }
     )
     .then((resp) => {
-      res.status(200).send(resp[0][0]);
+      sequelize.query("INSERT INTO project_spells(project_id,project_spell_id) values(?,?)",{
+        replacements:[project_id,resp[0][0].spell_id]
+      }).then((respon)=>{
+        res.status(200).send(resp[0][0]);
+      });
     });
 };
+const massSpells = (req, res) => {
+  let { project_id, spell_owner, spell_list } = req.body;
+  spell_list.forEach((spell) => {
+    sequelize
+    .query(
+      "INSERT INTO spells(spell_owner,spell_title,spell_subhead,spell_desc) values(?,?,?,?) RETURNING *",
+      {
+        replacements: [spell_owner, spell.spell_name, spell.spell_subhead, spell.spell_desc],
+      }
+    )
+    .then((resp) => {
+      sequelize.query("INSERT INTO project_spells(project_id,project_spell_id) values(?,?)",{
+        replacements:[project_id,resp[0][0].spell_id]
+      })
+    });
+  });
+  res.sendStatus(200);
+};
+
 const feats = (req, res) => {
   let { project_id, feat_owner, feat_name, feat_subhead, feat_desc } = req.body;
   sequelize
@@ -259,4 +282,5 @@ module.exports = {
   classes,
   subclasses,
   abilities,
+  massSpells
 };
