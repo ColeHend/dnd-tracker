@@ -89,7 +89,7 @@ function SpellsTable({spells, projectID}) {
       }
     </h1>
     <br />
-    <textarea disabled={true} readOnly={true} style={{height:"20vw", width:"15vw", border:"none",fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}>{spell.spell_desc}</textarea>
+    <textarea defaultValue={spell.spell_desc} disabled={true} readOnly={true} style={{height:"20vw", width:"15vw", border:"none",fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}></textarea>
     </div>
   )
 
