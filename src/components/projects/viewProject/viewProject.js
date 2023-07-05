@@ -40,6 +40,7 @@ function ViewProject(props) {
         checkOptionClick(option)
         setAnchorEl(null);
       };
+      console.log('allldata',allData);
       const checkOptionClick = (option)=>{
         switch (option.id) {
           case 'edit':
@@ -47,7 +48,7 @@ function ViewProject(props) {
             projectTheUpdate()
             break
           case 'delete':
-            
+           
             projectDeleteConferm(allData.project_id)
             break
           default:
@@ -64,7 +65,7 @@ function ViewProject(props) {
             showCancelButton:true,
             html:(
               <DeleteAproject 
-                    projectID={project_id}
+                    projectID={allData.project_id}
                     apiService={apiService}
                     allData={allData}
                     removeObjectInArray={removeObjectInArray}

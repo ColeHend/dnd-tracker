@@ -5,10 +5,10 @@ import { resetThePage } from '../../../../utilities/utilities';
 function DeleteAproject({projectID, apiService, allData, removeObjectInArray, setAllData}) {
   
   const deleteProject = async (project_id) =>{
-        
+        console.log("projectid",projectID);
     if (project_id > 0) {
         await apiService.deleteProject(project_id)
-        console.log('deleted');
+        console.log(`deleted:${project_id}`);
         setAllData(removeObjectInArray(allData,"project_id",project_id))
     }   
     resetThePage()
