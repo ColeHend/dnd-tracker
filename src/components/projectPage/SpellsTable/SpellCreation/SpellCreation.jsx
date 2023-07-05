@@ -3,9 +3,8 @@ import React from 'react'
 import './SpellCreation.scss'
 import Divider from '@mui/material/Divider'
 import { objReturnString } from '../../../../utilities/utilities'
-export function resetThepage() {
-  window.location.reload(true)
-}
+import Swal from 'sweetalert2'
+import { resetThePage } from '../../../../utilities/utilities'
 
 class Spell {
   name;
@@ -40,7 +39,7 @@ const useSortArray = (data, compareFunc) => {
       setSortedData(data.slice().sort(compareFunction))
       setIsSorted(true)
     }
-  }, [data, compareFunction,setSortedData])
+  }, [data, compareFunction,setSortedData,isSorted])
 
   return [sortedData, setSortedData]
 }
@@ -89,7 +88,7 @@ function SpellCreation({projectID, userID, apiService}) {
       createdSpell.desc,
       createdSpell.metadata(),
     )
-    resetThepage()
+    resetThePage()
   }
 
 

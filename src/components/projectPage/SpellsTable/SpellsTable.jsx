@@ -84,12 +84,12 @@ function SpellsTable({spells, projectID}) {
     <h1>
       {
         typeof spell.spell_subhead === 'object' ? 
-        <>{spell.spell_subhead.subhead} {spell.spell_subhead.level} {spell.spell_subhead.school}</> 
+        <>{spell.spell_subhead.subhead} {spell.spell_subhead.level} {spell.spell_subhead.school}</> //
         : spell.spell_subhead
       }
     </h1>
     <br />
-    <p>{spell.spell_desc}</p>
+    <textarea defaultValue={spell.spell_desc} disabled={true} readOnly={true} style={{height:"20vw", width:"15vw", border:"none",fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}></textarea>
     </div>
   )
 

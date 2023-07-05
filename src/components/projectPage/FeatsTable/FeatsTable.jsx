@@ -109,7 +109,7 @@ function FeatsTable({feats, projectID}) {
     <div style={{ width: "100%", wordWrap: "normal",font:'inherit' ,fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" }}>
       <h1>{row.feat_subhead}</h1>
       <br></br>
-      <p>{row.feat_desc}</p>
+      <textarea disabled={true} readOnly={true} style={{width:"60%", height:"15vw", border:"none",fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}>{row.feat_desc}</textarea>
     </div>
   )
 
