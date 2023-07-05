@@ -84,7 +84,7 @@ function SpellsTable({spells, projectID}) {
     <h1>
       {
         typeof spell.spell_subhead === 'object' ? 
-        <>{spell.spell_subhead.subhead} {spell.spell_subhead.level} {spell.spell_subhead.school}</> 
+        <>{spell.spell_subhead.subhead} {spell.spell_subhead.level} </> //{spell.spell_subhead.school}
         : spell.spell_subhead
       }
     </h1>
