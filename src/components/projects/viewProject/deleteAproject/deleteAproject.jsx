@@ -1,4 +1,6 @@
 import React from 'react'
+import { Button } from '@mui/material';
+import { resetThePage } from '../../../../utilities/utilities';
 
 function DeleteAproject({projectID, apiService, allData, removeObjectInArray, setAllData}) {
   
@@ -9,10 +11,14 @@ function DeleteAproject({projectID, apiService, allData, removeObjectInArray, se
         console.log('deleted');
         setAllData(removeObjectInArray(allData,"project_id",project_id))
     }   
+    resetThePage()
 }
 
   return (
-    <div>deleteAproject</div>
+    <div>
+      <p>Are You Sure?</p>
+      <Button color='primary' variant='contained' onClick={()=>deleteProject(projectID)}>Accept</Button>
+    </div>
   )
 }
 

@@ -20,7 +20,7 @@ function DeleteConfermation({featData,setFeatData,feat_ID, apiService}) {
     return (
     <div>
         <p>are you sure you want to delete it?</p>
-        <Button color='primary' variant='contained' onClick={deletetheFeat}>Yes</Button>
+        <Button color='primary' variant='contained' onClick={deletetheFeat}>Accept</Button>
         
     </div>
   )
