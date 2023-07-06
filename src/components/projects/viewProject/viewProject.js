@@ -40,11 +40,10 @@ function ViewProject(props) {
         checkOptionClick(option)
         setAnchorEl(null);
       };
-      console.log('allldata',allData);
+
       const checkOptionClick = (option)=>{
         switch (option.id) {
           case 'edit':
-            console.log('clicked');
             projectTheUpdate()
             break
           case 'delete':
@@ -121,11 +120,11 @@ return (
        <GenerateTable isCollapsible={false} config={config} headerNames={titleNames}>
             {
                 Array.isArray(allData) && allData.length > 0 ? allData.map((project, index)=> (
-                    <GenerateRow key={project.project_id} headerNames={titleNames}>
-                         <Link style={{width:"100%",height:'100%'}} to={`ProjectPage/${project.project_id}`}><TableCell key={project.project_id}>{project.project_name}</TableCell></Link>
-                        <TableCell key={project.project_id}>{project.project_desc}</TableCell>
+                    <GenerateRow key={JSON.stringify(project)} headerNames={titleNames}>
+                         <TableCell ><Link style={{width:"100%",height:'100%'}} to={`ProjectPage/${project.project_id}`}>{project.project_name}</Link></TableCell>
+                        <TableCell ><span>{project.project_desc}</span></TableCell>
                         
-                        <TableCell key={project.project_id}>
+                        <TableCell >
                             <IconButton
                                 aria-label="more"
                                 id='project-long-button'
@@ -152,8 +151,8 @@ return (
                                 }}
                             >
                                 {heightmenuOptions.map((projectOption)=>(
-                                    <MenuItem key={projectOption.id} onClick={()=>handleClose(projectOption)}>
-                                        {projectOption.name}
+                                    <MenuItem key={`${projectOption.id} ${project.project_id}`} onClick={()=>handleClose(projectOption)}>
+                                        <span>{projectOption.name}</span>
                                     </MenuItem>
                                 ))}
                             </Menu>

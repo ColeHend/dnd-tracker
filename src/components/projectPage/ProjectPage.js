@@ -58,7 +58,6 @@ function ProjectPage({project}) {
                         if (keys.includes(id_keys[0])) {
                             setFeats(apiValue)
                         } else if (keys.includes(id_keys[1])) {
-                            console.log('spells: ',apiValue);
                             setSpells(apiValue)
                         }  else if (keys.includes(id_keys[2])) {
                             setAbilties(apiValue)

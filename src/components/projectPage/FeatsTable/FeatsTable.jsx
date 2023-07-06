@@ -121,7 +121,7 @@ function FeatsTable({feats, projectID}) {
         <div id='featMasterTable'>
           <GenerateTable isCollapsible={true} config={config} headerNames={titleNames}>
             {featData.map((row, index)=> (
-              <GenerateRow CollapseComponent={()=>CollapsibleComponent(row,index)} headerNames={titleNames}>
+              <GenerateRow key={JSON.stringify(row)} CollapseComponent={()=>CollapsibleComponent(row,index)} headerNames={titleNames}>
                 <TableCell>{row.feat_title}</TableCell>
                 <TableCell>{row.meta}</TableCell>
                 <TableCell>
@@ -153,7 +153,7 @@ function FeatsTable({feats, projectID}) {
                   
                   {heightmenuOptions.map((option) =>(
                     <MenuItem key={option.id} onClick={()=>handleClose(option)}>
-                      {option.name}
+                      <span>{option.name}</span>
                     </MenuItem>
                   ))}
                  </Menu>

@@ -21,7 +21,7 @@ function App() {
     user_password:
       localInfo.user_password !== null ? localInfo.user_password : "", //will be encrypted
   });
-  console.log(userInfo);
+
   const loginCheck = userInfo && userInfo.user_id !== 0 && userInfo.username.length > 1;
   const [isLoggedIn, setIsLoggedIn] = useState(loginCheck);
   const apiService = useMemo(() => new ApiService(axios), []);

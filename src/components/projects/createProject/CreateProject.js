@@ -46,9 +46,10 @@ function CreatePro(props) {
             range: spell.range,
             higher_level: spell.higher_level
           }
-        );
-        newSRDSpells.push(newSpell);
-      });
+          );
+          newSRDSpells.push(newSpell);
+        });
+        
       //--
       try {
         

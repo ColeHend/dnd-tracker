@@ -18,7 +18,7 @@ export default class Spell {
     range: string;
     higher_level: string[];
     constructor(name: string, desc: string, metadata: {
-        subhead?: string,range?:string , higher_level?:string[],school?: string, level?: string, components?: string[], material?: string, ritual?: boolean, duration?: string, concentration?: boolean, casting_time?: string, attack_type?: string, classes?: string[]
+        subhead?: string,range?:string ,higher_level?:string[],school?: string, level?: string, components?: string[], material?: string, ritual?: boolean, duration?: string, concentration?: boolean, casting_time?: string, attack_type?: string, classes?: string[]
     }) {
         this.name = name;
         this.desc = desc;
