@@ -15,6 +15,8 @@ import SpellCreation from './SpellCreation/SpellCreation'
 import SpellDeletion from './SpellDeletion/SpellDeletion'
 import { Divider } from '@mui/material'
 import { stringReturnObj } from '../../../utilities/utilities'
+import ReactMarkdown from 'react-markdown'
+import gfm from 'remark-gfm'
 
 function SpellsTable({spells, projectID}) {
   const MySwal = withReactContent(Swal)
@@ -80,7 +82,7 @@ function SpellsTable({spells, projectID}) {
   }
   const titleNames = ['',"Spell Name",'', 'Options']
   const CollapsibleComponent = (spell, index) => (
-    <div style={{width:'100%', wordWrap:'normal', font:'inherit',fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}>
+    <div style={{width:'100%',height:'max-content', wordWrap:'normal', font:'inherit',fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}>
     <h1>
       {
         typeof spell.spell_subhead === 'object' ? 
@@ -89,7 +91,122 @@ function SpellsTable({spells, projectID}) {
       }
     </h1>
     <br />
-    <textarea defaultValue={spell.spell_desc} disabled={true} readOnly={true} style={{height:"20vw", width:"15vw", border:"none",fontFamily:"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}></textarea>
+    <div className='spellInfoWrapper'>
+      {/* Level */}
+      <div className='SpellInfo'>
+        <label className='spellTag' for="spellLevel">
+          Level:
+        </label>
+        <div id="spellLevel">
+              {
+                typeof spell.spell_subhead === 'object' ? 
+                <>{spell.spell_subhead.level} </>
+                : 'No level'
+              }
+        </div>
+      </div>
+      {/* School */}
+      <div className='SpellInfo'>
+         <label className='spellTag' for="spellSchool">
+            School:
+         </label>
+         <div id="spellSchool">
+            {
+              typeof spell.spell_subhead === "object" ? 
+              <>{spell.spell_subhead.school}</> 
+              : 'no school'
+            }
+         </div>
+      </div>
+      {/* Casting Time */}
+      <div className='SpellInfo'>
+          <label className='spellTag' for="spellCasting_Time">
+              Casting Time: 
+          </label>
+          <div id="spellCasting_Time">
+              {
+                typeof spell.spell_subhead === "object" ? 
+                <>{spell.spell_subhead.casting_time}</> 
+                : 'no Casting time'
+              }
+          </div>
+      </div>
+      {/* Range */}
+      <div className='SpellInfo'>
+          <label className='spellTag' for="spellRange">
+             Range: 
+          </label>
+          <div id="spellRange">
+             {
+              typeof spell.spell_subhead === "object" ? 
+              <> {spell.spell_subhead.range} </> 
+              : "no Range"
+             }
+          </div>
+      </div>
+      {/* Components */}
+      <div className='SpellInfo'>
+            <label className='spellTag' for="spellComponents">
+                Components:
+            </label>
+            <div id="spellComponents">
+                {
+                  typeof spell.spell_subhead === "object" ? 
+                  spell.spell_subhead.components.join(", ")
+                  : "no components"
+                }
+            </div>
+      </div>
+      {/* Material Components if any */}
+      <div className='SpellInfo'>
+        <label className='spellTag' for="spellMaterial">
+          Material Components:
+        </label>
+        <div id="spellMaterial">
+          {
+            typeof spell.spell_subhead === "object" ? 
+            <>{spell.spell_subhead.material}</>
+            : "no material components"
+          }
+        </div>
+      </div>
+      {/* Duration */}
+      <div className='SpellInfo'>
+        <label className='spellTag' for="spellDuration">
+          Duration:
+        </label>
+        <div id="spellDuration">
+          {
+            spell.spell_subhead.concentration ? 
+            "Concentration "
+            : ""
+          }
+          {
+            typeof spell.spell_subhead === "object" ? 
+            <>{spell.spell_subhead.duration}</>
+            : "no Duration"
+          }
+        </div>
+      </div>
+      {/* Classes that can use the spell */}
+      <div className='SpellInfo'>
+        <label className='spellTag' for="spellClasses">
+          Classes:
+        </label>
+        <div id="spellClasses">
+          {
+            typeof spell.spell_subhead === "object" ? 
+            spell.spell_subhead.classes.join(", ") 
+            : "no spell classes"
+          }
+        </div>
+      </div>
+
+    </div>
+    <br />
+    <br />
+    {/* --v---Spell Desc----v---- */}
+    <ReactMarkdown remarkPlugins={[gfm]}>{spell.spell_desc}</ReactMarkdown>
     </div>
   )
 

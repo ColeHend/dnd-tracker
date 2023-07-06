@@ -43,6 +43,8 @@ function CreatePro(props) {
             material: spell.material,
             attack_type: spell.attack_type,
             classes: spell.classes.map(x=>x.name),
+            range: spell.range,
+            higher_level: spell.higher_level
           }
         );
         newSRDSpells.push(newSpell);

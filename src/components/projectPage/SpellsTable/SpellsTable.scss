@@ -24,6 +24,24 @@
         #spellCreationDiv {
             margin-left: 15px;
         }
+        .spellInfoWrapper {
+            display: flex;
+            flex-direction: column;
+            .SpellInfo{
+                display: flex;
+                flex-direction: row;
+                .spellTag{
+                    font-weight: 800;
+                    margin-right: 5px;
+                }
+            }
+        
+        
+        
+        }
+    
+    
+    
     }
 
 }
