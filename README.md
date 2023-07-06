@@ -1,3 +1,15 @@
+# Features
+| Feature | Done % |
+| ----------- | ----------- |
+| Name: | %:  |
+| Spell Table | 89% |
+| Feats Table | 100% |
+| Character Hombrew | 0% |
+| profile | 0% |
+| view Projects interface| 55% |
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
