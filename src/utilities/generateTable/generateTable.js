@@ -7,11 +7,36 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { TablePagination } from '@mui/material';
 function GenerateTable(props) {
   const { searchService } = React.useContext(UserContext);
+  const [page, setPage] = React.useState(0)
+  const [rowsPerPage, setRowsPerPage] = React.useState(10)
   const monsterSearch = (searchTerm) => searchService.monsterSearch(searchTerm, "name");
   const { headerNames, isCollapsible, config } = props;
-  const {tableContainerID, tableID, header, tableContainerSx, cellStyle} = config
+  const {tableContainerID, tableID, header, tableContainerSx, cellStyle, pagination={itemData:null,setItemData:null}} = config
+  const {itemData, setItemData} = pagination;
+  const handleChangePage = itemData && setItemData ? (
+    event,
+    newPage,
+  ) => {
+    setPage(newPage);
+    setItemData(itemData.slice(page * rowsPerPage,(page * rowsPerPage) + rowsPerPage))
+  } : ()=>{};
+
+  const handleChangeRowsPerPage = itemData && setItemData ? (
+    event,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+    setItemData(itemData.slice(page * rowsPerPage,(page * rowsPerPage) + rowsPerPage))
+  }: ()=>{};
+
+  React.useEffect(()=>{
+    if (itemData && setItemData) {
+      setItemData(itemData.slice(page * rowsPerPage,(page * rowsPerPage) + rowsPerPage))
+    }
+  },[itemData, page, rowsPerPage, setItemData])
     return <>
     <TableContainer
     sx={tableContainerSx}
@@ -66,6 +91,15 @@ function GenerateTable(props) {
         {props.children}
         </TableBody>
     </Table>
-  </TableContainer></>;
+  {itemData && typeof itemData.length === 'number' && itemData.length > 0 ? <TablePagination
+      component="div"
+      count={itemData.length}
+      page={page}
+      onPageChange={handleChangePage}
+      rowsPerPage={rowsPerPage}
+      onRowsPerPageChange={handleChangeRowsPerPage}
+    /> : ""}
+  </TableContainer>
+  </>;
 }
 export default GenerateTable;

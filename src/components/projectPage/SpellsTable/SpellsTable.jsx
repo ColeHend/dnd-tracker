@@ -25,6 +25,7 @@ function SpellsTable({spells, projectID}) {
   const ITEM_HEIGHT = 35;
   const {apiService, userInfo} = React.useContext(UserContext)
   const {get:spellData, set:setSpellData} = spells;
+  const [paginatedSpells,setPaginatedSpells] = React.useState(spellData ?? [])
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedRow, setSelectedRow] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -65,10 +66,15 @@ function SpellsTable({spells, projectID}) {
       )
     })
   }
+  console.log(spellData.length);
   const config = {
     tableContainerID:"masterSpellsTableContainer",
     tableID:"masterSpellsTable",
     header:"MasterSpellsList",
+    pagination: {
+      itemData: spellData,
+      setItemData: setPaginatedSpells
+    },
     tableContainerSx: {
       minWidth: "50%",
       maxWidth: "50%",
@@ -101,7 +107,7 @@ function SpellsTable({spells, projectID}) {
         <div id='spellTableBody'>
           <GenerateTable isCollapsibleComponent={true} config={config} headerNames={titleNames}>
             {
-            spellData
+            paginatedSpells
             .map(spell=> typeof stringReturnObj(spell.spell_subhead) === 'object'? 
             stringReturnObj( {...spell,spell_subhead: stringReturnObj(spell.spell_subhead)}): spell )
             .map((spell, index)=>(
