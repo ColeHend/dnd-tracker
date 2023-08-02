@@ -24,12 +24,14 @@ function CustomRow(props) {
       </TableCell>
       {props.children}
     </TableRow>
+    {open ?
     <TableRow>
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={colSpan ?? 6}>
         <Collapse id="collapseTa" in={open} timeout="auto" unmountOnExit>
           {CollapseComponent()}
         </Collapse>
       </TableCell>
-    </TableRow> </> : <TableRow>{props.children}</TableRow>
+    </TableRow>
+    : null} </> : <TableRow>{props.children}</TableRow>
 }
 export default CustomRow;

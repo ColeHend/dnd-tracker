@@ -14,29 +14,35 @@ import SpellsTable from "./SpellsTable/SpellsTable";
 
 
 function ProjectPage({project}) {
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-
-
-
-    const { id } = useParams();
     const {apiService,userInfo } = useContext(UserContext)
-
     
-
+    const [anchorEl, setAnchorEl] = useState(null);
     const [spells, setSpells] = useState([])
     const [feats, setFeats] = useState([])
     const [classes, setClasses] = useState([])
     const [subclasses, setSubclasses] = useState([])
     const [abilities, setAbilties] = useState([])
     const [active, setActive] = useState(true)
+    const { id } = useParams();
     
+    const open = Boolean(anchorEl);
+    
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    const dataCheck = (data, setState, id_key)=>{
+        if (data && Array.isArray(data) && data.length > 0) {
+            if (Object.keys(data[0]).includes(id_key)) {
+                setState(data)
+            }
+        }
+    }
+
     useEffect(() => {
         const theApiData = async () =>{
             const apiData = await Promise.all([
@@ -47,28 +53,11 @@ function ProjectPage({project}) {
                 apiService.getAbilities(userInfo.user_id,id)
             ])
             if (active === true) {
-                
-
-                apiData.forEach((apiValue)=>{
-                    if (apiValue && Array.isArray(apiValue) && apiValue.length > 0) {
-                        const keys = Object.keys(apiValue[0]);
-                        const id_keys = ["feat_owner","spell_owner","ability_owner","subclass_owner","class_owner"];
-                        
-
-                        if (keys.includes(id_keys[0])) {
-                            setFeats(apiValue)
-                        } else if (keys.includes(id_keys[1])) {
-                            setSpells(apiValue)
-                        }  else if (keys.includes(id_keys[2])) {
-                            setAbilties(apiValue)
-                        }   else if (keys.includes(id_keys[3])) {
-                            setSubclasses(apiValue)
-                        }  else if (keys.includes(id_keys[4])) {
-                            setClasses(apiValue)
-
-                        }
-                    }
-                })
+                dataCheck(apiData[0] ?? [], setSpells, "spell_owner");
+                dataCheck(apiData[1] ?? [], setFeats, "feat_owner");
+                dataCheck(apiData[2] ?? [], setClasses, "class_owner");
+                dataCheck(apiData[3] ?? [], setSubclasses, "subclass_owner");
+                dataCheck(apiData[4] ?? [], setAbilties, "ability_owner");
             }
         }
         theApiData()

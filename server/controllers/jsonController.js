@@ -1,6 +1,10 @@
 // @ts-nocheck
-const spells = require("../5e-SRD-Spells.json");
-const monsters = require("../srd_5e_monsters.json");
+const spells = require("../dnd5eContent/5e-SRD-Spells.json");
+const monsters = require("../dnd5eContent/srd_5e_monsters.json");
+const feats = require('../dnd5eContent/05 feats.json')
+const getFeats = (req, res) => {
+  res.send(feats);
+}
 const getSpells = (req, res) => {
   res.send(spells);
 };
@@ -122,6 +126,7 @@ const searchMonsters = (req, res) => {
 module.exports = {
   getSpells,
   getMonsters,
+  getFeats,
   searchSpells,
   searchMonsters,
 };

@@ -4,6 +4,7 @@ import './SpellCreation.scss'
 import Divider from '@mui/material/Divider'
 import Spell from '../spell.model'
 import { resetThePage } from '../../../../utilities/utilities'
+import { useFormik } from "formik";
 
 const useSortArray = (data, compareFunc) => {
   const [sortedData, setSortedData] = React.useState([])
@@ -14,12 +15,12 @@ const useSortArray = (data, compareFunc) => {
       setSortedData(data.slice().sort(compareFunction))
       setIsSorted(true)
     }
-  }, [data, compareFunction, setSortedData, isSorted])
+  }, [data, compareFunction, setSortedData, isSorted,setIsSorted])
 
   return [sortedData, setSortedData]
 }
 
-function SpellCreation({ projectID, userID, apiService }) {
+function SpellCreation({ projectID, userID, apiService,MySwal }) {
   const spellSchools = [
     { name: "Divination", abr: 'div' },
     { name: "Evocation", abr: "evo" },
@@ -41,47 +42,65 @@ function SpellCreation({ projectID, userID, apiService }) {
     { level: "6", name: "Sixth" },
     { level: "7", name: "Seventh" },
     { level: "8", name: "Eighth" },
-    { level: "9", name: "ninth" }
+    { level: "9", name: "Ninth" }
 
   ]
 
   const [showSpellCreator, setShowSpellCreator] = React.useState(false)
-  const [newspellName, setNewspellName] = React.useState('')
-  const [newSpellDesc, setNewSpellDesc] = React.useState('')
-  const [newSpellSubhead, setNewSpellSubhead] = React.useState(null)
   // const [newSpellSchools, setNewSpellSchools] = React.useState(spellSchools)
   const [selectedSchool, setSelectedSchool] = React.useState(null)
   const [selectedLevel, setSelectedLevel] = React.useState(null)
   const [sortedSpellSchools] = useSortArray(spellSchools, (a, b) => a.name.localeCompare(b.name))
   const [sortedSpellLevels] = useSortArray(spellLevels, (a, b) => +a.level - +b.level)
-  const createTheSpell = (projectID, userID) => {
-    const createdSpell = new Spell(newspellName, newSpellSubhead, newSpellDesc, selectedSchool, selectedLevel)
+
+  const onSubmit = (values) => {
+    const createdSpell = new Spell(values.name, values.desc, 
+      {
+        school: values.school, 
+        level: sortedSpellLevels[+values.level].level
+      } 
+    )
+   
     apiService.createSpell(
       projectID,
       userID,
       createdSpell.name,
       createdSpell.desc,
       createdSpell.metadata(),
-    )
+     )
     resetThePage()
   }
+
+  const formik = useFormik({
+    initialValues: { name:'', desc:'', level:'',school:''},
+    onSubmit
+  })
+  const schoolChange = (e)=> {
+    formik.values.school=e.target.value;
+    setSelectedSchool(e.target.value);
+  };
+  const spellLevelChange = (e)=> {
+    formik.values.level=e.target.value;
+    setSelectedLevel(e.target.value);
+  };
+
   return (
-    <>
+    <form action='/api/spells' method='post' onSubmit={formik.handleSubmit}>
       <div id={'SpellCreationDiv'}>
         <div id='spellsContainer'>
           <div>
             <p>New Spell's Name</p>
-            <input type='text' value={newspellName} onChange={(e) => { setNewspellName(e.target.value) }} />
+            <input name='name' type='text' value={formik.values.name} onChange={formik.handleChange} />
             <hr />
             <p>New Spell's Desc</p>
-            <textarea name="spellDesc" id="SpellDesc" value={newSpellDesc} onChange={(e) => { setNewSpellDesc(e.target.value) }} cols="30" rows="10" />
+            <textarea name="desc" id="SpellDesc" value={formik.values.desc} onChange={formik.handleChange} cols="30" rows="10" />
             <hr />
-            <p>New Spell's Subheader</p>
+            {/* <p>New Spell's Subheader</p>
             <input type="text" value={newSpellSubhead} onChange={(e) => { setNewSpellSubhead(e.target.value) }} />
-            <br />
+            <br /> */}
             <div>
               <p>Done?</p>
-              <Button color='primary' variant='contained' onClick={() => createTheSpell(projectID, userID)}>submit</Button>
+              <Button color='primary' type='submit' variant='contained'>Submit</Button>
             </div>
           </div>
           <div id='spellTags'>
@@ -96,8 +115,8 @@ function SpellCreation({ projectID, userID, apiService }) {
                 <br />
                 {
                   sortedSpellSchools.map(school => <>
-                    <input onChange={(e) => { setSelectedSchool(e.target.value) }} checked={school.name === selectedSchool} value={school.name} type="radio" id={school.name + 'School'} />
-                    <label for={school.name + 'School'}>{school.name}</label>
+                    <input key={crypto.randomUUID()} onChange={(e)=>schoolChange(e)} checked={school.name === selectedSchool} value={school.name} type="radio" id={school.name + 'School'} />
+                    <label key={crypto.randomUUID()} htmlFor={school.name + 'School'}>{school.name}</label>
                     <Divider />
                   </>)
                 }
@@ -105,9 +124,10 @@ function SpellCreation({ projectID, userID, apiService }) {
               <div id='spellLevelsTagdiv'>
                 <p>Spell Level</p>
                 {
-                  sortedSpellLevels.map(level => <>
-                    <input onChange={(e) => { setSelectedLevel(e.target.value) }} checked={level.name === selectedLevel} value={level.name} type="radio" id={level.name + 'level'} />
-                    <label for={level.name + 'level'}>{level.name}</label>
+                  sortedSpellLevels.map(spellLevel => 
+                  <>
+                    <input key={crypto.randomUUID()} onChange={(e)=>spellLevelChange(e)} checked={spellLevel.level === selectedLevel} value={spellLevel.level} type="radio" id={spellLevel.name + 'level'} />
+                    <label key={crypto.randomUUID()} htmlFor={spellLevel.name + 'level'}>{spellLevel.name}</label>
                     <Divider />
                   </>)
                 }
@@ -115,8 +135,8 @@ function SpellCreation({ projectID, userID, apiService }) {
             </div>
           </div>
         </div>
-      </div>
-    </>
+`      </div>
+    </form>
   )
 }
 

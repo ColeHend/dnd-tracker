@@ -49,24 +49,18 @@ function GenerateTable(props) {
           <TableRow>
             <TableCell
               style={{ fontWeight: "bold", fontSize: "24px", width: "min-content" }}
-              colSpan={6}
+              colSpan={headerNames.length}
             >
               {header}
             </TableCell>
           </TableRow>
         ) : null}
-        {/* {header.search ? (
-          <TableRow>
-            <TableCell colSpan={6}>
-              <SearchBar
-                allTableData={allTableData}
-                data={tableData}
-                setData={setTableData}
-                filterFunc={header.search.filterFunc}
-              />
-            </TableCell>
-          </TableRow>
-        ) : null} */}
+
+        <TableRow>
+          <TableCell colSpan={headerNames.length}>
+            {Array.isArray(props.children) && props.children.length > 1 ? props.children[0] : null}
+          </TableCell>
+        </TableRow>
         <TableRow>
         {isCollapsible ? 
           <TableCell
@@ -84,11 +78,10 @@ function GenerateTable(props) {
           )) 
         }
         </TableRow>
-
         <TableRow></TableRow>
       </TableHead>
       <TableBody>
-        {props.children}
+        {Array.isArray(props.children) && props.children.length > 1 ? props.children.slice(1).map(child=>child) : props.children}
         </TableBody>
     </Table>
   {itemData && typeof itemData.length === 'number' && itemData.length > 0 ? <TablePagination
@@ -98,7 +91,7 @@ function GenerateTable(props) {
       onPageChange={handleChangePage}
       rowsPerPage={rowsPerPage}
       onRowsPerPageChange={handleChangeRowsPerPage}
-    /> : ""}
+    /> : null}
   </TableContainer>
   </>;
 }

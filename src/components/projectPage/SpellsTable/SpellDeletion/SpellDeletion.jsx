@@ -10,7 +10,6 @@ function SpellDeletion({spell_ID, spellData, setSpellData, apiService, removeObj
   const deleteASPELL = async (spellID)=> {
     if (spellID > 0) {
         await apiService.deleteSpell(spellID)
-        console.log(`Deleted:${spellID}`);
         setSpellData(removeObjectInArray(spellData,"spell ID",spellID))
         runclose = true
       }
