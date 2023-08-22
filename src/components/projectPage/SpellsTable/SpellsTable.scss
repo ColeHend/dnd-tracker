@@ -5,11 +5,13 @@
     background-color: #2c2e2f;
     color: white;
     flex-direction: column;
-    @include HomeBrewOptionsBasicStyle();
-    h1 {
-        text-align: center;
+    // @include HomeBrewOptionsBasicStyle();
+    border: black solid 2px;
+    width: 88vw;
+    height: 85%;
+    margin-top: 5vw;
+    margin-left: 0vw;
 
-    }
     #spellTableBody {
         display: flex;
         flex-direction: row;
@@ -22,7 +24,7 @@
             }
         }
         #spellCreationDiv {
-            margin-left: 15px;
+            // margin-left: 15px;
         }
         .spellInfoWrapper {
             display: flex;

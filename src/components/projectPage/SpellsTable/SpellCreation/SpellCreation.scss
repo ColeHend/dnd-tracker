@@ -15,7 +15,7 @@
     }
     hr{
         margin-left: 0;
-        width: 50%;
+        width: 100%;
     }
     #spellTags{ 
         display: flex;
@@ -24,6 +24,9 @@
         #spellLevelsTagdiv{
             margin-bottom: 10%;
         }
+    }
+    .spellCreSubmitBtn {
+        margin-left: 9%;
     }
 }
 

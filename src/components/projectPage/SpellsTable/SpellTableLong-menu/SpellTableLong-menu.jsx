@@ -17,11 +17,8 @@ const theme = createTheme({
     },
 });
 
-
-
-function SpellTableLongmenu({selectedRow, spellData, setSpellData, apiService, MySwal,spellID}) {
+function SpellTableLongmenu({spellData, setSpellData, apiService, MySwal,spellID}) {
     
-   
     const deleteSpellConfermation = async (spell_ID) => {
         MySwal.fire({
           title: <p>deleting spells</p>,
@@ -47,16 +44,17 @@ function SpellTableLongmenu({selectedRow, spellData, setSpellData, apiService, M
   
     const handleClose = (option,PopupState) => {
         checkOptionClick(option);
-        let close = ()=> PopupState.close
+        let close = ()=> PopupState.close()
         close()
     };
     const checkOptionClick = (option) => {
+        
         switch (option.id) {
             case 'edit':
 
                 break
             case 'delete':
-                deleteSpellConfermation(spellID);
+                deleteSpellConfermation(spellID); 
                 break
             default:
                 break;

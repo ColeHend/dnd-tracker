@@ -1,22 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { Link, Route, Routes, useParams } from "react-router-dom";
-import { Box } from "@mui/system";
-import { Button } from "@mui/material";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { createTheme,ThemeProvider } from '@mui/material/styles';
 import { UserContext } from "../../App";
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem';
-import Fade from '@mui/material/Fade'
-import './projectPage.scss'
+import { red } from '@mui/material/colors';
 import ClassesHomebrew from "./ClassesHomebrew/ClassesHomebrew";
 import FeatsTable from "./FeatsTable/FeatsTable";
 import SpellsTable from "./SpellsTable/SpellsTable";
-
-
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import 'react-tabs/style/react-tabs.scss'
+import './projectPage.scss'
 
 function ProjectPage({project}) {
     const {apiService,userInfo } = useContext(UserContext)
-    
-    const [anchorEl, setAnchorEl] = useState(null);
     const [spells, setSpells] = useState([])
     const [feats, setFeats] = useState([])
     const [classes, setClasses] = useState([])
@@ -25,24 +23,24 @@ function ProjectPage({project}) {
     const [active, setActive] = useState(true)
     const { id } = useParams();
     
-    const open = Boolean(anchorEl);
-    
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-    
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-
     const dataCheck = (data, setState, id_key)=>{
         if (data && Array.isArray(data) && data.length > 0) {
             if (Object.keys(data[0]).includes(id_key)) {
                 setState(data)
             }
         }
-    }
-
+    };
+    const fiftyShadesOfRed = createTheme({
+        palette: {
+            primary: {
+                main: red[400]
+            },
+            secondary: {
+                main: red[900]
+            },
+        },
+    });
+    
     useEffect(() => {
         const theApiData = async () =>{
             const apiData = await Promise.all([
@@ -63,50 +61,37 @@ function ProjectPage({project}) {
         theApiData()
         return () => setActive(false)
     },[active,apiService,userInfo])
-    
-    
-    
 
     return (
-         <div>
-            <>
-                <Button
-                    sx={{color:'white',}}
-                    id="fade-button"
-                    aria-controls={open ? 'fade-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                    onClick={handleClick}
-                >
-                    homebrew options
-                </Button>
-                <Menu
-                    id="fade-menu"
-                    MenuListProps={{
-                        'aria-labelledby': 'fade-button',
-                    }}
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    TransitionComponent={Fade}
-                >
-                  <Link to="ClassesHomebrew"><MenuItem onClick={handleClose}>Classes homebrew</MenuItem></Link>
-                  <Link to="FeatsTable"><MenuItem onClick={handleClose}>Feats Table</MenuItem></Link>  
-                  <Link to="SpellsTable"><MenuItem onClick={handleClose}>Spells Table</MenuItem></Link>  
-                </Menu>
-                <Routes>
-                    <Route path="/ClassesHomebrew" element={<ClassesHomebrew projectID={id} classes={classes} subclasses={subclasses} abilities={abilities} spells={spells} />}></Route>
-                    <Route path="/FeatsTable" element={<FeatsTable projectID={id} feats={{get:feats, set:setFeats}}/>}></Route>
-                    <Route path="/SpellsTable" element={<SpellsTable projectID={id} spells={{get:spells, set:setSpells}}/>}></Route>
-                </Routes>
-            </>
-            
-        
-        
-            
-        
-       
-         </div>
+         <div style={{
+            marginLeft:'5vw',
+            marginTop:'5vw'
+         }}>
+            <PopupState variant="popover" popupId="project-page-popup-menu">
+                {(PopupState) => ( <>
+                        <Tabs defaultIndex={2} {...bindMenu(PopupState)}>
+                            <TabList>
+                                <ThemeProvider theme={fiftyShadesOfRed}>
+                                <Stack direction='row' spacing={3}>
+                                <Tab><Link {...bindTrigger(PopupState)} onClick={PopupState.close} to="ClassesHomebrew"><Button>Classes Homebrew</Button></Link></Tab>
+                                <Tab><Link {...bindTrigger(PopupState)} onClick={PopupState.close} to="FeatsTable"><Button>Feats Table</Button></Link></Tab>
+                                <Tab><Link {...bindTrigger(PopupState)} onClick={PopupState.close} to="SpellsTable"><Button>Spell Table</Button></Link></Tab>
+                                </Stack>
+                                </ThemeProvider>
+                            </TabList>
+                            <TabPanel></TabPanel>
+                            <TabPanel></TabPanel>
+                            <TabPanel></TabPanel>
+                            <Routes >
+                                <Route path="/ClassesHomebrew" element={<ClassesHomebrew projectID={id} classes={classes} subclasses={subclasses} abilities={abilities} spells={spells} />}></Route>
+                                <Route path="/FeatsTable" element={<FeatsTable projectID={id} feats={{get:feats, set:setFeats}}/>}></Route>
+                                <Route path="/SpellsTable" element={<SpellsTable projectID={id} classes={{get:classes,set:setClasses}} spells={{get:spells, set:setSpells}}/>}></Route>
+                            </Routes>
+                        </Tabs> 
+                    </>         
+                )}   
+            </PopupState>
+        </div>
     )
 }
 

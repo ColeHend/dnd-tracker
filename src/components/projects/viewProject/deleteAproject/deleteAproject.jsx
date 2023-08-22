@@ -2,16 +2,21 @@ import React from 'react'
 import { Button } from '@mui/material';
 import { resetThePage } from '../../../../utilities/utilities';
 
-function DeleteAproject({projectID, apiService, allData, removeObjectInArray, setAllData}) {
+function DeleteAproject({projectID, apiService, allData, removeObjectInArray, setAllData,MySwal}) {
+  const handleClose = ()=>{
+    MySwal.close()
+    resetThePage()
+  }
   
   const deleteProject = async (project_id) =>{
+    console.log('allData',allData);
     if (project_id > 0) {
         await apiService.deleteProject(project_id)
         setAllData(removeObjectInArray(allData,"project_id",project_id))
     }   
-    resetThePage()
+    handleClose()
 }
-
+ 
   return (
     <div>
       <p>Are You Sure?</p>

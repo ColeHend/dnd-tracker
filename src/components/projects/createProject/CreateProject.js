@@ -25,7 +25,7 @@ function CreatePro(props) {
     const newSRDSpells = [];
     const spellbook = await axios.get(serverURL + "/api/srd/spells");
     spellbook.data.forEach((spell) => {
-     console.log('spell.damage.damage_type.name',spell.damage.damage_type);
+     
       const newSpell = new Spell(
         spell.name,
         Array.isArray(spell.desc) ? spell.desc.join("\n") : spell.desc,

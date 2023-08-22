@@ -28,7 +28,7 @@ export default class Spell {
         this.school = metadata.school || "";
         this.level = metadata.level || "";
         this.components = metadata.components || [];
-        this.material = metadata.material || "none";
+        this.material = metadata.material || "";
         this.ritual = metadata.ritual || false;
         this.duration = metadata.duration || "";
         this.concentration = metadata.concentration || false;

@@ -71,7 +71,7 @@ function SpellCollapsible({spell}) {
             }
           </div>
         </div>
-        <div className='SpellInfo'>{/* Material Components if any */}
+        { spell.spell_subhead.material ?<div className='SpellInfo'>{/* Material Components if any */}
           <label className='spellTag' htmlFor="spellMaterial">
             Material Components:
           </label>
@@ -82,7 +82,7 @@ function SpellCollapsible({spell}) {
                 : "no material components"
             }
           </div>
-        </div>
+        </div>: null}
         <div className='SpellInfo'>{/* Duration */}
           <label className='spellTag' htmlFor="spellDuration">
             Duration:
