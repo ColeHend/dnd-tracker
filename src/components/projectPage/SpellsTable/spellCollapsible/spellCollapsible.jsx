@@ -4,6 +4,10 @@ import gfm from 'remark-gfm'
 
 
 function SpellCollapsible({spell}) {
+  const isObjArr = (spell)=>{
+    let classARR = spell.spell_subhead.classes
+    return classARR && Array.isArray(classARR) && typeof classARR[0] !== 'string'
+  }
   return (
     <div style={{width: '100%', height: 'max-content', wordWrap: 'normal', font: 'inherit', fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" }}>
       <h1>
@@ -106,9 +110,12 @@ function SpellCollapsible({spell}) {
           </label>
           <div id="spellClasses">
             {
-              typeof spell.spell_subhead === "object" ?
-                spell.spell_subhead.classes?.join(", ")
-                : "no spell classes"
+              console.log(spell.spell_subhead.classes)
+            }
+            {
+              isObjArr(spell) ?
+                spell.spell_subhead.classes?.map(x=>x.class_name).join(", ")
+                : spell.spell_subhead.classes?.join(", ") 
             }
           </div>
         </div>
