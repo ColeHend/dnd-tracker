@@ -338,6 +338,7 @@ app.post("/api/abilities/delete", remove.removeAbility);
 //--------------
 app.get("/api/srd/spells",json.getSpells);
 app.get("/api/srd/monsters",json.getMonsters);
+app.get("/api/srd/feats",json.getFeats);
 app.post("/api/srd/monsters/search",json.searchMonsters);
 app.post("/api/srd/spells/search",json.searchSpells);
 

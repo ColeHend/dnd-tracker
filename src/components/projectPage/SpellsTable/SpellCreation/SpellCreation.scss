@@ -1,29 +1,32 @@
 #spellsContainer {
         display: flex;
         flex-wrap: wrap;
-}
-#SpellCreationDiv {
-    width: 110%;
-    // margin-left: 10%;
-    border: 2px solid white;
-    border-radius: 20px;
-    padding: 15px;
-    flex-grow: 1;
+    }
+    #SpellCreationDiv {
+        width: 90%;
+        // margin-left: 10%;
+        border: 2px solid white;
+        border-radius: 20px;
+        padding: 15px;
+        flex-grow: 1;
+        justify-content: space-between;
     :nth-child(n + 2) {
         flex-grow: 1;
     }
     hr{
         margin-left: 0;
-        width: 50%;
+        width: 100%;
     }
     #spellTags{ 
         display: flex;
         align-items: flex-start ;
+        margin-left: 10%;
         #spellLevelsTagdiv{
-            margin-left: 10%;
             margin-bottom: 10%;
         }
     }
-
+    .spellCreSubmitBtn {
+        margin-left: 9%;
+    }
 }
 

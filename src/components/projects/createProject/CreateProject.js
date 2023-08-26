@@ -19,36 +19,46 @@ function CreatePro(props) {
     }
     return errors;
   };
-  const onSubmit = async (values, { resetForm }) => {
+
+  const getSRDSpells = async (serverURL)=>{
+    // ---- add SRD Spells ----
     const newSRDSpells = [];
+    const spellbook = await axios.get(serverURL + "/api/srd/spells");
+    spellbook.data.forEach((spell) => {
+     
+      const newSpell = new Spell(
+        spell.name,
+        Array.isArray(spell.desc) ? spell.desc.join("\n") : spell.desc,
+        {
+          level: `${spell.level}`,
+          school: spell.school.name,
+          casting_time: spell.casting_time,
+          range: spell.range,
+          components: spell.components,
+          duration: spell.duration,
+          concentration: spell.concentration,
+          ritual: spell.ritual,
+          material: spell.material,
+          attack_type: spell.attack_type,
+          classes: spell.classes.map(x=>x.name),
+          range: spell.range,
+          higher_level: spell.higher_level,
+        }
+        );
+        newSRDSpells.push(newSpell);
+      });
+
+      return newSRDSpells
+  }
+
+  const onSubmit = async (values, { resetForm }) => {
     const serverURL = process.env.SERVER_URL || `http://localhost:4000`;
     const newProject = await apiService.createProject(userInfo.user_id, [userInfo.user_id], values.projectName, values.projectDesc);
     resetForm();
     if (shouldAddSRD) {
-      // ---- add SRD Spells ----
-      const spellbook = await axios.get(serverURL + "/api/srd/spells");
-      spellbook.data.forEach((spell) => {
-        const newSpell = new Spell(
-          spell.name,
-          Array.isArray(spell.desc) ? spell.desc.join("\n") : spell.desc,
-          {
-            level: `${spell.level}`,
-            school: spell.school.name,
-            casting_time: spell.casting_time,
-            range: spell.range,
-            components: spell.components,
-            duration: spell.duration,
-            concentration: spell.concentration,
-            ritual: spell.ritual,
-            material: spell.material,
-            attack_type: spell.attack_type,
-            classes: spell.classes.map(x=>x.name),
-          }
-        );
-        newSRDSpells.push(newSpell);
-      });
       //--
       try {
+        const newSRDSpells = await getSRDSpells(serverURL)
         
         await apiService.massCreateSpell(
           +newProject.data.project_id,
@@ -62,9 +72,10 @@ function CreatePro(props) {
           })
         );
       } catch (err) { console.error("Error Creating Spell! ", err); }
+
       // ---- add SRD Other stuff eventually ----
     }
-    // resetThepage();
+
 
 
   };

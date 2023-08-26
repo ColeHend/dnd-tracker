@@ -1,136 +1,164 @@
 import { Button } from '@mui/material'
 import React from 'react'
 import './SpellCreation.scss'
-import Divider from '@mui/material/Divider'
 import Spell from '../spell.model'
 import { resetThePage } from '../../../../utilities/utilities'
+import { Field, useFormik } from "formik";
+import Name from './Name/Name'
+import Desc from './Desc/Desc'
+import Range from './Range/Range'
+import Concentration from './Concentration/Concentration'
+import OtherCastingTime from './OtherCastingTime/OtherCastingTime'
+import School from './School/School'
+import Level from './Level/Level'
+import CastingTIme from './CastingTIme/CastingTIme'
+import MaterialComps from './MaterialComps/MaterialComps'
+import MaterialCompInputBox from './MaterialCompInputBox/MaterialCompInputBox'
+import Classes from './Classes/Classes'
 
 const useSortArray = (data, compareFunc) => {
   const [sortedData, setSortedData] = React.useState([])
   const [isSorted, setIsSorted] = React.useState(false)
   const compareFunction = React.useCallback(compareFunc);
-
-  React.useEffect(()=>{
+  React.useEffect(() => {
     if (!isSorted) {
       setSortedData(data.slice().sort(compareFunction))
       setIsSorted(true)
     }
-  }, [data, compareFunction,setSortedData, isSorted])
+  }, [data, compareFunction, setSortedData, isSorted,setIsSorted])
 
   return [sortedData, setSortedData]
 }
 
-function SpellCreation({projectID, userID, apiService}) {
-  const spellSchools = [
-    {name:"Divination", abr:'div'}, 
-    {name:"Evocation", abr:"evo"},
-    {name:"Abjuration", abr:"abj"},
-    {name:"Conjuration", abr:"con"},
-    {name:"Enchantment", abr:"enc"},
-    {name:"Illusion", abr:"ill"},
-    {name:"Necromancy", abr:"necro"},
-    {name:"Transmutaion", abr:"trans"}
-  ]
-  const spellLevels = [
-    {level:"1", name:"First" },
-    {level:"0", name:"Cantrip" },
-    {level:"2", name:"Second"},
-    {level:"3", name:"Third"},
-    {level:"4", name:"Forth"},
-    {level:"5", name:"Fifth"},
-    {level:"6", name:"Sixth"},
-    {level:"7", name:"Seventh"},
-    {level:"8", name:"Eighth"},
-    {level:"9", name:"ninth"}
-    
-  ]
-  
-  const [showSpellCreator, setShowSpellCreator] = React.useState(false)
-  const [newspellName,setNewspellName] = React.useState('')
-  const [newSpellDesc, setNewSpellDesc] = React.useState('')
-  const [newSpellSubhead,setNewSpellSubhead] = React.useState(null)
-  // const [newSpellSchools, setNewSpellSchools] = React.useState(spellSchools)
+function SpellCreation({ projectID, userID, apiService,MySwal,classes }) {
   const [selectedSchool, setSelectedSchool] = React.useState(null)
   const [selectedLevel, setSelectedLevel] = React.useState(null)
-  const [sortedSpellSchools] = useSortArray(spellSchools,(a,b)=>a.name.localeCompare(b.name))
-  const [sortedSpellLevels] = useSortArray(spellLevels,(a,b)=>+a.level - +b.level)
+  const [selectedCastingTime,setSelectedCastingTime] = React.useState(null)
+  const [selectedComponentM,setSelectedComponentM] = React.useState(null)
+  const [selectedComponentS,setSelectedComponentS] = React.useState(null)
+  const [selectedComponentV,setSelectedComponentV] = React.useState(null)
+  const [CastingTISother,setCastingTISother] = React.useState(false)
+  const [otherCastingTime, setOtherCastingTime] = React.useState('')
+  const [isMaterialComp,setIsMaterialComp] = React.useState(false)
+  const [otherComponent,setOtherComponent] = React.useState(null)
+  const [selectedClass,setSelectedClass] = React.useState([])
+  
+  //----V--Can't move this stuff. I TRYED--V----
+  const spellLevels = [
+        { level: "1", name: "First" },
+        { level: "0", name: "Cantrip" },
+        { level: "2", name: "Second" },
+        { level: "3", name: "Third" },
+        { level: "4", name: "Forth" },
+        { level: "5", name: "Fifth" },
+        { level: "6", name: "Sixth" },
+        { level: "7", name: "Seventh" },
+        { level: "8", name: "Eighth" },
+        { level: "9", name: "Ninth" }
+      ];
+    const [sortedSpellLevels] = useSortArray(spellLevels, (a, b) => +a.level - +b.level)
+    //----A--Can't move this stuff. I TRYED-----A----
 
-  const createTheSpell = (projectID,userID)=>{
-    const createdSpell = new Spell(newspellName, newSpellSubhead,newSpellDesc,selectedSchool,selectedLevel) 
-    apiService.createSpell(
-      projectID,
-      userID,
-      createdSpell.name,
-      createdSpell.desc,
-      createdSpell.metadata(),
+  const onSubmit = (values) => {
+    const createdSpell = new Spell(values.name, values.desc, 
+      {
+        school: values.school, 
+        level: sortedSpellLevels[+values.level].level,
+        casting_time: values.casting_time,
+        range: values.range,
+        components:[values.componentM,values.componentS,values.componentV],
+        material:values.material,
+        concentration: values.concentration,
+        duration: values.duration,
+        classes: values.classes
+      } 
     )
-    resetThePage()
+    console.log('class', formik.values);
+    console.log('values',values);
+    apiService.createSpell(
+       projectID,
+       userID,
+       createdSpell.name,
+       createdSpell.desc,
+       createdSpell.metadata(),
+      )
+    // resetThePage()
   }
-
-
-
+  const formik = useFormik({
+    initialValues: { name:'', desc:'', level:'',school:'',casting_time:'',range:'',componentM:'',componentS:'',componentV:'',material:'',concentration:false, duration:'',classes:[...classes]},
+    onSubmit
+  })
   return (
-    <>
-      <Button  color='info' onClick={()=>setShowSpellCreator(!showSpellCreator)}><h2>Create a Spell</h2></Button>
-
-        <div id={showSpellCreator?'SpellCreationDiv':''}>
-          
-          {showSpellCreator? <div id='spellsContainer'>
+    <form action='/api/spells' method='post' onSubmit={formik.handleSubmit}>
+      <div id={'SpellCreationDiv'}>
+        <div id='spellsContainer'>
+          {/* left side of the creation popup */}
           <div>
-            <p>New Spell's Name</p>
-            <input type='text' value={newspellName} onChange={(e)=>{ setNewspellName(e.target.value)}} />
+            <Name nameValue={formik.values.name} nameOnChange={formik.handleChange}/>
             <hr />
-            <p>New Spell's Desc</p>
-            <textarea name="spellDesc" id="SpellDesc" value={newSpellDesc} onChange={(e)=>{setNewSpellDesc(e.target.value)}} cols="30" rows="10" />
+            <Desc descValue={formik.values.desc} descOnChange={formik.handleChange}/>
             <hr />
-            <p>New Spell's Subheader</p>
-            <input type="text" value={newSpellSubhead} onChange={(e)=>{setNewSpellSubhead(e.target.value)}} />
+            <Range rangeValue={formik.values.range} rangeOnChange={formik.handleChange} />
             <br />
-
-            <div>
-              <p>Done?</p>
-              <Button color='primary' variant='contained' onClick={()=>createTheSpell(projectID,userID)}>submit</Button>
-            </div>  
-
+            <Concentration ConChecked={formik.values.concentration} DurValue={formik.values.duration} ConValue={formik.values.concentration} formikChange={formik.handleChange}/>
+            <OtherCastingTime formik={formik} castingTimeValue={otherCastingTime} CastingTISother={CastingTISother} setOtherCastingTime={setOtherCastingTime} />
+            <MaterialCompInputBox 
+              formik={formik}
+              isMaterialComp={isMaterialComp}
+              setOtherComponent={setOtherComponent}
+              otherComponent={otherComponent}
+            />
           </div>
-            
+          {/* right side of creation popup */}
           <div id='spellTags'>
-             <div style={{display:'flex',flexDirection:'row', flexWrap: 'wrap' }}>
-              <span style={{flexBasis:'100%', height: 'min-content'}}>
+            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+              <span style={{  flexBasis: '100%', height: 'min-content', }}>
                 <hr />
                 <p>Spell Tags</p>
                 <hr />
               </span>
               <div>
-              <p>Spell School</p>
-                <br />
-                {
-                  sortedSpellSchools.map(school=><>
-                    <input onChange={(e)=>{setSelectedSchool(e.target.value)}} checked={school.name === selectedSchool} value={school.name} type="radio" id={school.name+'School'} />
-                    <label for={school.name+'School'}>{school.name}</label>
-                    <Divider />
-                  </>)
-                }
+                <School formik={formik} selectedSchool={selectedSchool} setSelectedSchool={setSelectedSchool} useSortArray={useSortArray} />
               </div>
               <div id='spellLevelsTagdiv'>
-                <p>Spell Level</p>
-                {
-                  sortedSpellLevels.map(level=><>
-                    <input onChange={(e)=>{setSelectedLevel(e.target.value)}} checked={level.name === selectedLevel} value={level.name} type="radio" id={level.name+'level'} />
-                    <label for={level.name+'level'}>{level.name}</label>
-                    <Divider />
-
-                  </>)
-                }
+                <Level formik={formik} selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} sortedSpellLevels={sortedSpellLevels}  />
               </div>
-             </div>
+              <div id='spellCastingTime'>
+                <CastingTIme formik={formik} useSortArray={useSortArray} selectedCastingTime={selectedCastingTime} setSelectedCastingTime={setSelectedCastingTime} setCastingTISother={setCastingTISother} />
+              </div>
+              <div id='spellComponentsDiv'>
+                <MaterialComps 
+                  formik={formik}
+                  setSelectedComponentM={setSelectedComponentM}
+                  setSelectedComponentS={setSelectedComponentS}
+                  setSelectedComponentV={setSelectedComponentV}
+                  setIsMaterialComp={setIsMaterialComp}
+                  selectedComponentM={selectedComponentM}
+                  selectedComponentS={selectedComponentS}
+                  selectedComponentV={selectedComponentV}
+                />
+              </div>
+            </div>
           </div>
-
-        </div>:null}
-
-        
+          <div id="classSpellList's">
+            <div style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap' }}>
+              <span style={{  flexBasis: '100%', height: 'min-content', }}>
+                <hr />
+                <p>class spell list's</p>
+                <hr />
+              </span>
+                <Classes 
+                  formik={formik}
+                  selectedClass={selectedClass}
+                  setSelectedClass={setSelectedClass}
+                />
+            </div>  
+          </div>
+        </div>
+          <p className='spellCreSubmitBtn'>Done?</p>
+          <Button className='spellCreSubmitBtn' color='primary' type='submit' variant='contained'>Submit</Button>
       </div>
-    </>
+    </form>
   )
 }
 

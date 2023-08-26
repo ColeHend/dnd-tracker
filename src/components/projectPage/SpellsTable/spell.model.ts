@@ -1,6 +1,7 @@
 import { objReturnString } from "../../../utilities/utilities";
 
 export default class Spell {
+    readonly randID: string = crypto.randomUUID();
     name: string;
     desc: string;
     // --------v--------
@@ -15,12 +16,14 @@ export default class Spell {
     casting_time: string;
     attack_type: string;
     classes: string[];
+    range: string;
+    higher_level: string[];
     constructor(name: string, desc: string, metadata: {
-        subhead?: string, school?: string, level?: string, components?: string[], material?: string, ritual?: boolean, duration?: string, concentration?: boolean, casting_time?: string, attack_type?: string, classes?: string[]
+        subhead?: string,level?: string,school?: string,range?:string ,higher_level?:string[], components?: string[], material?: string, ritual?: boolean, duration?: string, concentration?: boolean, casting_time?: string, attack_type?: string, classes?: string[],
     }) {
         this.name = name;
         this.desc = desc;
-        // --------v--------
+        // ---v-----subheader----v----
         this.subhead = metadata.subhead || "";
         this.school = metadata.school || "";
         this.level = metadata.level || "";
@@ -32,6 +35,8 @@ export default class Spell {
         this.casting_time = metadata.casting_time || "";
         this.attack_type = metadata.attack_type || "";
         this.classes = metadata.classes || [];
+        this.range = metadata.range || ""
+        this.higher_level = metadata.higher_level || [];
     }
     metadata() {
         return objReturnString({
@@ -45,7 +50,8 @@ export default class Spell {
             concentration: this.concentration,
             casting_time: this.casting_time,
             attack_type: this.attack_type,
-            classes: this.classes
+            classes: this.classes,
+            range: this.range,
         })
     }
 }
