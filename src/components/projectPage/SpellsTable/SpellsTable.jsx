@@ -1,20 +1,19 @@
 import React, { lazy, Suspense, useState } from 'react'
-import "./SpellsTable.scss"
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
-import { UserContext } from '../../../App'
 import { Button, TableCell } from '@mui/material'
-import GenerateRow from '../../../utilities/generateTable/generateRow'
-import GenerateTable from '../../../utilities/generateTable/generateTable'
-
-import SpellTableLongmenu from './SpellTableLong-menu/SpellTableLong-menu'
-import SpellCreation from './SpellCreation/SpellCreation'
-import { Divider } from '@mui/material'
 import { stringReturnObj } from '../../../utilities/utilities'
+import { UserContext } from '../../../App'
+import { Divider } from '@mui/material'
+import SpellTableLongmenu from './SpellTableLong-menu/SpellTableLong-menu'
+import withReactContent from 'sweetalert2-react-content'
+import GenerateTable from '../../../utilities/generateTable/generateTable'
+import SpellCreation from './SpellCreation/SpellCreation'
+import GenerateRow from '../../../utilities/generateTable/generateRow'
 import Spelloader from './Spelloader/Spelloader'
 import Searchbar from '../../searchbar/searchbar'
-import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import Swal from 'sweetalert2'
+import Chip from '@mui/material/Chip';
+import "./SpellsTable.scss"
 
 const SpellCollapsible = lazy(() => import('./spellCollapsible/spellCollapsible.jsx'));
 
@@ -119,7 +118,6 @@ function SpellsTable({ spells, projectID, classes}) {
                         {
                           spell.spell_subhead.concentration?<Chip sx={{width:'min-width'}} label={`concentration`} /> : null
                         }
- 
                       </Stack>
                     </TableCell>
                     <TableCell>
